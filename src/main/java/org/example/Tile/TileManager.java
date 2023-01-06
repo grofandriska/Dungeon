@@ -55,9 +55,24 @@ public class TileManager {
     public void getTileImage() {
         try {
             tiles[0] = new Tile();
-            tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/New Piskel.png"));
+            tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grass1.png"));
             tiles[1] = new Tile();
-            tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/New Piskel (1).png"));
+            tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grass2.png"));
+            tiles[2] = new Tile();
+            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road Corner1.png"));
+            tiles[3] = new Tile();
+            tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grave Haunted.png"));
+            tiles[4] = new Tile();
+            tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road Straight.png"));
+            tiles[5] = new Tile();
+            tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Wall1.png"));
+            tiles[6] = new Tile();
+            tiles[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road Hori.png"));
+            tiles[7] = new Tile();
+            tiles[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road 3W.png"));
+
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
