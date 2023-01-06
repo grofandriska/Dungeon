@@ -2,6 +2,7 @@ package org.example.Display;
 
 import org.example.Entity.Player;
 import org.example.Entity.Player2;
+import org.example.Handler.CollisionChecker;
 import org.example.Handler.KeyHandler;
 import org.example.Handler.KeyHandlerTwo;
 import org.example.Tile.TileManager;
@@ -26,7 +27,9 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyHandler = new KeyHandler();
     KeyHandlerTwo keyHandlerTwo = new KeyHandlerTwo();
     Thread gameThread;
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
+
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this,keyHandler);
     public Player2 player2 = new Player2(this,keyHandlerTwo);
     public GamePanel() {
