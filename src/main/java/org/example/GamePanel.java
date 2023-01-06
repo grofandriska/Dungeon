@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Entity.Player;
+import org.example.Entity.Player2;
 import org.example.Tile.TileManager;
 
 import javax.swing.*;
@@ -16,17 +17,22 @@ public class GamePanel extends JPanel implements Runnable {
     final int screenHeight = tileSize * maxScreenRow;//576 px
     int FPS = 60;
     KeyHandler keyHandler = new KeyHandler();
+
+    KeyHandlerTwo keyHandlerTwo = new KeyHandlerTwo();
     Thread gameThread;
 
     TileManager tileManager = new TileManager(this);
 
     Player player = new Player(this,keyHandler);
 
+    Player2 player2 = new Player2(this,keyHandlerTwo);
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
+        this.addKeyListener(keyHandlerTwo);
         this.setFocusable(true);
     }
 
@@ -65,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //updating player
     public void update() {
+        player2.update();
         player.update();
     }
     public void paintComponent(Graphics g) {
@@ -72,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);
         player.draw(g2);
+        player2.draw(g2);
         g2.dispose();
     }
 }

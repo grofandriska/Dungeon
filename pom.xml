@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>Dungeon</artifactId>
-    <version>0.1.16-SNAPSHOT</version>
+    <version>0.1.28-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
