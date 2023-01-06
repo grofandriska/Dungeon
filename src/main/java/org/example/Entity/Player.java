@@ -11,22 +11,18 @@ import java.io.IOException;
 public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
-
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
         setDefaultValues();
         setPlayerImage();
     }
-
     public void setDefaultValues() {
         x = 100;
         y = 100;
         speed = 4;
-
         direction = "stand";
     }
-
     public void setPlayerImage() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/NHU1.png"));
@@ -46,8 +42,8 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-
     public void update() {
+        //changing param : #direction and #x#y based on KeyHandler
         if (keyHandler.downPressed|| keyHandler.upPressed||
                 keyHandler.leftPressed|| keyHandler.rightPressed){
             if (keyHandler.upPressed) {
@@ -63,11 +59,11 @@ public class Player extends Entity {
                 direction = "left";
                 x -= speed;
             }
+            //change #spriteNum and #spriteCounter and player character icon
             spriteCounter++;
             if (spriteCounter > 12){
                 if (spriteNum == 1){
                     spriteNum = 2;
-
                 }
                 else if (spriteNum == 2){
                     spriteNum =1;
@@ -75,9 +71,8 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
-
     }
-
+    //Drawing method setting player image #spriteNum
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 

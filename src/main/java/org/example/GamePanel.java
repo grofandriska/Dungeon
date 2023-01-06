@@ -29,10 +29,13 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
+
+    //start this class on a Thread
     public void startGameThread() {
-        gameThread = new Thread(this); // gamePanel
+        gameThread = new Thread(this);
         gameThread.start();
     }
+    // The engine of the game, managing the sequence of @update and @repaint (@paintcomponent())
     @Override
     public void run() {
 
@@ -54,15 +57,15 @@ public class GamePanel extends JPanel implements Runnable {
                 }
                 Thread.sleep((long) remainingTime);
                 nextDrawTime += drawInterval;
-
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
     }
+
+    //updating player
     public void update() {
         player.update();
-
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

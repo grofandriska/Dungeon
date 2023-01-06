@@ -11,31 +11,31 @@ import java.io.InputStreamReader;
 import java.nio.Buffer;
 
 public class TileManager {
-
     GamePanel gamePanel;
     Tile[] tiles;
     int[][] mapTileNum;
-
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[10];
         mapTileNum = new int[gamePanel.maxScreenCol][gamePanel.maxScreenRow];
+        System.out.println("loading tiles..");
         getTileImage();
-        //loadMap();
-
+        System.out.println("loading map...");
+        loadMap();
+        System.out.println("TileManager loaded !");
     }
-
     public void loadMap() {
 
         try {
             InputStream is = getClass().getResourceAsStream("/maps/map.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
-            int col = 0, row = 0;
+            int col = 0;
+            int row = 0;
 
             while (col < gamePanel.maxScreenCol && row < gamePanel.maxScreenRow) {
                 String line = reader.readLine();
-                while (col < gamePanel.maxScreenRow) {
+                while (col < gamePanel.maxScreenCol) {
                     String[] numbers = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
@@ -51,6 +51,7 @@ public class TileManager {
             e.printStackTrace();
         }
     }
+    //imageIo loads png files
     public void getTileImage() {
         try {
             tiles[0] = new Tile();
@@ -61,7 +62,6 @@ public class TileManager {
             throw new RuntimeException(e);
         }
     }
-
     public void draw(Graphics2D g) {
         int col = 0, row = 0, x = 0, y = 0;
         while (col < gamePanel.maxScreenCol && row < gamePanel.maxScreenRow) {
