@@ -1,8 +1,7 @@
 package org.example.Entity;
 
-import org.example.GamePanel;
-import org.example.KeyHandler;
-import org.example.KeyHandlerTwo;
+import org.example.Display.GamePanel;
+import org.example.Handler.KeyHandlerTwo;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,8 +19,8 @@ public class Player2 extends Entity{
         setPlayerImage();
     }
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = 100;
+        worldY = 100;
         speed = 4;
         direction = "stand";
     }
@@ -50,16 +49,16 @@ public class Player2 extends Entity{
                 keyHandler.leftPressed|| keyHandler.rightPressed){
             if (keyHandler.upPressed) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             } else if (keyHandler.downPressed) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
             } else if (keyHandler.rightPressed) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             } else if (keyHandler.leftPressed) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             }
             //change #spriteNum and #spriteCounter and player character icon
             spriteCounter++;
@@ -102,6 +101,6 @@ public class Player2 extends Entity{
                 if (spriteNum == 2){ image = left2;}
                 break;
         }
-        g2.drawImage(image,x,y,gamePanel.tileSize,gamePanel.tileSize,null);
+        g2.drawImage(image, worldX, worldY,gamePanel.tileSize,gamePanel.tileSize,null);
     }
 }

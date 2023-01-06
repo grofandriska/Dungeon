@@ -1,7 +1,9 @@
-package org.example;
+package org.example.Display;
 
 import org.example.Entity.Player;
 import org.example.Entity.Player2;
+import org.example.Handler.KeyHandler;
+import org.example.Handler.KeyHandlerTwo;
 import org.example.Tile.TileManager;
 
 import javax.swing.*;
@@ -13,20 +15,20 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = originalTileSize * scale;// final scale on modern widescreen monitors 48px
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol;//760 px
-    final int screenHeight = tileSize * maxScreenRow;//576 px
+    public final int screenWidth = tileSize * maxScreenCol;//760 px
+    public final int screenHeight = tileSize * maxScreenRow;//576 px
+
+    public final int maxWorldCol= 50 ;
+    public final int maxWorldRow= 50 ;
+    public final int worldWidth=tileSize * maxWorldCol;
+    public final int worldHeight =tileSize * maxWorldRow;
     int FPS = 60;
     KeyHandler keyHandler = new KeyHandler();
-
     KeyHandlerTwo keyHandlerTwo = new KeyHandlerTwo();
     Thread gameThread;
-
     TileManager tileManager = new TileManager(this);
-
-    Player player = new Player(this,keyHandler);
-
-    Player2 player2 = new Player2(this,keyHandlerTwo);
-
+    public Player player = new Player(this,keyHandler);
+    public Player2 player2 = new Player2(this,keyHandlerTwo);
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
@@ -35,7 +37,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandlerTwo);
         this.setFocusable(true);
     }
-
     //start this class on a Thread
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -68,7 +69,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
-
     //updating player
     public void update() {
         player2.update();

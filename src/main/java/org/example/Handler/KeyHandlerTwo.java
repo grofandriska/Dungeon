@@ -1,9 +1,9 @@
-package org.example;
+package org.example.Handler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyHandler implements KeyListener {
+public class KeyHandlerTwo implements KeyListener {
     public boolean upPressed, downPressed, rightPressed, leftPressed;
     @Override
     public void keyTyped(KeyEvent e) {
@@ -11,16 +11,16 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_UP) {
             upPressed = true;
         }
-        else if (code == KeyEvent.VK_A) {
+        else if (code == KeyEvent.VK_LEFT) {
             leftPressed = true;
         }
-         else if (code == KeyEvent.VK_S) {
+        else if (code == KeyEvent.VK_DOWN) {
             downPressed = true;
         }
-        else if (code == KeyEvent.VK_D) {
+        else if (code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
     }
@@ -29,16 +29,16 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_UP) {
             upPressed = false;
         }
-        else if (code == KeyEvent.VK_A) {
+        else if (code == KeyEvent.VK_LEFT) {
             leftPressed = false;
         }
-        else if (code == KeyEvent.VK_S) {
+        else if (code == KeyEvent.VK_DOWN) {
             downPressed = false;
         }
-        else if (code == KeyEvent.VK_D) {
+        else if (code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
 
