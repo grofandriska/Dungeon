@@ -22,8 +22,8 @@ S - Down *
 
 
 # Dungeon 0.1.16
--new tiles (grass-wall-road)
--some level designs
+- new tiles (grass-wall-road)
+- some level designs
 
 
 
