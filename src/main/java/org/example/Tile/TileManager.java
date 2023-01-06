@@ -16,7 +16,7 @@ public class TileManager {
     int[][] mapTileNum;
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        tiles = new Tile[10];
+        tiles = new Tile[30];
         mapTileNum = new int[gamePanel.maxScreenCol][gamePanel.maxScreenRow];
         System.out.println("loading tiles..");
         getTileImage();
@@ -70,6 +70,16 @@ public class TileManager {
             tiles[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road Hori.png"));
             tiles[7] = new Tile();
             tiles[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road 3W.png"));
+            tiles[10] = new Tile();
+            tiles[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Hori.png"));
+            tiles[11] = new Tile();
+            tiles[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Straight.png"));
+            tiles[12] = new Tile();
+            tiles[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Corner3.png"));
+            tiles[13] = new Tile();
+            tiles[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Corner2.png"));
+            tiles[14] = new Tile();
+            tiles[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Corner4.png"));
 
 
 
