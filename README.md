@@ -32,6 +32,11 @@ Java adventure 2D game, run from /target directory.
 - new tiles (path,-roads-variants
 - 2 player
 
+Bug.:
+Collide when moving right denies up and down movement
+
+*Maybe the player.solidArea is wrong sewhere?!Must check New code ..
+
 
 
 
