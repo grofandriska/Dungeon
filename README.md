@@ -18,7 +18,7 @@ Controls : W - A - S - D
 - new tiles (path,-roads-variants
 - 2 player
 
-# Dungeon 0.2.50
+# Dungeon 0.1.50
 -player 2 removed ( temp )
 -object class added and working properly
 
