@@ -11,13 +11,13 @@ import java.io.IOException;
 public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
-
     public final int screenX;
     public final int screenY;
-
     public Player(GamePanel gamePanel, KeyHandler keyHandler)  {
+
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
+
         screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
 
@@ -30,14 +30,14 @@ public class Player extends Entity {
         setDefaultValues();
         setPlayerImage();
     }
-
     public void setDefaultValues() {
-        worldX = gamePanel.tileSize * 3;
-        worldY = gamePanel.tileSize * 2;
+        worldX = gamePanel.tileSize * 20;
+        worldY = gamePanel.tileSize * 20;
         speed = 4;
-        direction = "stand";
-    }
+        direction = "up";
 
+
+    }
     public void setPlayerImage() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/NHU1.png"));
@@ -57,25 +57,17 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-
     public void update() {
-        //changing param : #direction and #x#y based on KeyHandler
-        if (keyHandler.downPressed || keyHandler.upPressed ||
-                keyHandler.leftPressed || keyHandler.rightPressed) {
+        if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {
                 direction = "up";
-
             } else if (keyHandler.downPressed) {
                 direction = "down";
-
             } else if (keyHandler.rightPressed) {
                 direction = "right";
-
             } else if (keyHandler.leftPressed) {
                 direction = "left";
-
             }
-
             collisionOn = false;
             gamePanel.collisionChecker.checkTile(this);
 
@@ -86,9 +78,7 @@ public class Player extends Entity {
                     case "left" -> worldX -= speed;
                     case "right" -> worldX += speed;
                 }
-
             }
-            //change #spriteNum and #spriteCounter and player character icon
             spriteCounter++;
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {
@@ -100,8 +90,6 @@ public class Player extends Entity {
             }
         }
     }
-
-    //Drawing method setting player image #spriteNum
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 

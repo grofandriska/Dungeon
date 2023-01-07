@@ -1,11 +1,9 @@
 package org.example.Display;
 
 import org.example.Entity.Player;
-import org.example.Entity.Player2;
 import org.example.Handler.AssetSetter;
 import org.example.Handler.CollisionChecker;
 import org.example.Handler.KeyHandler;
-import org.example.Handler.KeyHandlerTwo;
 import org.example.Objects.SuperObject;
 import org.example.Tile.TileManager;
 
@@ -13,37 +11,28 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
-    final int originalTileSize = 16;
-    final int scale = 3;
-    public final int tileSize = originalTileSize * scale;// final scale on modern widescreen monitors 48px
-    public final int maxScreenCol = 16;
-    public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol;//760 px
-    public final int screenHeight = tileSize * maxScreenRow;//576 px
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
-    //Use this variables pls
+
+    public final int
+            originalTileSize = 16, scale = 3, FPS = 60,
+            tileSize = originalTileSize * scale,
+            maxScreenCol = 16, maxScreenRow = 12, screenWidth = tileSize * maxScreenCol,
+            screenHeight = tileSize * maxScreenRow,
+            maxWorldCol = 50, maxWorldRow = 50;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
-    int FPS = 60;
-    KeyHandler keyHandler = new KeyHandler();
-    KeyHandlerTwo keyHandlerTwo = new KeyHandlerTwo();
     Thread gameThread;
-    public TileManager tileManager = new TileManager(this);
-    public CollisionChecker collisionChecker = new CollisionChecker(this);
-
-    public AssetSetter assetSetter = new AssetSetter(this);
-    public Player player = new Player(this, keyHandler);
-    public Player2 player2 = new Player2(this, keyHandlerTwo);
-
+    KeyHandler keyHandler = new KeyHandler();
     public SuperObject[] obj = new SuperObject[10];
+    public AssetSetter assetSetter = new AssetSetter(this);
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public Player player = new Player(this, keyHandler);
+    public TileManager tileManager = new TileManager(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
-        this.addKeyListener(keyHandlerTwo);
         this.setFocusable(true);
     }
 
@@ -51,13 +40,11 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setObject();
     }
 
-    //start this class on a Thread
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
-    // The engine of the game, managing the sequence of @update and @repaint (@paintcomponent())
     @Override
     public void run() {
 
@@ -85,9 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    //updating player
     public void update() {
-        player2.update();
         player.update();
     }
 
@@ -95,11 +80,10 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);
-        for (SuperObject superObject : obj) {
-            if (superObject != null) superObject.draw(g2, this);
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] != null) obj[i].draw(g2, this);
         }
         player.draw(g2);
-        player2.draw(g2);
         g2.dispose();
     }
 }

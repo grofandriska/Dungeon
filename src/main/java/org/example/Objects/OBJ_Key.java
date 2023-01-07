@@ -6,9 +6,10 @@ import java.io.IOException;
 public class OBJ_Key extends SuperObject{
 
     public OBJ_Key() {
+
         name = "Key";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/player/NHL2.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grave .png"));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

@@ -17,23 +17,18 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[30];
-        mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
-        System.out.println("loading tiles..");
-
+        mapTileNum = new int[gamePanel.worldWidth][gamePanel.worldHeight];
         getTileImage();
-        System.out.println("loading map...");
         loadMap();
-        System.out.println("TileManager loaded !");
     }
 
     public void loadMap() {
-
         try {
-            InputStream is = getClass().getResourceAsStream("/maps/map.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
             int col = 0;
             int row = 0;
+
+            InputStream input = getClass().getResourceAsStream("/maps/map.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
             while (col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {
                 String line = reader.readLine();
@@ -54,7 +49,6 @@ public class TileManager {
         }
     }
 
-    //imageIo loads png files
     public void getTileImage() {
         try {
             tiles[0] = new Tile();
@@ -95,6 +89,7 @@ public class TileManager {
     public void draw(Graphics2D g) {
         int worldCol = 0;
         int worldRow = 0;
+
         while (worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow) {
 
             int tileNum = mapTileNum[worldCol][worldRow];
@@ -104,10 +99,13 @@ public class TileManager {
             int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
             int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
 
-            if (worldX + gamePanel.tileSize> gamePanel.player.worldX - gamePanel.player.screenX && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX &&
-                    worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
-                g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
-            }
+                if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
+                    && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
+                    && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
+                    && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
+
+                    g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+                }
 
             worldCol++;
 

@@ -4,13 +4,11 @@ import org.example.Display.GamePanel;
 import org.example.Entity.Entity;
 
 public class CollisionChecker {
-
     GamePanel gamePanel;
 
     public CollisionChecker(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
-
     public void checkTile(Entity entity) {
 
         int entityLeftWorldX = entity.worldX + entity.solidArea.x;
@@ -32,6 +30,7 @@ public class CollisionChecker {
                 if (gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
+
             }
             case "down" -> {
                 entityBottomRow = (entityBottomWorldY - entity.speed) / gamePanel.tileSize;
@@ -58,6 +57,5 @@ public class CollisionChecker {
                 }
             }
         }
-
     }
 }
