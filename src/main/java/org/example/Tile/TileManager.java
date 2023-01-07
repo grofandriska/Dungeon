@@ -108,6 +108,7 @@ public class TileManager {
                     worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
                 g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
             }
+
             worldCol++;
 
             if (worldCol == gamePanel.maxWorldCol) {

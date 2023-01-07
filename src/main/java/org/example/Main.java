@@ -23,6 +23,7 @@ public class Main {
         window.setVisible(true);
 
         System.out.println("Starting Game!");
+        gamePanel.setupAsset();
 
         gamePanel.startGameThread();
     }
