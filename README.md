@@ -19,8 +19,9 @@ Controls : W - A - S - D
 - 2 player
 
 # Dungeon 0.1.50
--player 2 removed ( temp )
--object class added and working properly
+- player 2 removed ( temp )
+- object class added for developing
+- collision checker class 
 
 # Dungeon 0.2.50
 - Object_KEY added with Superobject class 
