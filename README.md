@@ -23,20 +23,25 @@ Controls : W - A - S - D
 - object class added for developing
 - collision checker class 
 
-# Dungeon 0.2.50
+# Dungeon 0.1.61
 - Object_KEY added with Superobject class 
 - now we van create items on the map
 - has own draw method 
 - working via assetSetter ( also added ) 
 
-# Dungeon 0.2.52
+# Dungeon 0.1.68
 - pickUpObjects
 
+# Dungeon 0.1.9
+- Sound class added
+- theme music
+- some sound effects
 
-Bug.:
-Player solid area stucks on walls if on the right side and disable moving up and down there .
-also its method throw exception when walking out of tiles... Must "place" borders. 
 
+Bug.: 
+Solid area of player is not fixed has to arrange 
+
+Future Plans : Complex maps, Database, Save/Load , Multiplayer
 
 
 

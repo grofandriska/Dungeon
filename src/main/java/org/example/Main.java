@@ -20,7 +20,7 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        gamePanel.setupAsset();
+        gamePanel.setupGame();
 
         gamePanel.startGameThread();
     }

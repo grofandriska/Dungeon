@@ -11,11 +11,11 @@ import java.io.IOException;
 public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
-
     public boolean hasKey = false;
     public final int screenX;
     public final int screenY;
-    public Player(GamePanel gamePanel, KeyHandler keyHandler)  {
+
+    public Player(GamePanel gamePanel, KeyHandler keyHandler) {
 
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
@@ -31,13 +31,13 @@ public class Player extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
-
         solidArea.width = 35;
         solidArea.height = 35;
 
         setDefaultValues();
         setPlayerImage();
     }
+
     public void setDefaultValues() {
 
         worldX = gamePanel.tileSize * 20;
@@ -46,6 +46,7 @@ public class Player extends Entity {
         direction = "up";
 
     }
+
     public void setPlayerImage() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/NHU1.png"));
@@ -65,6 +66,7 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
+
     public void update() {
         if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {
@@ -78,7 +80,7 @@ public class Player extends Entity {
             }
             collisionOn = false;
             gamePanel.collisionChecker.checkTile(this);
-            int objIndex = gamePanel.collisionChecker.checkObject(this,true);
+            int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);
 
             if (!collisionOn) {
@@ -100,6 +102,7 @@ public class Player extends Entity {
             }
         }
     }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
@@ -140,24 +143,24 @@ public class Player extends Entity {
         g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
-    public void pickupObject (int i){
+    public void pickupObject(int i) {
 
-        if (i != 999){
+        if (i != 999) {
 
-            if (gamePanel.obj[i].name == "Key"){
-                hasKey =true;
+            if (gamePanel.obj[i].name == "Key") {
+                hasKey = true;
                 gamePanel.obj[i] = null;
-            }
 
-            else if (gamePanel.obj[i].name == "Gift" && hasKey ){
+            } else if (gamePanel.obj[i].name == "Gift" && hasKey) {
                 gamePanel.obj[i] = null;
                 System.out.println("Make Love not War");
-            }
-            else if (gamePanel.obj[i].name == "Gift" && !hasKey ){
+            } else if (gamePanel.obj[i].name == "Gift" && !hasKey) {
                 System.out.println("You need the Key");
+            } else if (gamePanel.obj[i].name == "Potion") {
+                gamePanel.playSoundEffect(1);
+                this.speed -= 3;
+                gamePanel.obj[i] = null;
             }
-
-
         }
 
     }
