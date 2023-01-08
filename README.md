@@ -1,17 +1,17 @@
 Dungeon Adventures : Untold Story 
 
 This is my pure java practice project from a tutorial
-And my ideas. I am using own and downloaded tiles
+and my ideas. I am using own and downloaded tiles
 so far for rendering using javax.This is an 2D
 adventure RPG game. The player can move around 
 the map, pick up and interact with objects.
 
-The code is under developing .
+The code is under development.
 
-In the future the game has NPC,enemy,more tiles 
-objects ,events ,quests and even local multiplayer.
+In the future the game will hold NPC, enemy, more tiles,
+ objects ,events ,quests and even local multiplayer.
 I would like to be able to connect to different
-kinds of database (Postgre, No-SQL).
+kind of databases (Postgre, No-SQL).
 
 If you have any ideas or opinions to share about
 the game please send an e-mail here:
