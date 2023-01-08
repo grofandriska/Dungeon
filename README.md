@@ -22,8 +22,15 @@ Controls : W - A - S - D
 -player 2 removed ( temp )
 -object class added and working properly
 
+# Dungeon 0.2.50
+- Object_KEY added with Superobject class 
+- now we van create items on the map
+- has own draw method 
+- working via assetSetter ( also added ) 
+
+
 Bug.:
-Player solid area is stuck on walls if on the right side and disable moving up and down there .
+Player solid area stucks on walls if on the right side and disable moving up and down there .
 also its method throw exception when walking out of tiles... Must "place" borders. 
 
 
