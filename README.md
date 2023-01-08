@@ -59,7 +59,6 @@ Updates:
 - New Objects 
 - Sound effects 
 - Theme music
-- Some sound effects
 - Test arena map
 
 # -> next update / dev plans
