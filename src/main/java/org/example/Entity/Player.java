@@ -11,6 +11,8 @@ import java.io.IOException;
 public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
+
+    public boolean hasKey = false;
     public final int screenX;
     public final int screenY;
     public Player(GamePanel gamePanel, KeyHandler keyHandler)  {
@@ -22,8 +24,14 @@ public class Player extends Entity {
         screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
 
         solidArea = new Rectangle();
-        solidArea.x = 8;
+
+        solidArea.x = 10;
         solidArea.y = 16;
+
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+
+
         solidArea.width = 35;
         solidArea.height = 35;
 
@@ -31,11 +39,11 @@ public class Player extends Entity {
         setPlayerImage();
     }
     public void setDefaultValues() {
+
         worldX = gamePanel.tileSize * 20;
         worldY = gamePanel.tileSize * 20;
         speed = 4;
         direction = "up";
-
 
     }
     public void setPlayerImage() {
@@ -70,6 +78,8 @@ public class Player extends Entity {
             }
             collisionOn = false;
             gamePanel.collisionChecker.checkTile(this);
+            int objIndex = gamePanel.collisionChecker.checkObject(this,true);
+            pickupObject(objIndex);
 
             if (!collisionOn) {
                 switch (direction) {
@@ -128,5 +138,27 @@ public class Player extends Entity {
             }
         }
         g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+    }
+
+    public void pickupObject (int i){
+
+        if (i != 999){
+
+            if (gamePanel.obj[i].name == "Key"){
+                hasKey =true;
+                gamePanel.obj[i] = null;
+            }
+
+            else if (gamePanel.obj[i].name == "Gift" && hasKey ){
+                gamePanel.obj[i] = null;
+                System.out.println("Make Love not War");
+            }
+            else if (gamePanel.obj[i].name == "Gift" && !hasKey ){
+                System.out.println("You need the Key");
+            }
+
+
+        }
+
     }
 }

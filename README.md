@@ -29,6 +29,9 @@ Controls : W - A - S - D
 - has own draw method 
 - working via assetSetter ( also added ) 
 
+# Dungeon 0.2.52
+- pickUpObjects
+
 
 Bug.:
 Player solid area stucks on walls if on the right side and disable moving up and down there .
