@@ -56,9 +56,11 @@ Updates:
 - pickUpObjects
 
 # Dungeon 0.1.9
-- Sound class added
+- New Objects 
+- Sound effects 
 - Theme music
 - Some sound effects
+- Test arena map
 
 # -> next update / dev plans
 
@@ -71,7 +73,8 @@ Updates:
 
 
 # known Bugs.: 
-nO1: Solid area of player is not fixed and has to be arranged 
+nO1: Solid area of player is not fixed and not proper 
+on right collisions. 
 nO2: Leaving map throws exceptiont
 
 github/grofandriska
