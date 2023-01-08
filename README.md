@@ -60,7 +60,7 @@ Updates:
 - Theme music
 - Some sound effects
 
--> next update/ dev plan
+# -> next update / dev plans
 
 # The living surrounds 0.2.0
 
@@ -69,7 +69,8 @@ Updates:
 - UI 
 - Others
 
-Known Bugs.: 
+
+# known Bugs.: 
 nO1: Solid area of player is not fixed and has to be arranged 
 nO2: Leaving map throws exceptiont
 
