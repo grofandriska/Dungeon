@@ -1,5 +1,6 @@
 package org.example.Tile;
 
+import org.example.Handler.UtilityTool;
 import org.example.game.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -20,6 +21,21 @@ public class TileManager {
         mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         getTileImage();
         loadMap();
+    }
+
+    public void setup(int index, String imagePath, boolean collision) {
+        UtilityTool utilityTool = new UtilityTool();
+
+        try {
+            tiles[index] = new Tile();
+            tiles[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imagePath + ".png"));
+            tiles[index].image = utilityTool.scaleImage(tiles[index].image, gamePanel.tileSize, gamePanel.tileSize);
+            tiles[index].collision = collision;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void loadMap() {
@@ -48,42 +64,36 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-
     public void getTileImage() {
-        try {
-            tiles[0] = new Tile();
-            tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grass1.png"));
-            tiles[1] = new Tile();
-            tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grass2.png"));
-            tiles[2] = new Tile();
-            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road Corner1.png"));
-            tiles[3] = new Tile();
-            tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grave Haunted.png"));
-            tiles[3].collision = true;
-            tiles[4] = new Tile();
-            tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road Straight.png"));
-            tiles[5] = new Tile();
-            tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Wall1.png"));
-            tiles[5].collision = true;
-            tiles[6] = new Tile();
-            tiles[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road Hori.png"));
-            tiles[7] = new Tile();
-            tiles[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Road 3W.png"));
-            tiles[10] = new Tile();
-            tiles[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Hori.png"));
-            tiles[11] = new Tile();
-            tiles[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Straight.png"));
-            tiles[12] = new Tile();
-            tiles[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Corner3.png"));
-            tiles[13] = new Tile();
-            tiles[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Corner2.png"));
-            tiles[14] = new Tile();
-            tiles[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Path Corner4.png"));
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        setup(0,"Grass1",false);
+        setup(1,"Tree",true);
+        setup(2,"Grave",false);
+        setup(3,"Grave Haunted",false);
+        setup(4,"Path Corner1",false);
+        setup(5,"Path Corner2",false);
+        setup(6,"Path Corner3",false);
+        setup(7,"Path Corner4",false);
+        setup(8,"Path Horizontal",false);
+        setup(9,"Path Stop1",false);
+        setup(10,"Path Stop2",false);
+        setup(11,"Path Stop3",false);
+        setup(12,"Path Stop4",false);
+        setup(12,"Path Straight",false);
+        setup(14,"Road Corner1",false);
+        setup(15,"Road Corner2",false);
+        setup(16,"Road Corner3",false);
+        setup(17,"Road Corner4",false);
+        setup(18,"Road Hori",false);
+        setup(19,"Road Stop1",false);
+        setup(20,"Road Stop2",false);
+        setup(21,"Road Stop3",false);
+        setup(22,"Road Stop4",false);
+        setup(23,"Road Straight",false);
+        setup(24,"Road 3W",false);
+        setup(25,"Wall1",true);
+        setup(26,"Wall2",true);
+        setup(27,"Wall3",true);
+        setup(28,"Wall4",true);
     }
 
     public void draw(Graphics2D g) {
@@ -99,13 +109,13 @@ public class TileManager {
             int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
             int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
 
-                if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
+            if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
                     && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
                     && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
                     && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
 
-                    g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
-                }
+                g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+            }
 
             worldCol++;
 
