@@ -27,6 +27,7 @@ D - Lett
 
 ------------------------------------------------------
 
+
 Updates:
 # Dungeon 0.1.14
 - Player icons for walk and different directions
@@ -61,7 +62,14 @@ Updates:
 - Theme music
 - Test arena map
 
-# -> next update / dev plans
+# Dungeon 0.1.91
+- UI X, y cords and gametime
+- test map 
+- tree tile
+- reformat in code / image loading and draw
+
+
+# -> next major update / dev plans
 
 # The living surrounds 0.2.0
 
