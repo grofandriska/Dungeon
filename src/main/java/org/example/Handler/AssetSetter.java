@@ -11,15 +11,15 @@ public class AssetSetter {
         this.gamePanel = gamePanel;
     }
     public void setObject() {
-        gamePanel.obj[0] = new OBJ_Key();
+        gamePanel.obj[0] = new OBJ_Key(gamePanel);
         gamePanel.obj[0].worldX = gamePanel.tileSize * 22;
         gamePanel.obj[0].worldY = gamePanel.tileSize * 16;
 
-        gamePanel.obj[1] = new OBJ_GIFT();
+        gamePanel.obj[1] = new OBJ_GIFT(gamePanel);
         gamePanel.obj[1].worldX = gamePanel.tileSize * 22;
         gamePanel.obj[1].worldY = gamePanel.tileSize * 25;
 
-        gamePanel.obj[2] = new OBJ_Potion();
+        gamePanel.obj[2] = new OBJ_Potion(gamePanel);
         gamePanel.obj[2].worldX = gamePanel.tileSize * 22;
         gamePanel.obj[2].worldY = gamePanel.tileSize * 21;
 

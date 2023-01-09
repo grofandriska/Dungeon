@@ -1,5 +1,6 @@
 package org.example.Entity;
 
+import org.example.Handler.UtilityTool;
 import org.example.game.GamePanel;
 import org.example.Handler.KeyHandler;
 
@@ -7,6 +8,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.Buffer;
+import java.nio.BufferOverflowException;
 
 public class Player extends Entity {
     GamePanel gamePanel;
@@ -47,26 +50,35 @@ public class Player extends Entity {
 
     }
 
-    public void setPlayerImage() {
+    public BufferedImage setup(String imageName) {
+        UtilityTool utilityTool = new UtilityTool();
+        BufferedImage image = null;
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/NHU1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/NHU2.png"));
-            up = ImageIO.read(getClass().getResourceAsStream("/player/New Human 1.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/NHD1.png"));
-            down = ImageIO.read(getClass().getResourceAsStream("/player/New Human 1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/NHD2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/NHR1.png"));
-            right = ImageIO.read(getClass().getResourceAsStream("/player/NHR1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/NHR2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/NHL1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/NHL2.png"));
-            left = ImageIO.read(getClass().getResourceAsStream("/player/New Human 1.png"));
-            stand = ImageIO.read(getClass().getResourceAsStream("/player/New Human 1.png"));
+           image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+           image = utilityTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+        return image;
+
     }
 
+    public void setPlayerImage() {
+
+        up1 = setup("NHU1");
+        up2 = setup("NHU2");
+        up = setup("NHU1");
+        down1 = setup("NHD1");
+        down = setup("NHD2");
+        down2 = setup("NHD2");
+        right1 = setup("NHR1");
+        right = setup("NHR1");
+        right2 = setup("NHR2");
+        left1 = setup("NHL1");
+        left2 = setup("NHL2");
+        left = setup("NHL1");
+        stand = setup("NHU1");
+    }
     public void update() {
         if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {
@@ -140,7 +152,7 @@ public class Player extends Entity {
                 }
             }
         }
-        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 
     public void pickupObject(int i) {
@@ -154,13 +166,13 @@ public class Player extends Entity {
 
             } else if (gamePanel.obj[i].name == "Gift" && hasKey) {
                 gamePanel.obj[i] = null;
-                gamePanel.ui.isGameFinished =true;
+                gamePanel.ui.isGameFinished = true;
             } else if (gamePanel.obj[i].name == "Gift" && !hasKey) {
                 gamePanel.ui.showMessage("You Need A Key!");
             } else if (gamePanel.obj[i].name == "Potion") {
                 gamePanel.playSoundEffect(1);
                 gamePanel.ui.showMessage("Glup .. Glup.. O...o...");
-                this.speed = speed/2;
+                this.speed = speed / 2;
                 gamePanel.obj[i] = null;
             }
         }

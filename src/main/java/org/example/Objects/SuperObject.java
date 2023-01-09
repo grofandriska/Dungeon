@@ -1,5 +1,6 @@
 package org.example.Objects;
 
+import org.example.Handler.UtilityTool;
 import org.example.game.GamePanel;
 
 import java.awt.*;
@@ -12,6 +13,8 @@ public class SuperObject {
     public int worldX, worldY;
 
     public boolean collision = false;
+
+    public UtilityTool utilityTool = new UtilityTool();
 
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 
