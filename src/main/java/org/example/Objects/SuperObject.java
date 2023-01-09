@@ -1,6 +1,6 @@
 package org.example.Objects;
 
-import org.example.Display.GamePanel;
+import org.example.game.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

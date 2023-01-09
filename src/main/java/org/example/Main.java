@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.Display.GamePanel;
+import org.example.game.GamePanel;
 
 import javax.swing.*;
 

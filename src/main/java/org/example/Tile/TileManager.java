@@ -1,6 +1,6 @@
 package org.example.Tile;
 
-import org.example.Display.GamePanel;
+import org.example.game.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

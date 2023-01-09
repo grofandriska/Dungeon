@@ -1,6 +1,6 @@
 package org.example.Handler;
 
-import org.example.Display.GamePanel;
+import org.example.game.GamePanel;
 import org.example.Objects.OBJ_GIFT;
 import org.example.Objects.OBJ_Key;
 import org.example.Objects.OBJ_Potion;

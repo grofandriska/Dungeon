@@ -1,4 +1,4 @@
-package org.example.Display;
+package org.example.game;
 
 import org.example.Entity.Player;
 import org.example.Handler.AssetSetter;
@@ -7,21 +7,23 @@ import org.example.Handler.KeyHandler;
 import org.example.Objects.SuperObject;
 import org.example.Sound.Sound;
 import org.example.Tile.TileManager;
+import org.example.UI;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    public final int
-            originalTileSize = 16, scale = 3, FPS = 60,
-            tileSize = originalTileSize * scale,
-            maxScreenCol = 16, maxScreenRow = 12, screenWidth = tileSize * maxScreenCol,
-            screenHeight = tileSize * maxScreenRow,
+    public final int originalTileSize = 16, scale = 3, FPS = 60, tileSize = originalTileSize * scale,
+            maxScreenCol = 16, maxScreenRow = 12,
+            screenWidth = tileSize * maxScreenCol, screenHeight = tileSize * maxScreenRow,
             maxWorldCol = 50, maxWorldRow = 50;
-    Thread gameThread;
+    public Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
     Sound sound = new Sound();
+    Sound music = new Sound();
+
+    public UI ui = new UI(this);
     public SuperObject[] obj = new SuperObject[10];
     public AssetSetter assetSetter = new AssetSetter(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
@@ -35,17 +37,14 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
-
     public void setupGame() {
         assetSetter.setObject();
         playMusic(0);
     }
-
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
-
     @Override
     public void run() {
 
@@ -72,7 +71,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
-
     public void update() {
         player.update();
     }
@@ -85,12 +83,13 @@ public class GamePanel extends JPanel implements Runnable {
             if (obj[i] != null) obj[i].draw(g2, this);
         }
         player.draw(g2);
+        ui.draw(g2);
         g2.dispose();
     }
     public void playMusic(int i) {
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
     public void stopMusic() {
         sound.stop();

@@ -1,6 +1,6 @@
 package org.example.Entity;
 
-import org.example.Display.GamePanel;
+import org.example.game.GamePanel;
 import org.example.Handler.KeyHandler;
 
 import javax.imageio.ImageIO;
@@ -42,7 +42,7 @@ public class Player extends Entity {
 
         worldX = gamePanel.tileSize * 20;
         worldY = gamePanel.tileSize * 20;
-        speed = 4;
+        speed = 2;
         direction = "up";
 
     }
@@ -150,15 +150,17 @@ public class Player extends Entity {
             if (gamePanel.obj[i].name == "Key") {
                 hasKey = true;
                 gamePanel.obj[i] = null;
+                gamePanel.ui.showMessage("you got a key");
 
             } else if (gamePanel.obj[i].name == "Gift" && hasKey) {
                 gamePanel.obj[i] = null;
-                System.out.println("Make Love not War");
+                gamePanel.ui.isGameFinished =true;
             } else if (gamePanel.obj[i].name == "Gift" && !hasKey) {
-                System.out.println("You need the Key");
+                gamePanel.ui.showMessage("You Need A Key!");
             } else if (gamePanel.obj[i].name == "Potion") {
                 gamePanel.playSoundEffect(1);
-                this.speed -= 3;
+                gamePanel.ui.showMessage("Glup .. Glup.. O...o...");
+                this.speed = speed/2;
                 gamePanel.obj[i] = null;
             }
         }
