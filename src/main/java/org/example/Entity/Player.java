@@ -8,19 +8,16 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.Buffer;
-import java.nio.BufferOverflowException;
 
 public class Player extends Entity {
-    GamePanel gamePanel;
     KeyHandler keyHandler;
-    public boolean hasKey = false;
+    // public boolean hasKey = false;
     public final int screenX;
     public final int screenY;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
+        super(gamePanel);
 
-        this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
         screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
@@ -50,37 +47,49 @@ public class Player extends Entity {
 
     }
 
-    public BufferedImage setup(String imageName) {
-        UtilityTool utilityTool = new UtilityTool();
-        BufferedImage image = null;
-        try {
-           image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-           image = utilityTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return image;
+    public void pickupObject(int i) {
+
+       /* if (i != 999) {
+
+            if (gamePanel.obj[i].name == "Key") {
+                hasKey = true;
+                gamePanel.obj[i] = null;
+                gamePanel.ui.showMessage("you got a key");
+
+            } else if (gamePanel.obj[i].name == "Gift" && hasKey) {
+                gamePanel.obj[i] = null;
+                gamePanel.ui.isGameFinished = true;
+            } else if (gamePanel.obj[i].name == "Gift" && !hasKey) {
+                gamePanel.ui.showMessage("You Need A Key!");
+            } else if (gamePanel.obj[i].name == "Potion") {
+                gamePanel.playSoundEffect(1);
+                gamePanel.ui.showMessage("Glup .. Glup.. O...o...");
+                this.speed = speed / 2;
+                gamePanel.obj[i] = null;*/
+
 
     }
 
     public void setPlayerImage() {
 
-        up1 = setup("NHU1");
-        up2 = setup("NHU2");
-        up = setup("NHU1");
-        down1 = setup("NHD1");
-        down = setup("NHD2");
-        down2 = setup("NHD2");
-        right1 = setup("NHR1");
-        right = setup("NHR1");
-        right2 = setup("NHR2");
-        left1 = setup("NHL1");
-        left2 = setup("NHL2");
-        left = setup("NHL1");
-        stand = setup("NHU1");
+        up1 = setup("/player/NHU1");
+        up2 = setup("/player/NHU2");
+        up = setup("/player/NHU1");
+        down1 = setup("/player/NHD1");
+        down = setup("/player/NHD2");
+        down2 = setup("/player/NHD2");
+        right1 = setup("/player/NHR1");
+        right = setup("/player/NHR1");
+        right2 = setup("/player/NHR2");
+        left1 = setup("/player/NHL1");
+        left2 = setup("/player/NHL2");
+        left = setup("/player/NHL1");
+        stand = setup("/player/NHU1");
     }
+
     public void update() {
         if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
+
             if (keyHandler.upPressed) {
                 direction = "up";
             } else if (keyHandler.downPressed) {
@@ -90,10 +99,15 @@ public class Player extends Entity {
             } else if (keyHandler.leftPressed) {
                 direction = "left";
             }
+
             collisionOn = false;
             gamePanel.collisionChecker.checkTile(this);
+
             int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);
+
+            int npcIntdex = gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
+            interactNPC(npcIntdex);
 
             if (!collisionOn) {
                 switch (direction) {
@@ -115,6 +129,11 @@ public class Player extends Entity {
         }
     }
 
+    public void interactNPC(int index){
+        if (index != 999){
+            System.out.println("you Re ie");
+        }
+    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
@@ -155,27 +174,5 @@ public class Player extends Entity {
         g2.drawImage(image, screenX, screenY, null);
     }
 
-    public void pickupObject(int i) {
 
-        if (i != 999) {
-
-            if (gamePanel.obj[i].name == "Key") {
-                hasKey = true;
-                gamePanel.obj[i] = null;
-                gamePanel.ui.showMessage("you got a key");
-
-            } else if (gamePanel.obj[i].name == "Gift" && hasKey) {
-                gamePanel.obj[i] = null;
-                gamePanel.ui.isGameFinished = true;
-            } else if (gamePanel.obj[i].name == "Gift" && !hasKey) {
-                gamePanel.ui.showMessage("You Need A Key!");
-            } else if (gamePanel.obj[i].name == "Potion") {
-                gamePanel.playSoundEffect(1);
-                gamePanel.ui.showMessage("Glup .. Glup.. O...o...");
-                this.speed = speed / 2;
-                gamePanel.obj[i] = null;
-            }
-        }
-
-    }
 }

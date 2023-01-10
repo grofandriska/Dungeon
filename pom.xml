@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>Dungeon</artifactId>
-    <version>0.3.12</version>
+    <version>0.1.91</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -16,7 +16,6 @@
     <build>
         <plugins>
             <plugin>
-                <!-- Build an executable JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.1.0</version>
@@ -30,6 +29,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

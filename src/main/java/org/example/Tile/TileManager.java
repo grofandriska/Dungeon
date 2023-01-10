@@ -22,7 +22,6 @@ public class TileManager {
         getTileImage();
         loadMap();
     }
-
     public void setup(int index, String imagePath, boolean collision) {
         UtilityTool utilityTool = new UtilityTool();
 
@@ -37,7 +36,37 @@ public class TileManager {
         }
 
     }
-
+    public void getTileImage() {
+        setup(0,"Grass1",false);
+        setup(1,"Tree",true);
+        setup(2,"Grave",false);
+        setup(3,"Grave Haunted",false);
+        setup(4,"Path Corner1",false);
+        setup(5,"Path Corner2",false);
+        setup(6,"Path Corner3",false);
+        setup(7,"Path Corner4",false);
+        setup(8,"Path Horizontal",false);
+        setup(9,"Path Stop1",false);
+        setup(10,"Path Stop2",false);
+        setup(11,"Path Stop3",false);
+        setup(13,"Path Stop4",false);
+        setup(12,"Path Straight",false);
+        setup(14,"Road Corner1",false);
+        setup(15,"Road Corner2",false);
+        setup(16,"Road Corner3",false);
+        setup(17,"Road Corner4",false);
+        setup(18,"Road Hori",false);
+        setup(19,"Road Stop1",false);
+        setup(20,"Road Stop2",false);
+        setup(21,"Road Stop3",false);
+        setup(22,"Road Stop4",false);
+        setup(23,"Road Straight",false);
+        setup(24,"Road 3W",false);
+        setup(25,"Wall1",true);
+        setup(26,"Wall2",true);
+        setup(27,"Wall3",true);
+        setup(28,"Wall4",true);
+    }
     public void loadMap() {
         try {
             int col = 0;
@@ -64,38 +93,6 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-    public void getTileImage() {
-        setup(0,"Grass1",false);
-        setup(1,"Tree",true);
-        setup(2,"Grave",false);
-        setup(3,"Grave Haunted",false);
-        setup(4,"Path Corner1",false);
-        setup(5,"Path Corner2",false);
-        setup(6,"Path Corner3",false);
-        setup(7,"Path Corner4",false);
-        setup(8,"Path Horizontal",false);
-        setup(9,"Path Stop1",false);
-        setup(10,"Path Stop2",false);
-        setup(11,"Path Stop3",false);
-        setup(12,"Path Stop4",false);
-        setup(12,"Path Straight",false);
-        setup(14,"Road Corner1",false);
-        setup(15,"Road Corner2",false);
-        setup(16,"Road Corner3",false);
-        setup(17,"Road Corner4",false);
-        setup(18,"Road Hori",false);
-        setup(19,"Road Stop1",false);
-        setup(20,"Road Stop2",false);
-        setup(21,"Road Stop3",false);
-        setup(22,"Road Stop4",false);
-        setup(23,"Road Straight",false);
-        setup(24,"Road 3W",false);
-        setup(25,"Wall1",true);
-        setup(26,"Wall2",true);
-        setup(27,"Wall3",true);
-        setup(28,"Wall4",true);
-    }
-
     public void draw(Graphics2D g) {
         int worldCol = 0;
         int worldRow = 0;

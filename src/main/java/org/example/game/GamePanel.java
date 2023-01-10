@@ -1,5 +1,6 @@
 package org.example.game;
 
+import org.example.Entity.Entity;
 import org.example.Entity.Player;
 import org.example.Handler.AssetSetter;
 import org.example.Handler.CollisionChecker;
@@ -13,22 +14,32 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
+    public final int originalTileSize = 16, scale = 3, FPS = 60;
 
-    public final int originalTileSize = 16, scale = 3, FPS = 60, tileSize = originalTileSize * scale,
-            maxScreenCol = 16, maxScreenRow = 12,
-            screenWidth = tileSize * maxScreenCol, screenHeight = tileSize * maxScreenRow,
-            maxWorldCol = 50, maxWorldRow = 50;
-    public Thread gameThread;
-    KeyHandler keyHandler = new KeyHandler();
+    public final int tileSize = originalTileSize * scale;
+    public final int maxScreenCol = 16, maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
+    public final int maxWorldCol = 50, maxWorldRow = 50;
+
+    KeyHandler keyHandler = new KeyHandler(this);
     Sound sound = new Sound();
     Sound music = new Sound();
 
+    public Thread gameThread;
     public UI ui = new UI(this);
-    public SuperObject[] obj = new SuperObject[10];
-    public AssetSetter assetSetter = new AssetSetter(this);
-    public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public SuperObject[] target = new SuperObject[10];
     public Player player = new Player(this, keyHandler);
     public TileManager tileManager = new TileManager(this);
+    public AssetSetter assetSetter = new AssetSetter(this);
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
+
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
+    public Entity[] entities = new Entity[10];
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -37,14 +48,19 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
+
     public void setupGame() {
         assetSetter.setObject();
+        assetSetter.setNPC();
         playMusic(0);
+        gameState = playState;
     }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
     @Override
     public void run() {
 
@@ -71,29 +87,43 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+
     public void update() {
-        player.update();
+        if (gameState == playState) {
+            player.update();
+            for (int i = 0; i < entities.length; i++) {
+                if (entities[i] != null) entities[i].update();
+            }
+        }
+        if (gameState == pauseState) ;
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) obj[i].draw(g2, this);
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] != null) target[i].draw(g2, this);
+        }
+
+        for (int i = 0; i < entities.length; i++) {
+            if (entities[i] != null) entities[i].draw(g2);
         }
         player.draw(g2);
         ui.draw(g2);
         g2.dispose();
     }
+
     public void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.loop();
     }
+
     public void stopMusic() {
         sound.stop();
     }
+
     public void playSoundEffect(int i) {
         sound.setFile(i);
         sound.play();
