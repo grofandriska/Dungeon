@@ -25,6 +25,9 @@ A - Right
 S - Down
 D - Lett 
 
+P - Pause
+Enter + direction - Speak with NPC
+
 ------------------------------------------------------
 
 
@@ -67,8 +70,15 @@ Updates:
 - test map 
 - tree tile
 - reformat in code / image loading and draw
-- 
-- # Dungeon 0.1.91
+
+- # Dungeon 0.1.912
+- UI font change 
+- refacrors in entity package
+- New methods -speak -showDialog
+- UI dialogs
+- NPC
+- Game pause
+- Controls update ( P key , Enter key ) 
 
 
 # -> next major update / dev plans
