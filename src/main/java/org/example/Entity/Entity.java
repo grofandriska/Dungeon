@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class Entity {
@@ -23,11 +24,19 @@ public abstract class Entity {
     public boolean collisionOn = false;
 
     public GamePanel gamePanel;
-
     public int imageCounter = 0;
 
+    public int dialogIndex;
+    String[] dialogs =new String[20];
     public Entity(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+    }
+    public void speak(Player player){
+        if (dialogs[dialogIndex] == null) {
+            dialogIndex = 0;
+        }
+        gamePanel.ui.currentDialog = dialogs[dialogIndex];
+        dialogIndex++;
     }
     public void setAction() {
         imageCounter++;
@@ -45,7 +54,7 @@ public abstract class Entity {
         setAction();
         collisionOn = false;
         gamePanel.collisionChecker.checkTile(this);
-        gamePanel.collisionChecker.checkObject(this,false);
+        gamePanel.collisionChecker.checkObject(this, false);
         gamePanel.collisionChecker.checkPlayer(this);
         if (!collisionOn) {
             switch (direction) {
@@ -65,30 +74,30 @@ public abstract class Entity {
             spriteCounter = 0;
         }
     }
-
     public BufferedImage setup(String imageName) {
         UtilityTool utilityTool = new UtilityTool();
-        BufferedImage image = null;
+        BufferedImage image;
         try {
-            image = ImageIO.read(getClass().getResourceAsStream(imageName + ".png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imageName + ".png")));
             image = utilityTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return image;
     }
-
     public void draw(Graphics2D graphics2D) {
 
         BufferedImage image = null;
+
         int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
         int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
 
         if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
                 && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
                 && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
-                && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
-
+                && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY
+        )
+        {
             switch (direction) {
                 case "up" -> {
                     if (spriteNum == 1) {

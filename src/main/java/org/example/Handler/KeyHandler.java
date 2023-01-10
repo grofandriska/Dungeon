@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gamePanel;
-    public boolean upPressed, downPressed, rightPressed, leftPressed;
+    public boolean upPressed, downPressed, rightPressed, leftPressed,enterPressed;
 
     public KeyHandler(GamePanel gamePanel) {
 
@@ -22,26 +22,39 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W) {
-            upPressed = true;
+        if (gamePanel.gameState == gamePanel.playState) {
+            if (code == KeyEvent.VK_W) {
+                upPressed = true;
+            }
+            if (code == KeyEvent.VK_A) {
+                leftPressed = true;
+            }
+            if (code == KeyEvent.VK_S) {
+                downPressed = true;
+            }
+            if (code == KeyEvent.VK_D) {
+                rightPressed = true;
+            }
+            if (code == KeyEvent.VK_ENTER){
+                enterPressed = true;
+            }
         }
-        if (code == KeyEvent.VK_A) {
-            leftPressed = true;
-        }
-        if (code == KeyEvent.VK_S) {
-            downPressed = true;
-        }
-        if (code == KeyEvent.VK_D) {
-            rightPressed = true;
-        }
-        if (code == KeyEvent.VK_P) {
-            if (gamePanel.gameState == gamePanel.playState) gamePanel.gameState = gamePanel.pauseState;
-            else if (gamePanel.gameState == gamePanel.pauseState) {
+        if (gamePanel.gameState == gamePanel.dialogState){
+            if (code == KeyEvent.VK_ENTER){
                 gamePanel.gameState = gamePanel.playState;
             }
         }
+        //pause: if(pausestate){nothing}
+        if (code == KeyEvent.VK_P) {
+            if (gamePanel.gameState == gamePanel.playState) {
+                gamePanel.gameState = gamePanel.pauseState;
+                gamePanel.stopMusic();
+            } else if (gamePanel.gameState == gamePanel.pauseState) {
+                gamePanel.gameState = gamePanel.playState;
+                gamePanel.playMusic(0);
+            }
+        }
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
 

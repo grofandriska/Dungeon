@@ -17,61 +17,31 @@ public class Player extends Entity {
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
-
         this.keyHandler = keyHandler;
-
         screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
-
         solidArea = new Rectangle();
-
         solidArea.x = 10;
         solidArea.y = 16;
-
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-
         solidArea.width = 35;
         solidArea.height = 35;
-
         setDefaultValues();
         setPlayerImage();
     }
 
     public void setDefaultValues() {
-
-        worldX = gamePanel.tileSize * 20;
-        worldY = gamePanel.tileSize * 20;
         speed = 2;
         direction = "up";
-
+        worldX = gamePanel.tileSize * 20;
+        worldY = gamePanel.tileSize * 20;
     }
 
     public void pickupObject(int i) {
-
-       /* if (i != 999) {
-
-            if (gamePanel.obj[i].name == "Key") {
-                hasKey = true;
-                gamePanel.obj[i] = null;
-                gamePanel.ui.showMessage("you got a key");
-
-            } else if (gamePanel.obj[i].name == "Gift" && hasKey) {
-                gamePanel.obj[i] = null;
-                gamePanel.ui.isGameFinished = true;
-            } else if (gamePanel.obj[i].name == "Gift" && !hasKey) {
-                gamePanel.ui.showMessage("You Need A Key!");
-            } else if (gamePanel.obj[i].name == "Potion") {
-                gamePanel.playSoundEffect(1);
-                gamePanel.ui.showMessage("Glup .. Glup.. O...o...");
-                this.speed = speed / 2;
-                gamePanel.obj[i] = null;*/
-
-
     }
 
     public void setPlayerImage() {
-
         up1 = setup("/player/NHU1");
         up2 = setup("/player/NHU2");
         up = setup("/player/NHU1");
@@ -106,8 +76,8 @@ public class Player extends Entity {
             int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);
 
-            int npcIntdex = gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
-            interactNPC(npcIntdex);
+            int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
+            interactNPC(npcIndex);
 
             if (!collisionOn) {
                 switch (direction) {
@@ -118,6 +88,7 @@ public class Player extends Entity {
                 }
             }
             spriteCounter++;
+
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
@@ -129,11 +100,16 @@ public class Player extends Entity {
         }
     }
 
-    public void interactNPC(int index){
-        if (index != 999){
-            System.out.println("you Re ie");
+    public void interactNPC(int index) {
+        if (index != 999) {
+            if (gamePanel.keyHandler.enterPressed) {
+                gamePanel.gameState = gamePanel.dialogState;
+                gamePanel.entities[index].speak(this);
+            }
         }
+        gamePanel.keyHandler.enterPressed =false;
     }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
