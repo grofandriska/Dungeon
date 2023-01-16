@@ -31,7 +31,7 @@ public class Player extends Entity {
         setPlayerImage();
     }
     public void setDefaultValues() {
-        worldX = gamePanel.tileSize * 13;
+        worldX = gamePanel.tileSize * 14;
         worldY = gamePanel.tileSize * 17;
         direction = "up";
         speed = 2;
@@ -76,6 +76,8 @@ public class Player extends Entity {
 
             int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
             interactNPC(npcIndex);
+
+            gamePanel.eventHandler.checkEvent();
 
             if (!collisionOn) {
                 switch (direction) {
@@ -145,6 +147,5 @@ public class Player extends Entity {
         }
         g2.drawImage(image, screenX, screenY, null);
     }
-
 
 }
