@@ -2,6 +2,7 @@ package org.example.game;
 
 import org.example.Entity.Entity;
 import org.example.Entity.Player;
+import org.example.EventHandler;
 import org.example.Handler.AssetSetter;
 import org.example.Handler.CollisionChecker;
 import org.example.Handler.KeyHandler;
@@ -25,6 +26,8 @@ public class GamePanel extends JPanel implements Runnable {
     public KeyHandler keyHandler = new KeyHandler(this);
     Sound sound = new Sound();
     Sound music = new Sound();
+
+    public EventHandler eventHandler = new EventHandler(this);
 
     public Thread gameThread;
     public UI ui = new UI(this);

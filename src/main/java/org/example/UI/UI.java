@@ -56,7 +56,6 @@ public class UI {
 
     public void drawPlayerLife() {
 
-        gamePanel.player.life = 2;
         int x = gamePanel.tileSize / 2;
         int y = gamePanel.tileSize / 2;
         int i = 0;
