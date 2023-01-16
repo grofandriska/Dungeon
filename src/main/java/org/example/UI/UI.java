@@ -1,12 +1,17 @@
-package org.example;
+package org.example.UI.UI;
 
+import org.example.Objects.OBJ_Heart;
+import org.example.Objects.SuperObject;
 import org.example.game.GamePanel;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
 public class UI {
 
+
+    BufferedImage heart3, heart2, heart1;
     GamePanel gamePanel;
     Font arial40;
     Font arial80;
@@ -19,17 +24,20 @@ public class UI {
         this.gamePanel = gp;
         arial40 = new Font("Cambria", Font.PLAIN, 40);
         arial80 = new Font("Arial", Font.BOLD, 80);
-        arial20 = new Font("Arial", Font.BOLD, 20);
+
+
+        SuperObject heart = new OBJ_Heart(gamePanel);
+        heart1 = heart.image;
+        heart2 = heart.image2;
+        heart3 = heart.image3;
     }
 
     public void drawUtility(Graphics2D g) {
-        g.setFont(arial20);
-        g.setColor(Color.WHITE);
-        g.drawString("Dungeon Adventures", 40, 40);
-        g.drawString("x: " + gamePanel.player.worldX, 20, 490);
-        g.drawString("y: " + gamePanel.player.worldY, 20, 510);
-        g.drawString("collision: " + gamePanel.player.collisionOn, 20, 530);
-        g.drawString("direction: " + gamePanel.player.direction, 20, 550);
+        g.setFont(arial40);
+        g.setColor(Color.BLACK);
+        g.drawString("x: " + gamePanel.player.worldX, 35, 110);
+        g.drawString("y: " + gamePanel.player.worldY, 35, 150);
+
     }
 
     public void draw(Graphics2D g) {
@@ -38,6 +46,8 @@ public class UI {
         g.setColor(Color.white);
 
         if (gamePanel.gameState == gamePanel.playState) {
+            drawPlayerLife();
+            drawUtility(graphics2D);
 
         }
         if (gamePanel.gameState == gamePanel.pauseState) {
@@ -48,6 +58,34 @@ public class UI {
         }
     }
 
+
+    public void drawPlayerLife() {
+
+        int x = gamePanel.tileSize / 2;
+        int y = gamePanel.tileSize / 2;
+        int i = 0;
+
+        while (i < gamePanel.player.maxLife / 2) {
+            graphics2D.drawImage(heart3, x, y, null);
+            i++;
+            x += gamePanel.tileSize;
+
+        }
+
+        x = gamePanel.tileSize / 2;
+        y = gamePanel.tileSize / 2;
+        i = 0;
+
+        while (i < gamePanel.player.life) {
+            graphics2D.drawImage(heart1, x, y, null);
+            i++;
+            if (i < gamePanel.player.life) {
+                graphics2D.drawImage(heart3, x, y, null);
+            }
+            i++;
+            x+= gamePanel.tileSize;
+        }
+    }
     public void drawDialogScreen() {
         int x = gamePanel.tileSize * 2;
         int y = gamePanel.tileSize * 2;

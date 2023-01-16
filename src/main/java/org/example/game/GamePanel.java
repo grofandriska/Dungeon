@@ -2,13 +2,14 @@ package org.example.game;
 
 import org.example.Entity.Entity;
 import org.example.Entity.Player;
+import org.example.EventHandler;
 import org.example.Handler.AssetSetter;
 import org.example.Handler.CollisionChecker;
 import org.example.Handler.KeyHandler;
 import org.example.Objects.SuperObject;
 import org.example.Sound.Sound;
 import org.example.Tile.TileManager;
-import org.example.UI;
+import org.example.UI.UI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,8 @@ public class GamePanel extends JPanel implements Runnable {
     public KeyHandler keyHandler = new KeyHandler(this);
     Sound sound = new Sound();
     Sound music = new Sound();
+
+    public EventHandler eventHandler = new EventHandler(this);
 
     public Thread gameThread;
     public UI ui = new UI(this);
@@ -105,7 +108,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
         player.draw(g2);
         ui.draw(g2);
-        ui.drawUtility(g2);
         g2.dispose();
     }
     public void playMusic(int i) {

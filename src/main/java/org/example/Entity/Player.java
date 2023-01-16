@@ -30,17 +30,17 @@ public class Player extends Entity {
         setDefaultValues();
         setPlayerImage();
     }
-
     public void setDefaultValues() {
-        speed = 4;
-        direction = "up";
-        worldX = gamePanel.tileSize * 20;
-        worldY = gamePanel.tileSize * 20;
-    }
 
+        worldX = gamePanel.tileSize * 14;
+        worldY = gamePanel.tileSize * 17;
+        direction = "up";
+        speed = 2;
+        maxLife = 6;
+        life = maxLife;
+    }
     public void pickupObject(int i) {
     }
-
     public void setPlayerImage() {
         up1 = setup("/player/NHU1");
         up2 = setup("/player/NHU2");
@@ -56,7 +56,6 @@ public class Player extends Entity {
         left = setup("/player/NHL1");
         stand = setup("/player/NHU1");
     }
-
     public void update() {
         if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
 
@@ -80,6 +79,8 @@ public class Player extends Entity {
             int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
             interactNPC(npcIndex);
 
+            gamePanel.eventHandler.checkEvent();
+
             if (!collisionOn) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
@@ -100,7 +101,6 @@ public class Player extends Entity {
             }
         }
     }
-
     public void interactNPC(int index) {
         if (index != 999) {
             if (gamePanel.keyHandler.enterPressed) {
@@ -110,7 +110,6 @@ public class Player extends Entity {
         }
         gamePanel.keyHandler.enterPressed =false;
     }
-
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
@@ -150,6 +149,5 @@ public class Player extends Entity {
         }
         g2.drawImage(image, screenX, screenY, null);
     }
-
 
 }
