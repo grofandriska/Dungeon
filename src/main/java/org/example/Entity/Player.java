@@ -25,14 +25,14 @@ public class Player extends Entity {
         solidArea.y = 16;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 35;
-        solidArea.height = 35;
+        solidArea.width = 30;
+        solidArea.height = 30;
         setDefaultValues();
         setPlayerImage();
     }
 
     public void setDefaultValues() {
-        speed = 2;
+        speed = 4;
         direction = "up";
         worldX = gamePanel.tileSize * 20;
         worldY = gamePanel.tileSize * 20;
@@ -72,6 +72,7 @@ public class Player extends Entity {
 
             collisionOn = false;
             gamePanel.collisionChecker.checkTile(this);
+            gamePanel.collisionChecker.checkBorder(this);
 
             int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);

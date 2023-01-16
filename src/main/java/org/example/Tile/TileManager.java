@@ -37,6 +37,7 @@ public class TileManager {
 
     }
     public void getTileImage() {
+
         setup(0,"Grass1",false);
         setup(1,"Tree",true);
         setup(2,"Grave",false);
@@ -46,7 +47,7 @@ public class TileManager {
         setup(6,"Path Corner3",false);
         setup(7,"Path Corner4",false);
         setup(8,"Path Horizontal",false);
-        setup(9,"Path Stop1",false);
+        setup(9,"Water 1",true);
         setup(10,"Path Stop2",false);
         setup(11,"Path Stop3",false);
         setup(13,"Path Stop4",false);
@@ -72,7 +73,7 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            InputStream input = getClass().getResourceAsStream("/maps/map.txt");
+            InputStream input = getClass().getResourceAsStream("/maps/map2.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
             while (col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {

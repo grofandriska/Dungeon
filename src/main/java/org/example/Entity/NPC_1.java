@@ -9,7 +9,6 @@ public class NPC_1 extends Entity {
         getImage();
         setDialog();
     }
-
     public void getImage() {
         direction = "left";
         speed = 1;
@@ -25,16 +24,15 @@ public class NPC_1 extends Entity {
         down1 = setup("/entities/Old Down 1");
         down2 = setup("/entities/Old Down 2");
     }
-
     public void setDialog() {
         dialogs[0] = "Hello Stranger! \nWould you spare some?";
         dialogs[1] = "So you've come back?\nGot anything for me?";
         dialogs[2] = "Ahh! You are so good!?";
         dialogs[3] = "Test?";
     }
-
-    //player @param -> for quests and logics
     public void speak(Player player) {
         super.speak(player);
     }
+
+
 }
