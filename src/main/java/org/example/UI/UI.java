@@ -1,4 +1,4 @@
-package org.example.UI.UI;
+package org.example.UI;
 
 import org.example.Objects.OBJ_Heart;
 import org.example.Objects.SuperObject;

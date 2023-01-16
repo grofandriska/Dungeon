@@ -5,6 +5,8 @@ import org.example.game.GamePanel;
 import java.awt.*;
 
 public class EventHandler {
+
+    boolean[] events = new boolean[10];
     GamePanel gamePanel;
 
     Rectangle eventRectangle;
@@ -27,24 +29,35 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-        if (hit(14, 17, "down")) {
+        if (hit(21, 25, "left")) {
             damagePit(gamePanel.dialogState);
         }
-        if (hit(14, 17, "up")) {
+        if (hit(21, 26, "left")) {
+            damagePit(gamePanel.dialogState);
+        }
+
+        if (hit(21, 25, "right")) {
             heal(gamePanel.dialogState);
         }
     }
 
     public void damagePit(int gameState) {
-        gamePanel.gameState = gameState;
-        gamePanel.ui.currentDialog = "It's a trap ! RuUUUUn !--!";
-        gamePanel.player.life -= 1;
+        if (!events[0]) {
+            gamePanel.gameState = gameState;
+            gamePanel.ui.currentDialog = "It's a trap ! RuUUUUn !--!";
+            gamePanel.player.life -= 1;
+            events[0] = true;
+        }
     }
 
     public void heal(int gameState) {
-        gamePanel.gameState = gameState;
-        gamePanel.ui.currentDialog = "You are brave and it's lift you up!--!";
-        gamePanel.player.life += 1;
+        if (!events[1]) {
+            gamePanel.gameState = gameState;
+            gamePanel.ui.currentDialog = "You are brave and it's lift you up!--!";
+            gamePanel.player.life += 4;
+            events[1] = true;
+        }
+
     }
 
     //almost same as object collision check
