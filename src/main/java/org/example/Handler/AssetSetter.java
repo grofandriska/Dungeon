@@ -3,6 +3,7 @@ package org.example.Handler;
 import org.example.Entity.Mage;
 import org.example.Entity.NPC_1;
 import org.example.Entity.Orc;
+import org.example.Entity.Soldier;
 import org.example.game.GamePanel;
 import org.example.Objects.OBJ_GIFT;
 import org.example.Objects.OBJ_Key;
@@ -25,5 +26,9 @@ public class AssetSetter {
         gamePanel.entities[2] = new Mage(gamePanel);
         gamePanel.entities[2].worldX = gamePanel.tileSize *13;
         gamePanel.entities[2].worldY =  gamePanel.tileSize *14;
+
+        gamePanel.entities[3] = new Soldier(gamePanel);
+        gamePanel.entities[3].worldX = gamePanel.tileSize *13;
+        gamePanel.entities[3].worldY =  gamePanel.tileSize *16;
     }
 }
