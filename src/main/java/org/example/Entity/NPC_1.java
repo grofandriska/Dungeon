@@ -13,15 +13,15 @@ public class NPC_1 extends Entity {
     public void getImage() {
         direction = "left";
         speed = 1;
-        up = setup("/entities/Old RIght1");
-        up1 = setup("/entities/Old Leff2");
-        up2 = setup("/entities/Old RIght1");
-        right = setup("/entities/Old RIght1");
-        right1 = setup("/entities/Old RIght1");
-        right2 = setup("/entities/Old RIght2");
-        left = setup("/entities/Old Left1");
-        left1 = setup("/entities/Old Leff2");
-        left2 = setup("/entities/Old Left1");
+        up = setup("/player/Zombie 1");
+        up1 = setup("/player/Zombie 1");
+        up2 = setup("/player/Zombie 1");
+        right = setup("/player/zombie Right 1");
+        right1 = setup("/player/Zombie Right 1");
+        right2 = setup("/player/Zombie Right 2");
+        left = setup("/player/Zombie Left 1");
+        left1 = setup("/player/Zombie Left 2");
+        left2 = setup("/player/Zombie Left 1");
         down1 = setup("/entities/Old Down 1");
         down2 = setup("/entities/Old Down 2");
     }

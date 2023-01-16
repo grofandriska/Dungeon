@@ -8,7 +8,7 @@ import org.example.Handler.KeyHandler;
 import org.example.Objects.SuperObject;
 import org.example.Sound.Sound;
 import org.example.Tile.TileManager;
-import org.example.UI;
+import org.example.UI.UI;
 
 import javax.swing.*;
 import java.awt.*;
