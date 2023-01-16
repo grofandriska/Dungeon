@@ -29,14 +29,11 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-        if (hit(21, 25, "left")) {
-            damagePit(gamePanel.dialogState);
-        }
-        if (hit(21, 26, "left")) {
+        if (hit(20, 25, "left")) {
             damagePit(gamePanel.dialogState);
         }
 
-        if (hit(21, 25, "right")) {
+        if (hit(20, 25, "right")) {
             heal(gamePanel.dialogState);
         }
     }
@@ -44,8 +41,8 @@ public class EventHandler {
     public void damagePit(int gameState) {
         if (!events[0]) {
             gamePanel.gameState = gameState;
-            gamePanel.ui.currentDialog = "It's a trap ! RuUUUUn !--!";
-            gamePanel.player.life -= 1;
+            gamePanel.ui.currentDialog = "You Coward ! - 4hp";
+            gamePanel.player.life -= 4;
             events[0] = true;
         }
     }
@@ -53,7 +50,7 @@ public class EventHandler {
     public void heal(int gameState) {
         if (!events[1]) {
             gamePanel.gameState = gameState;
-            gamePanel.ui.currentDialog = "You are brave and it's lift you up!--!";
+            gamePanel.ui.currentDialog = "You are brave ! + 4hp ";
             gamePanel.player.life += 4;
             events[1] = true;
         }
