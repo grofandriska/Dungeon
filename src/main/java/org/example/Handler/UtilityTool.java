@@ -3,6 +3,12 @@ package org.example.Handler;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+
+/***
+ * This class utilises zhe drawing procedure @param 1 :image @param 2 :width @param 3: height
+ *
+ */
+
 public class UtilityTool {
 
     public BufferedImage scaleImage(BufferedImage original, int width, int height) {
