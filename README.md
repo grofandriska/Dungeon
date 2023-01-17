@@ -26,7 +26,10 @@ S - Down
 D - Lett 
 
 P - Pause
+
 Enter + direction - Speak with NPC
+
+Enter - Skip dialog 
 
 ------------------------------------------------------
 
@@ -71,7 +74,7 @@ Updates:
 - tree tile
 - reformat in code / image loading and draw
 
-- # Dungeon 0.1.912
+# Dungeon 0.1.92
 - UI font change 
 - refacrors in entity package
 - New methods -speak -showDialog
@@ -79,6 +82,14 @@ Updates:
 - NPC
 - Game pause
 - Controls update ( P key , Enter key ) 
+
+# Dungeon 0.1.93
+- Game Time removed temp
+- New Entity: Orc, Mage, Soldier, Bird
+- New water tile
+- Event class and methods
+- some debug started with worldborder 
+
 
 
 # -> next major update / dev plans
