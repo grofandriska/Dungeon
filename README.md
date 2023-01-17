@@ -85,8 +85,8 @@ Updates:
 
 # Dungeon 0.1.93
 - Game Time removed temp
-- New Entity: Orc, Mage, Soldier, Birds
-- New water tőle
+- New Entity: Orc, Mage, Soldier, Bird
+- New water tile
 - Event class and methods
 - some debug started with worldborder 
 
