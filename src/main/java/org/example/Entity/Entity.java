@@ -38,7 +38,7 @@ public abstract class Entity {
         if (dialogs[dialogIndex] == null) {
             dialogIndex = 0;
         }
-        gamePanel.ui.currentDialog = dialogs[dialogIndex];
+        gamePanel.UI.currentDialog = dialogs[dialogIndex];
         dialogIndex++;
     }
     public void setAction() {
