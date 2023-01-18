@@ -1,5 +1,6 @@
 package org.example.UI;
 
+import org.example.Entity.Entity;
 import org.example.Objects.OBJ_Heart;
 import org.example.Objects.SuperObject;
 import org.example.game.GamePanel;
@@ -26,7 +27,7 @@ public class UI {
         arial80 = new Font("Arial", Font.BOLD, 80);
 
 
-        SuperObject heart = new OBJ_Heart(gamePanel);
+        Entity heart = new OBJ_Heart(gamePanel);
         heart1 = heart.image;
         heart2 = heart.image2;
         heart3 = heart.image3;

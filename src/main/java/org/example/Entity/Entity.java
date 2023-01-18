@@ -11,6 +11,9 @@ import java.util.Objects;
 import java.util.Random;
 
 public abstract class Entity {
+    public String name;
+    public boolean collision = false;
+    public BufferedImage image, image2, image3;
 
     public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2, up, down, right, stand, left;
     public Rectangle solidArea = new Rectangle(0, 0, 40, 40);
@@ -19,7 +22,7 @@ public abstract class Entity {
     public boolean collisionOn = false;
     public int worldX, worldY;
     public int speed;
-    public String direction;
+    public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public int solidAreaDefaultX;
@@ -30,17 +33,20 @@ public abstract class Entity {
 
     public int imageCounter = 0;
     public int dialogIndex;
-    String[] dialogs =new String[20];
+    String[] dialogs = new String[20];
+
     public Entity(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
-    public void speak(Player player){
+
+    public void speak(Player player) {
         if (dialogs[dialogIndex] == null) {
             dialogIndex = 0;
         }
         gamePanel.UI.currentDialog = dialogs[dialogIndex];
         dialogIndex++;
     }
+
     public void setAction() {
         imageCounter++;
         if (imageCounter == 120) {
@@ -53,6 +59,7 @@ public abstract class Entity {
             imageCounter = 0;
         }
     }
+
     public void update() {
         setAction();
         collisionOn = false;
@@ -77,6 +84,7 @@ public abstract class Entity {
             spriteCounter = 0;
         }
     }
+
     public BufferedImage setup(String imageName) {
         UtilityTool utilityTool = new UtilityTool();
         BufferedImage image;
@@ -88,6 +96,7 @@ public abstract class Entity {
         }
         return image;
     }
+
     public void draw(Graphics2D graphics2D) {
 
         BufferedImage image = null;
@@ -99,8 +108,7 @@ public abstract class Entity {
                 && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
                 && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
                 && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY
-        )
-        {
+        ) {
             switch (direction) {
                 case "up" -> {
                     if (spriteNum == 1) {

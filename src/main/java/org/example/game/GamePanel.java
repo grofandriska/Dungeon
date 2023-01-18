@@ -13,10 +13,13 @@ import org.example.UI.UI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     public int gameState;
-    public final int playState = 1, pauseState = 2,dialogState = 3;
+    public final int playState = 1, pauseState = 2, dialogState = 3;
     public final int originalTileSize = 16, scale = 3, FPS = 60;
     public final int maxScreenCol = 16, maxScreenRow = 12;
     public final int maxWorldCol = 50, maxWorldRow = 50;
@@ -35,10 +38,12 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player;
     public Sound sound;
 
-    public SuperObject[] objects;
+    public Entity[] objects;
     public Thread gameThread;
     public TileManager tileManager;
     public UI UI;
+
+    ArrayList<Entity> entityList = new ArrayList<>();
 
     public GamePanel() {
         this.assetSetter = new AssetSetter(this);
@@ -47,12 +52,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.eventHandler = new EventHandler(this);
         this.gameThread = new Thread(this);
         this.keyHandler = new KeyHandler(this);
-        this.objects = new SuperObject[10];
+        this.objects = new Entity[10];
         this.player = new Player(this, keyHandler);
         this.tileManager = new TileManager(this);
         this.UI = new UI(this);
         this.music = new Sound();
-        this.sound= new Sound();
+        this.sound = new Sound();
 
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -114,18 +119,35 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);
 
-        for (SuperObject superObject : objects) {
-            if (superObject != null) superObject.draw(g2, this);
+        entityList.add(player);
+
+
+        for (int i = 0; i < entities.length; i++) {
+            if (entities[i] != null) {
+                entityList.add(entities[i]);
+            }
         }
 
-        for (Entity entity : entities) {
-            if (entity != null) entity.draw(g2);
+        for (int i = 0; i < entityList.size(); i++) {
+            if (entityList.get(i) != null) {
+                entityList.get(i).draw(g2);
+            }
+        }
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] != null) {
+                objects[i].draw(g2);
+            }
         }
 
-        player.draw(g2);
+        for (int i = 0; i < entityList.size(); i++) {
+            if (entityList.get(i) != null) {
+                entityList.remove(i);
+            }
+        }
         UI.draw(g2);
         g2.dispose();
     }

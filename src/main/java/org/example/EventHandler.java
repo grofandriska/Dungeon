@@ -5,9 +5,7 @@ import org.example.game.GamePanel;
 public class EventHandler {
 
     // boolean[] events = new boolean[10];
-
     Event events[];
-
     GamePanel gamePanel;
     EventRectangle eventRectangle[][];
 
@@ -59,9 +57,7 @@ public class EventHandler {
         gamePanel.gameState = gameState;
         gamePanel.UI.currentDialog = "You Coward ! - 4hp";
         gamePanel.player.life -= 4;
-        //events[0] = true;
-        //eventRectangle[col][row].eventHappened = true;
-        //}
+        //events[0] = true;eventRectangle[col][row].eventHappened = true;}
     }
 
     public void heal(int gameState, int col, int row) {
@@ -69,10 +65,10 @@ public class EventHandler {
         gamePanel.gameState = gameState;
         gamePanel.UI.currentDialog = "You are brave ! + 4hp ";
         gamePanel.player.life += 4;
-        //events[1] = true;
-        // }
+        //events[1] = true;}
     }
 
+    // I separated into this method - even could move into Event class so arrays would gone ---
     public void checkDistance(Event event) {
         int xDistance = Math.abs(gamePanel.player.worldX - event.previousEventX);
         int yDistance = Math.abs(gamePanel.player.worldY - event.previousEventY);
@@ -82,7 +78,6 @@ public class EventHandler {
             event.canTouchEvent = true;
         }
     }
-
 
     //almost same as object collision check
     public boolean hit(int col, int row, String reqDirection, Event event) {
