@@ -7,6 +7,7 @@ public class Bird extends Entity {
 
     public Bird(GamePanel gamePanel) {
         super(gamePanel);
+        name ="Bird";
         setBirdImage();
     }
 

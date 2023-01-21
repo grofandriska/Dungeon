@@ -1,9 +1,10 @@
 package org.example.Handler.draw;
 
+import org.example.Entity.gaia.Bird;
 import org.example.Entity.monsters.Monster_ORC;
 import org.example.Entity.monsters.Orc;
 import org.example.Entity.npc.Mage;
-import org.example.Entity.npc.NPC_1;
+import org.example.Entity.npc.OldMan;
 import org.example.Entity.npc.Soldier;
 import org.example.Game.GamePanel;
 import org.example.Objects.consum.OBJ_Key;
@@ -22,7 +23,7 @@ public class AssetSetter {
     }
 
     public void setNPC() {
-        gamePanel.npc[0] = new NPC_1(gamePanel);
+        gamePanel.npc[0] = new OldMan(gamePanel);
         gamePanel.npc[0].worldX = gamePanel.tileSize * 33;
         gamePanel.npc[0].worldY = gamePanel.tileSize * 10;
 
@@ -37,6 +38,10 @@ public class AssetSetter {
         gamePanel.npc[3] = new Soldier(gamePanel);
         gamePanel.npc[3].worldX = gamePanel.tileSize * 9;
         gamePanel.npc[3].worldY = gamePanel.tileSize * 22;
+
+        gamePanel.npc[3] = new Bird(gamePanel);
+        gamePanel.npc[3].worldX = gamePanel.tileSize * 21;
+        gamePanel.npc[3].worldY = gamePanel.tileSize * 9;
 
     }
 

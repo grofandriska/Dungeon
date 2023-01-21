@@ -15,6 +15,7 @@ public class Player extends Entity {
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
+        name = "Player";
         this.keyHandler = keyHandler;
         screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
@@ -30,8 +31,8 @@ public class Player extends Entity {
     }
     public void setDefaultValues() {
 
-        worldX = gamePanel.tileSize * 20;
-        worldY = gamePanel.tileSize * 5;
+        worldX = gamePanel.tileSize * 45;
+        worldY = gamePanel.tileSize * 45;
         direction = "up";
         speed = 2;
         maxLife = 6;

@@ -7,6 +7,7 @@ public class Mage extends Entity {
     public Mage(GamePanel gamePanel) {
         super(gamePanel);
         getImage();
+        name = "Mage";
         this.direction = "up";
         this.speed = 1;
     }

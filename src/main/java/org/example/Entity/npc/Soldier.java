@@ -7,6 +7,7 @@ public class Soldier extends Entity {
     public Soldier(GamePanel gamePanel) {
         super(gamePanel);
         getImage();
+        name = "Soldier";
         direction = "down";
         speed = 1 ;
     }

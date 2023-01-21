@@ -7,6 +7,7 @@ public class Orc extends Entity {
     public Orc(GamePanel gamePanel) {
         super(gamePanel);
         getImage();
+        name = "Orc";
         this.direction = "up";
         this.speed = 1;
     }

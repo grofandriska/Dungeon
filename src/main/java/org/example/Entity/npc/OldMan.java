@@ -4,10 +4,11 @@ import org.example.Entity.Entity;
 import org.example.Entity.player.Player;
 import org.example.Game.GamePanel;
 
-public class NPC_1 extends Entity {
+public class OldMan extends Entity {
 
-    public NPC_1(GamePanel gamePanel) {
+    public OldMan(GamePanel gamePanel) {
         super(gamePanel);
+        name = "Old man";
         getImage();
         setDialog();
     }
