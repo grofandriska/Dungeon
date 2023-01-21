@@ -1,7 +1,7 @@
 package org.example.Objects;
 
 import org.example.Handler.UtilityTool;
-import org.example.game.GamePanel;
+import org.example.Game.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

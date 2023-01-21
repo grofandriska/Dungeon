@@ -1,7 +1,7 @@
 package org.example.Tile;
 
 import org.example.Handler.UtilityTool;
-import org.example.game.GamePanel;
+import org.example.Game.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

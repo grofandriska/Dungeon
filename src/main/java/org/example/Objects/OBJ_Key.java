@@ -1,10 +1,7 @@
 package org.example.Objects;
 
 import org.example.Entity.Entity;
-import org.example.game.GamePanel;
-
-import javax.imageio.ImageIO;
-import java.io.IOException;
+import org.example.Game.GamePanel;
 
 public class OBJ_Key extends Entity {
 

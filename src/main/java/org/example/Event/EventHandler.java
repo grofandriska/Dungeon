@@ -1,6 +1,6 @@
-package org.example;
+package org.example.Event;
 
-import org.example.game.GamePanel;
+import org.example.Game.GamePanel;
 
 public class EventHandler {
 

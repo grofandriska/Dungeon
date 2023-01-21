@@ -1,7 +1,7 @@
 package org.example.Entity;
 
 import org.example.Handler.UtilityTool;
-import org.example.game.GamePanel;
+import org.example.Game.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -56,8 +56,8 @@ public abstract class Entity {
             if (i >= 25 && i <= 50) direction = "left";
             if (i >= 50 && i <= 75) direction = "right";
             if (i >= 75 && i <= 100) direction = "up";
-            imageCounter = 0;
-        }
+            imageCounter = 0;}
+        //makes characters movement.
     }
 
     public void update() {
@@ -66,6 +66,8 @@ public abstract class Entity {
         gamePanel.collisionChecker.checkTile(this);
         gamePanel.collisionChecker.checkObject(this, false);
         gamePanel.collisionChecker.checkPlayer(this);
+        gamePanel.collisionChecker.checkEntity(this,gamePanel.npc);
+        gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
         if (!collisionOn) {
             switch (direction) {
                 case "up" -> worldY -= speed;
@@ -84,7 +86,10 @@ public abstract class Entity {
             spriteCounter = 0;
         }
     }
+    public void orientateCharacter(){
 
+
+    }
     public BufferedImage setup(String imageName) {
         UtilityTool utilityTool = new UtilityTool();
         BufferedImage image;
@@ -96,7 +101,6 @@ public abstract class Entity {
         }
         return image;
     }
-
     public void draw(Graphics2D graphics2D) {
 
         BufferedImage image = null;

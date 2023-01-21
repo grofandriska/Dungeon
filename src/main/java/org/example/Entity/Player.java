@@ -1,13 +1,10 @@
 package org.example.Entity;
 
-import org.example.Handler.UtilityTool;
-import org.example.game.GamePanel;
+import org.example.Game.GamePanel;
 import org.example.Handler.KeyHandler;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity {
     KeyHandler keyHandler;
@@ -72,11 +69,14 @@ public class Player extends Entity {
             collisionOn = false;
             gamePanel.collisionChecker.checkTile(this);
             gamePanel.collisionChecker.checkBorder(this);
+            gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
 
             int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);
 
             int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
+
+            int monsterIndex = gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
             interactNPC(npcIndex);
 
             gamePanel.eventHandler.checkEvent();

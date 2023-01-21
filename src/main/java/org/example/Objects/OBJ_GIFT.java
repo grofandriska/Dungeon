@@ -1,7 +1,7 @@
 package org.example.Objects;
 
 import org.example.Entity.Entity;
-import org.example.game.GamePanel;
+import org.example.Game.GamePanel;
 
 
 public class OBJ_GIFT extends Entity {

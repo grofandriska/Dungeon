@@ -1,6 +1,6 @@
 package org.example.Entity;
 
-import org.example.game.GamePanel;
+import org.example.Game.GamePanel;
 
 public class NPC_1 extends Entity {
 

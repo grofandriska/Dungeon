@@ -1,6 +1,6 @@
 package org.example.Handler;
 
-import org.example.game.GamePanel;
+import org.example.Game.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

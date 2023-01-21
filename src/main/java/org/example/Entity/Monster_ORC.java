@@ -2,15 +2,35 @@ package org.example.Entity;
 
 import org.example.Game.GamePanel;
 
-public class Orc extends Entity{
-    public Orc(GamePanel gamePanel) {
+import java.awt.*;
+
+public class Monster_ORC extends Entity {
+    public Monster_ORC(GamePanel gamePanel) {
         super(gamePanel);
-        getImage();
-        this.direction = "up";
-        this.speed = 1;
+
+        name = "Orc";
+
+        speed = 2;
+
+        maxLife = 4;
+
+        life = maxLife;
+
+        solidArea = new Rectangle();
+
+        solidArea.x = 3;
+        solidArea.y = 5;
+
+        solidArea.height = 45;
+        solidArea.width = 43;
+
+        //refactor to solidarea class instead of Entity?
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        setImage();
     }
 
-    public void getImage() {
+    public void setImage(){
         up1 = setup("/entities/Zombie 1");
         up2 = setup("/entities/Zombie 1");
         right = setup("/entities/Zombie Right 2");
@@ -22,7 +42,6 @@ public class Orc extends Entity{
         down1 = setup("/entities/Zombie 1");
         down2 = setup("/entities/Zombie 1");
     }
-
 
 
 }
