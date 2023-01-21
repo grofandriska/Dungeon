@@ -8,6 +8,7 @@ import org.example.Entity.npc.OldMan;
 import org.example.Entity.npc.Soldier;
 import org.example.Game.GamePanel;
 import org.example.Objects.consum.OBJ_Key;
+import org.example.Objects.consum.OBJ_Potion;
 
 public class AssetSetter {
     GamePanel gamePanel;
@@ -17,9 +18,6 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        gamePanel.objects[0] = new OBJ_Key(gamePanel);
-        gamePanel.objects[0].worldY = gamePanel.tileSize * 25;
-        gamePanel.objects[0].worldX = gamePanel.tileSize * 22;
     }
 
     public void setNPC() {

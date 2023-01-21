@@ -176,7 +176,6 @@ public class GamePanel extends JPanel implements Runnable {
                 entityList.add(gaia[i]);
             }
         }
-        //ordering draw positions to world Y
         entityList.sort(Comparator.comparingInt(o -> o.worldY));
 
         for (int i = 0; i < entityList.size(); i++) {
