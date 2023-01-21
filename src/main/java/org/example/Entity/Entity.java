@@ -12,26 +12,26 @@ import java.util.Objects;
 import java.util.Random;
 
 public abstract class Entity {
-    public String name;
-    public boolean collision = false;
-    public BufferedImage image, image2, image3;
 
-    public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2, up, down, right, stand, left;
+    public boolean collision = false;
+
+    public String direction = "down";
+
+    public String name;
+    public BufferedImage up1, up2, down1, down2, right1, right2, left1,
+    left2, up, down, right, stand, left, image, image2, image3;
     public Rectangle solidArea = new Rectangle(0, 0, 40, 40);
 
     public GamePanel gamePanel;
     public boolean collisionOn = false;
     public int worldX, worldY;
     public int speed;
-    public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
-
     public int maxLife;
     public int life;
-
     public int imageCounter = 0;
     public int dialogIndex;
     public String[] dialogs = new String[20];
@@ -41,7 +41,6 @@ public abstract class Entity {
     }
 
     public void speak(Player player) {
-
         if (dialogs[dialogIndex] == null) {
             dialogIndex = 0;
         }

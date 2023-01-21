@@ -135,7 +135,6 @@ public class UI {
         g.drawString("y: " + gamePanel.player.worldY, 35, 145);
         g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 35, 195);
         g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 35, 235);
-        g.drawString("c" + gamePanel.tileSize * gamePanel.maxWorldRow, 35, 300);
     }
 
     public void drawPauseState() {

@@ -39,9 +39,13 @@ public class AssetSetter {
         gamePanel.npc[3].worldX = gamePanel.tileSize * 9;
         gamePanel.npc[3].worldY = gamePanel.tileSize * 22;
 
-        gamePanel.npc[3] = new Bird(gamePanel);
-        gamePanel.npc[3].worldX = gamePanel.tileSize * 21;
-        gamePanel.npc[3].worldY = gamePanel.tileSize * 9;
+        gamePanel.gaia[0] = new Bird(gamePanel);
+        gamePanel.gaia[0].worldX = gamePanel.tileSize * 21;
+        gamePanel.gaia[0].worldY = gamePanel.tileSize * 9;
+
+        gamePanel.gaia[1] = new Bird(gamePanel);
+        gamePanel.gaia[1].worldX = gamePanel.tileSize * 21;
+        gamePanel.gaia[1].worldY = gamePanel.tileSize * 17;
 
     }
 

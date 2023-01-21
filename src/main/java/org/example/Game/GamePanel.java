@@ -38,6 +38,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Entity[] objects;
     public Entity[] npc;
+
+    public Entity [] gaia = new Entity[6];
     public Entity[] monsters;
     public Thread gameThread;
     public TileManager tileManager;
@@ -128,6 +130,11 @@ public class GamePanel extends JPanel implements Runnable {
                     npc[i].update();
                 }
             }
+            for (int i = 0; i < gaia.length ;i++){
+                if (gaia[i] !=null){
+                    gaia[i].update();
+                }
+            }
         }
         if (gameState == pauseState) {
         }
@@ -162,6 +169,11 @@ public class GamePanel extends JPanel implements Runnable {
         }   for (int i = 0; i < npc.length; i++) {
             if (npc[i] != null) {
                 entityList.add(npc[i]);
+            }
+        }
+        for (int i = 0; i < gaia.length ;i++) {
+            if (gaia[i] != null) {
+                entityList.add(gaia[i]);
             }
         }
         //ordering draw positions to world Y

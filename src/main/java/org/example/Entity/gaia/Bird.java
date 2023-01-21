@@ -17,8 +17,6 @@ public class Bird extends Entity {
         collisionOn = false;
 
         gamePanel.collisionChecker.checkTile(this);
-        gamePanel.collisionChecker.checkObject(this, false);
-        gamePanel.collisionChecker.checkPlayer(this);
 
         if (!collisionOn) {
             switch (direction) {
