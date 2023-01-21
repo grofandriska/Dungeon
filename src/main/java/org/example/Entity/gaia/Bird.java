@@ -4,18 +4,21 @@ import org.example.Entity.Entity;
 import org.example.Game.GamePanel;
 
 public class Bird extends Entity {
+
     public Bird(GamePanel gamePanel) {
         super(gamePanel);
         setBirdImage();
-
-
     }
+
     public void update() {
         setAction();
+
         collisionOn = false;
+
         gamePanel.collisionChecker.checkTile(this);
         gamePanel.collisionChecker.checkObject(this, false);
         gamePanel.collisionChecker.checkPlayer(this);
+
         if (!collisionOn) {
             switch (direction) {
                 case "up" -> worldY -= speed;
@@ -24,7 +27,9 @@ public class Bird extends Entity {
                 case "right" -> worldX += speed;
             }
         }
+
         spriteCounter++;
+
         if (spriteCounter > 12) {
             if (spriteNum == 1) {
                 spriteNum = 2;

@@ -41,6 +41,7 @@ public abstract class Entity {
     }
 
     public void speak(Player player) {
+
         if (dialogs[dialogIndex] == null) {
             dialogIndex = 0;
         }
@@ -64,11 +65,15 @@ public abstract class Entity {
     public void update() {
         setAction();
         collisionOn = false;
+
         gamePanel.collisionChecker.checkTile(this);
-        gamePanel.collisionChecker.checkObject(this, false);
+
         gamePanel.collisionChecker.checkPlayer(this);
+        gamePanel.collisionChecker.checkObject(this, false);
+
         gamePanel.collisionChecker.checkEntity(this,gamePanel.npc);
         gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
+
         if (!collisionOn) {
             switch (direction) {
                 case "up" -> worldY -= speed;
@@ -77,6 +82,7 @@ public abstract class Entity {
                 case "right" -> worldX += speed;
             }
         }
+
         spriteCounter++;
         if (spriteCounter > 12) {
             if (spriteNum == 1) {
@@ -86,10 +92,6 @@ public abstract class Entity {
             }
             spriteCounter = 0;
         }
-    }
-    public void orientateCharacter(){
-
-
     }
     public BufferedImage setup(String imageName) {
         UtilityTool utilityTool = new UtilityTool();

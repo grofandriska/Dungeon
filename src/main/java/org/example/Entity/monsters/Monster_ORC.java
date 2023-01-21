@@ -25,7 +25,6 @@ public class Monster_ORC extends Entity {
         solidArea.height = 45;
         solidArea.width = 43;
 
-        //refactor to solidarea class instead of Entity?
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         setImage();
@@ -43,6 +42,4 @@ public class Monster_ORC extends Entity {
         down1 = setup("/entities/Zombie 1");
         down2 = setup("/entities/Zombie 1");
     }
-
-
 }

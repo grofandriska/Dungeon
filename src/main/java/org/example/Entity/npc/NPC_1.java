@@ -35,6 +35,4 @@ public class NPC_1 extends Entity {
     public void speak(Player player) {
         super.speak(player);
     }
-
-
 }

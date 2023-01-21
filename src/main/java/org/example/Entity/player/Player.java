@@ -68,19 +68,23 @@ public class Player extends Entity {
             }
 
             collisionOn = false;
+
             gamePanel.collisionChecker.checkTile(this);
             gamePanel.collisionChecker.checkBorder(this);
             gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
+            gamePanel.collisionChecker.checkEntity(this,gamePanel.npc);
+            gamePanel.collisionChecker.checkEntity(this,gamePanel.entities);
 
             int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);
 
-            int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
-
             int monsterIndex = gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
-            interactNPC(npcIndex);
+            int npcIndex = gamePanel.collisionChecker.checkEntity(this,gamePanel.npc);
+
 
             gamePanel.eventHandler.checkEvent();
+
+            interactNPC(npcIndex);
 
             if (!collisionOn) {
                 switch (direction) {
@@ -106,10 +110,10 @@ public class Player extends Entity {
         if (index != 999) {
             if (gamePanel.keyHandler.enterPressed) {
                 gamePanel.gameState = gamePanel.dialogState;
-                gamePanel.entities[index].speak(this);
+                gamePanel.npc[index].speak(this);
             }
         }
-        gamePanel.keyHandler.enterPressed =false;
+        gamePanel.keyHandler.enterPressed = false;
     }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;

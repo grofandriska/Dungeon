@@ -41,7 +41,7 @@ public class EventHandler {
 
     public void checkEvent() {
         //check if player is more than 1 tile far
-        checkDistance(events[0]);
+       /* checkDistance(events[0]);
         if (events[0].canTouchEvent) {
             if (hit(20, 25, "left", events[0])) {
                 damagePit(gamePanel.dialogState, 20, 25);
@@ -51,7 +51,7 @@ public class EventHandler {
             if (hit(20, 25, "right", events[0])) {
                 //  heal(gamePanel.dialogState, 20, 25);
             }
-        }
+        }*/
     }
 
     public void damagePit(int gameState, int col, int row) {
