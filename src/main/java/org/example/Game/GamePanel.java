@@ -1,11 +1,11 @@
 package org.example.Game;
 
 import org.example.Entity.Entity;
-import org.example.Entity.Player;
+import org.example.Entity.player.Player;
 import org.example.Event.EventHandler;
-import org.example.Handler.AssetSetter;
-import org.example.Handler.CollisionChecker;
-import org.example.Handler.KeyHandler;
+import org.example.Handler.draw.AssetSetter;
+import org.example.Handler.collision.CollisionChecker;
+import org.example.Handler.input.KeyHandler;
 import org.example.Sound.Sound;
 import org.example.Tile.TileManager;
 import org.example.UI.UI;
@@ -13,7 +13,6 @@ import org.example.UI.UI;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -165,13 +164,9 @@ public class GamePanel extends JPanel implements Runnable {
                 entityList.add(npc[i]);
             }
         }
-        Collections.sort(entityList, new Comparator<Entity>() {
-            @Override
-            public int compare(Entity o1, Entity o2) {
-                int result = Integer.compare(o1.worldY,o2.worldY);
-                return result;
-            }
-        });
+        //ordering draw positions to world Y
+        entityList.sort(Comparator.comparingInt(o -> o.worldY));
+
         for (int i = 0; i < entityList.size(); i++) {
             if (entityList.get(i) != null) {
                 entityList.get(i).draw(g2);

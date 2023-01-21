@@ -1,6 +1,7 @@
 package org.example.Entity;
 
-import org.example.Handler.UtilityTool;
+import org.example.Entity.player.Player;
+import org.example.Handler.draw.UtilityTool;
 import org.example.Game.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -33,7 +34,7 @@ public abstract class Entity {
 
     public int imageCounter = 0;
     public int dialogIndex;
-    String[] dialogs = new String[20];
+    public String[] dialogs = new String[20];
 
     public Entity(GamePanel gamePanel) {
         this.gamePanel = gamePanel;

@@ -1,7 +1,7 @@
 package org.example.UI;
 
 import org.example.Entity.Entity;
-import org.example.Objects.OBJ_Heart;
+import org.example.Objects.consum.OBJ_Heart;
 import org.example.Game.GamePanel;
 
 import java.awt.*;

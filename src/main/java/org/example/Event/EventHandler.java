@@ -1,5 +1,7 @@
 package org.example.Event;
 
+import org.example.Event.model.Event;
+import org.example.Event.model.EventRectangle;
 import org.example.Game.GamePanel;
 
 public class EventHandler {
