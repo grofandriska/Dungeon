@@ -3,18 +3,29 @@ package org.example.Event;
 import org.example.Event.model.Event;
 import org.example.Event.model.EventRectangle;
 import org.example.Game.GamePanel;
+import org.example.UI.UI;
+
+import java.awt.*;
 
 public class EventHandler {
 
     // boolean[] events = new boolean[10];
     Event events[];
     GamePanel gamePanel;
+
+
     EventRectangle eventRectangle[][];
+    public UI Ui;
+
 
     public EventHandler(GamePanel gamePanel) {
+
         this.gamePanel = gamePanel;
+        Ui = new UI(gamePanel);
         events = new Event[10];
         events[0] = new Event();
+        events[1] = new Event();
+
 
         this.eventRectangle = new EventRectangle[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         int col = 0;
@@ -40,33 +51,44 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-        //check if player is more than 1 tile far
-       /* checkDistance(events[0]);
+
+
+        checkDistance(events[0]);
         if (events[0].canTouchEvent) {
-            if (hit(20, 25, "left", events[0])) {
-                damagePit(gamePanel.dialogState, 20, 25);
-                events[0].canTouchEvent = false;
+            if (hit(19, 8, "down", events[0])) {
+                welcome(gamePanel.dialogState, 1, 1);
             }
 
-            if (hit(20, 25, "right", events[0])) {
-                //  heal(gamePanel.dialogState, 20, 25);
-            }
-        }*/
+        }
+        if (events[1].canTouchEvent)
+        if (hit(11, 10, "left", events[0])) {
+            heal(gamePanel.dialogState, 11, 27);
+        }
     }
 
     public void damagePit(int gameState, int col, int row) {
-        // if (!events[0]) {
         gamePanel.gameState = gameState;
         gamePanel.UI.currentDialog = "You Coward ! - 4hp";
         gamePanel.player.life -= 4;
-        //events[0] = true;eventRectangle[col][row].eventHappened = true;}
+        events[0].canTouchEvent = false;
+        eventRectangle[col][row].eventHappened = true;
     }
+    public void welcome(int gameState, int col, int row) {
+        gamePanel.gameState = gameState;
+        gamePanel.UI.currentDialog = "You wake up tired on this Isla-\nnd. You lost 4 life!  ";
+        gamePanel.player.life -= 4;
+        events[0].canTouchEvent = false;
+        eventRectangle[col][row].eventHappened = true;
+    }
+
 
     public void heal(int gameState, int col, int row) {
         // if (!events[1]) {
         gamePanel.gameState = gameState;
-        gamePanel.UI.currentDialog = "You are brave ! + 4hp ";
+        gamePanel.UI.currentDialog = "You feel safe ! \n +4 life ";
         gamePanel.player.life += 4;
+        events[1].canTouchEvent = false;
+        eventRectangle[col][row].eventHappened = true;
         //events[1] = true;}
     }
 

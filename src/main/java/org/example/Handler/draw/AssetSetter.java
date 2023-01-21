@@ -23,8 +23,8 @@ public class AssetSetter {
 
     public void setNPC() {
         gamePanel.npc[0] = new NPC_1(gamePanel);
-        gamePanel.npc[0].worldX = gamePanel.tileSize * 19;
-        gamePanel.npc[0].worldY = gamePanel.tileSize * 14;
+        gamePanel.npc[0].worldX = gamePanel.tileSize * 33;
+        gamePanel.npc[0].worldY = gamePanel.tileSize * 10;
 
         gamePanel.npc[1] = new Orc(gamePanel);
         gamePanel.npc[1].worldX = gamePanel.tileSize * 26;
