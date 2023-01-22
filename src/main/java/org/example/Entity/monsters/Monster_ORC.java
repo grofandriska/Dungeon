@@ -13,6 +13,8 @@ public class Monster_ORC extends Entity {
 
         speed = 2;
 
+        type = 2;
+
         maxLife = 4;
 
         life = maxLife;

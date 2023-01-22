@@ -53,16 +53,17 @@ public class EventHandler {
     public void checkEvent() {
 
 
-        checkDistance(events[0]);
+        checkDistance(events[1]);
         if (events[0].canTouchEvent) {
             if (hit(19, 8, "down", events[0])) {
                 welcome(gamePanel.dialogState, 1, 1);
             }
 
         }
-        if (events[1].canTouchEvent)
-        if (hit(11, 10, "left", events[0])) {
-            heal(gamePanel.dialogState, 11, 27);
+        if (events[1].canTouchEvent) {
+            if (hit(11, 10, "left", events[0])) {
+                heal(gamePanel.dialogState, 11, 27);
+            }
         }
     }
 
@@ -73,6 +74,7 @@ public class EventHandler {
         events[0].canTouchEvent = false;
         eventRectangle[col][row].eventHappened = true;
     }
+
     public void welcome(int gameState, int col, int row) {
         gamePanel.gameState = gameState;
         gamePanel.UI.currentDialog = "You wake up tired on this Isla-\nnd. You lost 4 life!  ";
@@ -80,7 +82,6 @@ public class EventHandler {
         events[0].canTouchEvent = false;
         eventRectangle[col][row].eventHappened = true;
     }
-
 
     public void heal(int gameState, int col, int row) {
         // if (!events[1]) {

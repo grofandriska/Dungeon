@@ -35,6 +35,10 @@ public abstract class Entity {
     public int imageCounter = 0;
     public int dialogIndex;
     public String[] dialogs = new String[20];
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
+
+    public int type ; // 0 for player, 1 npc, 2 monster
 
     public Entity(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -65,13 +69,23 @@ public abstract class Entity {
         setAction();
         collisionOn = false;
 
+        gamePanel.collisionChecker.checkBorder(this);
         gamePanel.collisionChecker.checkTile(this);
 
-        gamePanel.collisionChecker.checkPlayer(this);
         gamePanel.collisionChecker.checkObject(this, false);
 
         gamePanel.collisionChecker.checkEntity(this,gamePanel.npc);
         gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
+
+        boolean contactPLayer = gamePanel.collisionChecker.checkPlayer(this);
+
+        //player class contact monster would come here
+        if (contactPLayer && this.type == 2){
+            if (!gamePanel.player.invincible){
+                gamePanel.player.life -=2;
+                gamePanel.player.invincible = true;
+            }
+        }
 
         if (!collisionOn) {
             switch (direction) {

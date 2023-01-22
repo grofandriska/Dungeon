@@ -49,7 +49,11 @@ public class AssetSetter {
 
     public void setMonster() {
         gamePanel.monsters[0] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[0].worldX = gamePanel. tileSize * 26;
-        gamePanel.monsters[0].worldY = gamePanel.tileSize * 25;
+        gamePanel.monsters[0].worldX = gamePanel. tileSize * 33;
+        gamePanel.monsters[0].worldY = gamePanel.tileSize * 11;
+
+        gamePanel.monsters[1] = new Monster_ORC(gamePanel);
+        gamePanel.monsters[1].worldX = gamePanel. tileSize * 33;
+        gamePanel.monsters[1].worldY = gamePanel.tileSize * 9;
     }
 }
