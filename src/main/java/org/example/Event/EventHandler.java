@@ -5,17 +5,14 @@ import org.example.Event.model.EventRectangle;
 import org.example.Game.GamePanel;
 import org.example.UI.UI;
 
-import java.awt.*;
 
 public class EventHandler {
 
     // boolean[] events = new boolean[10];
     Event events[];
     GamePanel gamePanel;
-
     EventRectangle eventRectangle[][];
     public UI Ui;
-
 
     public EventHandler(GamePanel gamePanel) {
 
@@ -51,8 +48,8 @@ public class EventHandler {
 
     public void checkEvent() {
 
-
         checkDistance(events[1]);
+
         if (events[0].canTouchEvent) {
             if (hit(19, 8, "down", events[0])) {
                 welcome(gamePanel.dialogState, 1, 1);
@@ -64,6 +61,8 @@ public class EventHandler {
                 heal(gamePanel.dialogState, 11, 27);
             }
         }
+
+        
     }
 
     public void damagePit(int gameState, int col, int row) {

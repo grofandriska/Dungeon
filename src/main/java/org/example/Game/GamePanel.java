@@ -72,6 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         assetSetter.setObject();
         assetSetter.setNPC();
+        assetSetter.setGaia();
         assetSetter.setMonster();
         gameState = playState;
         playMusic(0);
@@ -113,24 +114,25 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (gameState == playState) {
             player.update();
-            for (int i = 0; i < monsters.length; i++) {
-                if (monsters[i] != null) {
-                    monsters[i].update();
+
+            for (Entity monster : monsters) {
+                if (monster != null) {
+                    monster.update();
                 }
             }
-            for (int i = 0; i < entities.length; i++) {
-                if (entities[i] != null) {
-                    entities[i].update();
+            for (Entity item : entities) {
+                if (item != null) {
+                    item.update();
                 }
             }
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].update();
+            for (Entity value : npc) {
+                if (value != null) {
+                    value.update();
                 }
             }
-            for (int i = 0; i < gaia.length; i++) {
-                if (gaia[i] != null) {
-                    gaia[i].update();
+            for (Entity entity : gaia) {
+                if (entity != null) {
+                    entity.update();
                 }
             }
         }
@@ -146,40 +148,41 @@ public class GamePanel extends JPanel implements Runnable {
 
         entityList.add(player);
 
-
-        for (int i = 0; i < entities.length; i++) {
-            if (entities[i] != null) {
-                entityList.add(entities[i]);
+        for (Entity entity : entities) {
+            if (entity != null) {
+                entityList.add(entity);
+            }
+        }
+        for (Entity object : objects) {
+            if (object != null) {
+                entityList.add(object);
+            }
+        } for (Entity object : objects) {
+            if (object != null) {
+                object.draw(g2);
             }
         }
 
-
-        for (int i = 0; i < objects.length; i++) {
-            if (objects[i] != null) {
-                entityList.add(objects[i]);
+        for (Entity monster : monsters) {
+            if (monster != null) {
+                entityList.add(monster);
             }
         }
-
-        for (int i = 0; i < monsters.length; i++) {
-            if (monsters[i] != null) {
-                entityList.add(monsters[i]);
+        for (Entity item : npc) {
+            if (item != null) {
+                entityList.add(item);
             }
         }
-        for (int i = 0; i < npc.length; i++) {
-            if (npc[i] != null) {
-                entityList.add(npc[i]);
-            }
-        }
-        for (int i = 0; i < gaia.length; i++) {
-            if (gaia[i] != null) {
-                entityList.add(gaia[i]);
+        for (Entity value : gaia) {
+            if (value != null) {
+                entityList.add(value);
             }
         }
         entityList.sort(Comparator.comparingInt(o -> o.worldY));
 
-        for (int i = 0; i < entityList.size(); i++) {
-            if (entityList.get(i) != null) {
-                entityList.get(i).draw(g2);
+        for (Entity entity : entityList) {
+            if (entity != null) {
+                entity.draw(g2);
             }
         }
 

@@ -9,8 +9,17 @@ public class OBJ_Key extends Entity {
 
     public OBJ_Key(GamePanel gamePanel) {
         super(gamePanel);
+
         name = "Key";
         down1 = setup("/objects/key_01c");
-        direction = "down";
+        collisionOn = true;
+
+        solidArea.x = 0;
+        solidArea.y = 16;
+        solidArea.width = 48;
+        solidArea.height = 32;
+
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
     }
 }

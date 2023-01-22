@@ -67,14 +67,17 @@ public abstract class Entity {
 
     public void update() {
         setAction();
+
         collisionOn = false;
 
         gamePanel.collisionChecker.checkBorder(this);
+
         gamePanel.collisionChecker.checkTile(this);
 
         gamePanel.collisionChecker.checkObject(this, false);
 
         gamePanel.collisionChecker.checkEntity(this,gamePanel.npc);
+
         gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
 
         boolean contactPLayer = gamePanel.collisionChecker.checkPlayer(this);
@@ -128,7 +131,9 @@ public abstract class Entity {
                 && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
                 && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
                 && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY
-        ) {
+        )
+
+        {
             switch (direction) {
                 case "up" -> {
                     if (spriteNum == 1) {
