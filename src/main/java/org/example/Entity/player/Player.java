@@ -3,6 +3,7 @@ package org.example.Entity.player;
 import org.example.Entity.Entity;
 import org.example.Game.GamePanel;
 import org.example.Handler.input.KeyHandler;
+import org.example.UI.UI;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -61,7 +62,7 @@ public class Player extends Entity {
 
     //happens 60 times /second
     public void update() {
-        if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
+        if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.enterPressed) {
 
             if (keyHandler.upPressed) {
                 direction = "up";
@@ -85,16 +86,14 @@ public class Player extends Entity {
             pickupObject(objIndex);
 
             int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
+            /* contactMonster(monsterIndex);*/
 
-           /* contactMonster(monsterIndex);*/
             int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
-
-
             gamePanel.eventHandler.checkEvent();
 
             interactNPC(npcIndex);
 
-            if (!collisionOn) {
+            if (!collisionOn && !keyHandler.enterPressed) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
                     case "down" -> worldY += speed;
@@ -102,6 +101,9 @@ public class Player extends Entity {
                     case "right" -> worldX += speed;
                 }
             }
+
+            gamePanel.keyHandler.enterPressed = false;
+
             spriteCounter++;
 
             if (spriteCounter > 12) {
@@ -119,6 +121,10 @@ public class Player extends Entity {
                 invincible = false;
                 invincibleCounter = 0;
             }
+        }
+
+        if (life <= 0){
+            gamePanel.gameState = 4;
         }
     }
 

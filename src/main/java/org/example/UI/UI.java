@@ -48,6 +48,10 @@ public class UI {
         if (gamePanel.gameState == gamePanel.dialogState) {
             drawDialogScreen();
         }
+
+        if (gamePanel.gameState == gamePanel.endState) {
+            drawEndState();
+        }
     }
 
     public void drawDialogScreen() {
@@ -141,6 +145,16 @@ public class UI {
 
         graphics2D.setFont(graphics2D.getFont().deriveFont(Font.ITALIC, 80F));
         String text = "PAUSED";
+        int x = getXForCenteredText(text);
+        int y = gamePanel.screenWidth / 2;
+        graphics2D.drawString(text, x, y);
+
+    }
+
+    public void drawEndState() {
+
+        graphics2D.setFont(graphics2D.getFont().deriveFont(Font.ITALIC, 80F));
+        String text = "GAME OVER!";
         int x = getXForCenteredText(text);
         int y = gamePanel.screenWidth / 2;
         graphics2D.drawString(text, x, y);

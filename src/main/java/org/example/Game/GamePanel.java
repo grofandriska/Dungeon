@@ -17,15 +17,13 @@ import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     public int gameState;
-    public final int playState = 1, pauseState = 2, dialogState = 3;
+    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4;
     public final int originalTileSize = 16, scale = 3, FPS = 60;
     public final int maxScreenCol = 16, maxScreenRow = 12;
     public final int maxWorldCol = 50, maxWorldRow = 50;
-
     public final int tileSize = originalTileSize * scale;
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
-
     public AssetSetter assetSetter;
     public CollisionChecker collisionChecker;
     public Entity[] entities;
@@ -38,8 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Entity[] objects;
     public Entity[] npc;
-
-    public Entity [] gaia = new Entity[6];
+    public Entity[] gaia = new Entity[6];
     public Entity[] monsters;
     public Thread gameThread;
     public TileManager tileManager;
@@ -113,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         //update player and npc
+
         if (gameState == playState) {
             player.update();
             for (int i = 0; i < monsters.length; i++) {
@@ -130,8 +128,8 @@ public class GamePanel extends JPanel implements Runnable {
                     npc[i].update();
                 }
             }
-            for (int i = 0; i < gaia.length ;i++){
-                if (gaia[i] !=null){
+            for (int i = 0; i < gaia.length; i++) {
+                if (gaia[i] != null) {
                     gaia[i].update();
                 }
             }
@@ -166,12 +164,13 @@ public class GamePanel extends JPanel implements Runnable {
             if (monsters[i] != null) {
                 entityList.add(monsters[i]);
             }
-        }   for (int i = 0; i < npc.length; i++) {
+        }
+        for (int i = 0; i < npc.length; i++) {
             if (npc[i] != null) {
                 entityList.add(npc[i]);
             }
         }
-        for (int i = 0; i < gaia.length ;i++) {
+        for (int i = 0; i < gaia.length; i++) {
             if (gaia[i] != null) {
                 entityList.add(gaia[i]);
             }
@@ -184,11 +183,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
-        for (int i = 0; i < entityList.size(); i++) {
-            if (entityList.get(i) != null) {
-                entityList.remove(i);
-            }
-        }
+        entityList.clear();
+
         UI.draw(g2);
         g2.dispose();
     }

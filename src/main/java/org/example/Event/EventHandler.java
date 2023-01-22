@@ -13,7 +13,6 @@ public class EventHandler {
     Event events[];
     GamePanel gamePanel;
 
-
     EventRectangle eventRectangle[][];
     public UI Ui;
 
