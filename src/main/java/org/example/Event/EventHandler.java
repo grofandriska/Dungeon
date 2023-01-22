@@ -62,7 +62,7 @@ public class EventHandler {
             }
         }
 
-        
+
     }
 
     public void damagePit(int gameState, int col, int row) {
