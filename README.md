@@ -97,7 +97,8 @@ Updates:
 - collision fixed
 - test: invincible Time and monster attack
 - gameOver state 
-- talaj to nPc fixed
+- talk to nPc is fixed
+- refacrors in code and packages
 
 
 
