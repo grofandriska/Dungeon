@@ -27,9 +27,7 @@ D - Lett
 
 P - Pause
 
-Enter + direction - Speak with NPC
-
-Enter - Skip dialog 
+Enter - Speak with NPC \ skip dialog
 
 ------------------------------------------------------
 
@@ -90,6 +88,17 @@ Updates:
 - Event class and methods
 - some debug started with worldborder 
 
+# Dungeon 0.1.95
+
+- entity has health
+- map update 
+- some event 
+- checkWorldBorder implemented 
+- collision fixed
+- test: invincible Time and monster attack
+- gameOver state 
+- talaj to nPc fixed
+
 
 
 # -> next major update / dev plans
@@ -104,8 +113,8 @@ Updates:
 
 # known Bugs.: 
 nO1: Solid area of player is not fixed and not proper 
-on right collisions. 
-nO2: Leaving map throws exceptiont
+on right collisions. (Fixed)
+nO2: Leaving map throws exceptiont(fixed)
 
 github/grofandriska
 
