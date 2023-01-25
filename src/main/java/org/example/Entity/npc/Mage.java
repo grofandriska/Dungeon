@@ -6,22 +6,25 @@ import org.example.Game.GamePanel;
 public class Mage extends Entity {
     public Mage(GamePanel gamePanel) {
         super(gamePanel);
-        getImage();
+        type =2;
         name = "Mage";
-        this.direction = "up";
-        this.speed = 1;
-    }
+        speed = 1;
+        maxLife = 4;
+        life = maxLife;
 
+        getImage();
+    }
     public void getImage() {
-        up1 = setup("/entities/Mage Up1");
-        up2 = setup("/entities/Mage Up2");
-        right = setup("/entities/Mage 2");
-        right1 = setup("/entities/Mage 2");
-        right2 = setup("/entities/Mage 2");
-        left = setup("/entities/Mage 1");
-        left1 = setup("/entities/Mage 1");
-        left2 = setup("/entities/Mage 1");
-        down1 = setup("/entities/Mage 1");
-        down2 = setup("/entities/Mage 2");
+        up1 = setup("/entities/Mage Up1",gamePanel.tileSize,gamePanel.tileSize);
+        up2 = setup("/entities/Mage Up2",gamePanel.tileSize,gamePanel.tileSize);
+
+        right1 = setup("/entities/Mage 2",gamePanel.tileSize,gamePanel.tileSize);
+        right2 = setup("/entities/Mage 2",gamePanel.tileSize,gamePanel.tileSize);
+
+        left1 = setup("/entities/Mage 1",gamePanel.tileSize,gamePanel.tileSize);
+        left2 = setup("/entities/Mage 1",gamePanel.tileSize,gamePanel.tileSize);
+
+        down1 = setup("/entities/Mage 1",gamePanel.tileSize,gamePanel.tileSize);
+        down2 = setup("/entities/Mage 2",gamePanel.tileSize,gamePanel.tileSize);
     }
 }

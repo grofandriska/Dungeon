@@ -76,7 +76,7 @@ Updates:
 
 # Dungeon 0.1.92
 - UI font change 
-- refacrors in entity package
+- refactors in entity package
 - New methods -speak -showDialog
 - UI dialogs
 - NPC
@@ -88,7 +88,10 @@ Updates:
 - New Entity: Orc, Mage, Soldier, Bird
 - New water tile
 - Event class and methods
-- some debug started with worldborder 
+- some debug started with worldBorder 
+
+# Dungeon 0.1.93b
+
 
 
 

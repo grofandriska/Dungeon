@@ -7,7 +7,9 @@ public class Bird extends Entity {
 
     public Bird(GamePanel gamePanel) {
         super(gamePanel);
-        name ="Bird";
+        direction = "left";
+        speed = 1;
+        name = "Bird";
         setBirdImage();
     }
 
@@ -41,20 +43,13 @@ public class Bird extends Entity {
     }
 
     public void setBirdImage() {
-        direction = "left";
-        speed = 1;
-        up1 = setup("/entities/Bird 1");
-        up2 = setup("/entities/Bird 5");
-        up = setup("/entities/Bird 1");
-        down1 = setup("/entities/Bird 2");
-        down = setup("/entities/Bird 2");
-        down2 = setup("/entities/Bird 4");
-        right1 = setup("/entities/Bird 2");
-        right = setup("/entities/Bird 2");
-        right2 = setup("/entities/Bird 4");
-        left1 = setup("/entities/Bird 1");
-        left2 = setup("/entities/Bird 5");
-        left = setup("/entities/Bird 1");
-        stand = setup("/entities/Bird 3");
+        up1 = setup("/entities/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
+        up2 = setup("/entities/Bird 5",gamePanel.tileSize,gamePanel.tileSize);
+        down1 = setup("/entities/Bird 2",gamePanel.tileSize,gamePanel.tileSize);
+        down2 = setup("/entities/Bird 4",gamePanel.tileSize,gamePanel.tileSize);
+        right1 = setup("/entities/Bird 2",gamePanel.tileSize,gamePanel.tileSize);
+        right2 = setup("/entities/Bird 4",gamePanel.tileSize,gamePanel.tileSize);
+        left1 = setup("/entities/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
+        left2 = setup("/entities/Bird 5",gamePanel.tileSize,gamePanel.tileSize);
     }
 }

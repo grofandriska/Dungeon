@@ -50,12 +50,12 @@ public class EventHandler {
 
         checkDistance(events[1]);
 
-        if (events[0].canTouchEvent) {
+       /* if (events[0].canTouchEvent) {
             if (hit(19, 8, "down", events[0])) {
                 welcome(gamePanel.dialogState, 1, 1);
             }
 
-        }
+        }*/
         if (events[1].canTouchEvent) {
             if (hit(11, 10, "left", events[0])) {
                 heal(gamePanel.dialogState, 11, 27);

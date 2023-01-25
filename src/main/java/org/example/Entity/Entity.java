@@ -13,38 +13,56 @@ import java.util.Random;
 
 public abstract class Entity {
 
-    public boolean collision = false;
 
-    public String direction = "down";
+    public String direction ;
 
+
+
+    public String[] dialogs;
     public String name;
-    public BufferedImage up1, up2, down1, down2, right1, right2, left1,
-    left2, up, down, right, stand, left, image, image2, image3;
-    public Rectangle solidArea = new Rectangle(0, 0, 40, 40);
+    public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2;
+    public BufferedImage image, image2, image3;
+    public BufferedImage attackUp_1, attackUp_2, attackDown_1, attackDown_2, attackRight_1, attackRight_2, attackLeft_1, attackLeft_2;
+    public Rectangle solidArea ;
 
     public GamePanel gamePanel;
-    public boolean collisionOn = false;
+    public boolean collisionOn ;
+
+    public Rectangle attackRectangle;
+
+    public boolean collision;
     public int worldX, worldY;
-    public int speed;
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
+    public int speed;
+    public int spriteCounter ;
+    public int spriteNum;
     public int maxLife;
     public int life;
-    public int imageCounter = 0;
+    public int imageCounter;
     public int dialogIndex;
-    public String[] dialogs = new String[20];
-    public boolean invincible = false;
-    public int invincibleCounter = 0;
+    public boolean invincible;
+    public int invincibleCounter;
+    public int type; // 0 for player, 1 npc, 2 monster ****change to Enum if possible
 
-    public int type ; // 0 for player, 1 npc, 2 monster
 
     public Entity(GamePanel gamePanel) {
+        spriteCounter=0;
+        spriteNum = 1;
+        imageCounter = 0;
+        invincibleCounter = 0;
+        invincible = false;
+        direction = "down";
+        dialogs = new String[20];
+        collision = false;
+        collisionOn = false;
+        solidArea = new Rectangle(0, 0, 40, 40);
+        attackRectangle = new Rectangle(0,0,0,0);
+        this.dialogs[0] ="...";
         this.gamePanel = gamePanel;
     }
 
-    public void speak(Player player) {
+    public void speak() {
         if (dialogs[dialogIndex] == null) {
             dialogIndex = 0;
         }
@@ -61,7 +79,8 @@ public abstract class Entity {
             if (i >= 25 && i <= 50) direction = "left";
             if (i >= 50 && i <= 75) direction = "right";
             if (i >= 75 && i <= 100) direction = "up";
-            imageCounter = 0;}
+            imageCounter = 0;
+        }
         //makes characters movement.
     }
 
@@ -76,16 +95,16 @@ public abstract class Entity {
 
         gamePanel.collisionChecker.checkObject(this, false);
 
-        gamePanel.collisionChecker.checkEntity(this,gamePanel.npc);
+        gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
 
-        gamePanel.collisionChecker.checkEntity(this,gamePanel.monsters);
+        gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
 
         boolean contactPLayer = gamePanel.collisionChecker.checkPlayer(this);
 
         //player class contact monster would come here
-        if (contactPLayer && this.type == 2){
-            if (!gamePanel.player.invincible){
-                gamePanel.player.life -=2;
+        if (contactPLayer && this.type == 2) {
+            if (!gamePanel.player.invincible) {
+                gamePanel.player.life -= 2;
                 gamePanel.player.invincible = true;
             }
         }
@@ -109,17 +128,20 @@ public abstract class Entity {
             spriteCounter = 0;
         }
     }
-    public BufferedImage setup(String imageName) {
+
+    public BufferedImage setup(String imagePath ,int width, int height) {
         UtilityTool utilityTool = new UtilityTool();
         BufferedImage image;
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imageName + ".png")));
-            image = utilityTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize);
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
+            image = utilityTool.scaleImage(image, width, height);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        System.out.println("setup image:" + imagePath + " ... done");
         return image;
     }
+
     public void draw(Graphics2D graphics2D) {
 
         BufferedImage image = null;
@@ -130,10 +152,7 @@ public abstract class Entity {
         if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
                 && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
                 && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
-                && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY
-        )
-
-        {
+                && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
             switch (direction) {
                 case "up" -> {
                     if (spriteNum == 1) {

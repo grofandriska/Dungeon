@@ -110,8 +110,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        //update player and npc
-
         if (gameState == playState) {
             player.update();
 

@@ -7,7 +7,7 @@ import org.example.Entity.npc.Mage;
 import org.example.Entity.npc.OldMan;
 import org.example.Entity.npc.Soldier;
 import org.example.Game.GamePanel;
-import org.example.Objects.consum.OBJ_Key;
+import org.example.Entity.Objects.consum.OBJ_Potion;
 
 public class AssetSetter {
     GamePanel gamePanel;
@@ -17,14 +17,14 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        gamePanel.objects[0] = new OBJ_Key(gamePanel);
-        gamePanel.objects[0].worldX = 19;
-        gamePanel.objects[0].worldY = 32;
+        gamePanel.objects[0] = new OBJ_Potion(gamePanel);
+        gamePanel.objects[0].worldX = gamePanel.tileSize * 19;
+        gamePanel.objects[0].worldY = gamePanel.tileSize * 9;
     }
 
-    public void setGaia(){
+    public void setGaia() {
 
-        gamePanel.gaia[0] = new Bird(gamePanel);
+       gamePanel.gaia[0] = new Bird(gamePanel);
         gamePanel.gaia[0].worldX = gamePanel.tileSize * 21;
         gamePanel.gaia[0].worldY = gamePanel.tileSize * 9;
 
@@ -32,6 +32,7 @@ public class AssetSetter {
         gamePanel.gaia[1].worldX = gamePanel.tileSize * 21;
         gamePanel.gaia[1].worldY = gamePanel.tileSize * 17;
     }
+
     public void setNPC() {
         gamePanel.npc[0] = new OldMan(gamePanel);
         gamePanel.npc[0].worldX = gamePanel.tileSize * 33;
@@ -43,12 +44,13 @@ public class AssetSetter {
 
         gamePanel.npc[2] = new Mage(gamePanel);
         gamePanel.npc[2].worldX = gamePanel.tileSize * 9;
-        gamePanel.npc[2].worldY = gamePanel.tileSize * 7;
+        gamePanel.npc[2].worldY = gamePanel.tileSize * 8;
 
         gamePanel.npc[3] = new Soldier(gamePanel);
         gamePanel.npc[3].worldX = gamePanel.tileSize * 9;
         gamePanel.npc[3].worldY = gamePanel.tileSize * 22;
     }
+
     public void setMonster() {
         gamePanel.monsters[0] = new Monster_ORC(gamePanel);
         gamePanel.monsters[0].worldX = gamePanel. tileSize * 33;
@@ -93,6 +95,5 @@ public class AssetSetter {
         gamePanel.monsters[9] = new Monster_ORC(gamePanel);
         gamePanel.monsters[9].worldX = gamePanel. tileSize * 9;
         gamePanel.monsters[9].worldY = gamePanel.tileSize * 25;
-
     }
 }
