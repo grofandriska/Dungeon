@@ -141,10 +141,9 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
-
         if (life <= 0) {
             gamePanel.gameState = 4;
-            gamePanel.playMusic(5);
+            gamePanel.playSoundEffect(5);
         }
     }
 
