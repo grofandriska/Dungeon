@@ -1,4 +1,4 @@
-package org.example.Handler.collision;
+package org.example.Entity.Handler.collision;
 
 import org.example.Game.GamePanel;
 import org.example.Entity.Entity;

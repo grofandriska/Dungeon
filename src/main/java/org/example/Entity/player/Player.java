@@ -2,8 +2,7 @@ package org.example.Entity.player;
 
 import org.example.Entity.Entity;
 import org.example.Game.GamePanel;
-import org.example.Handler.input.KeyHandler;
-import org.example.UI.UI;
+import org.example.Entity.Handler.input.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -38,8 +37,8 @@ public class Player extends Entity {
         maxLife = 10;
         life = maxLife;
 
-        worldX = gamePanel.tileSize * 19;
-        worldY = gamePanel.tileSize * 7;
+        worldX = gamePanel.tileSize * 45;
+        worldY = gamePanel.tileSize * 25;
 
         //testing  later depends on weapon also x y ?
         attackRectangle.height = 36;
@@ -61,13 +60,20 @@ public class Player extends Entity {
         right2 = setup("/player/NHR2", gamePanel.tileSize, gamePanel.tileSize);
         left1 = setup("/player/NHL1", gamePanel.tileSize, gamePanel.tileSize);
         left2 = setup("/player/NHL2", gamePanel.tileSize, gamePanel.tileSize);
-        attackDown_1 = setup("/player/Player_attack_3", gamePanel.tileSize, gamePanel.tileSize * 2);
-        attackDown_2 = setup("/player/Player_attack_3", gamePanel.tileSize, gamePanel.tileSize * 2);
-        attackRight_1 = setup("/player/Player_attack_1", gamePanel.tileSize * 2, gamePanel.tileSize);
-        attackRight_2 = setup("/player/Player_attack_1", gamePanel.tileSize * 2, gamePanel.tileSize);
-        attackLeft_2 = setup("/player/Player_attack_2", gamePanel.tileSize * 2, gamePanel.tileSize);
-        attackLeft_1 = setup("/player/Player_attack_2", gamePanel.tileSize * 2, gamePanel.tileSize);
-        /*; ;;attackUp_1;attackUp_2;*/
+
+        attackDown_1 = setup("/player/attack 1_1", gamePanel.tileSize, gamePanel.tileSize * 2);
+        attackDown_2 = setup("/player/attack 1_2", gamePanel.tileSize, gamePanel.tileSize * 2);
+
+
+        attackUp_1=setup("/player/attack 2_1", gamePanel.tileSize, gamePanel.tileSize * 2);
+        attackUp_2=setup("/player/attack 2_2", gamePanel.tileSize, gamePanel.tileSize * 2);
+
+        attackRight_1 = setup("/player/attack 3_1", gamePanel.tileSize * 2, gamePanel.tileSize);
+        attackRight_2 = setup("/player/attack 3_2", gamePanel.tileSize * 2, gamePanel.tileSize);
+
+        attackLeft_2 = setup("/player/attack 4_2", gamePanel.tileSize * 2, gamePanel.tileSize);
+        attackLeft_1 = setup("/player/attack 4_1", gamePanel.tileSize * 2, gamePanel.tileSize);
+
     }
 
     //happens 60 times /second
@@ -118,7 +124,7 @@ public class Player extends Entity {
 
             spriteCounter++;
 
-            if (spriteCounter > 12) {
+            if (spriteCounter > 6) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
                 } else if (spriteNum == 2) {
@@ -217,7 +223,6 @@ public class Player extends Entity {
         }
     }
 
-
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
@@ -226,8 +231,8 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up" -> {
-                if (isAttacking) {
 
+                if (isAttacking) {
                     tempScreenY = screenY - gamePanel.tileSize;
                     if (spriteNum == 1) {
                         image = attackUp_1;
@@ -267,7 +272,7 @@ public class Player extends Entity {
             case "right" -> {
                 if (isAttacking) {
                     if (spriteNum == 1) {
-                        image = attackRight_2;
+                        image = attackRight_1;
                     }
                     if (spriteNum == 2) {
                         image = attackRight_2;

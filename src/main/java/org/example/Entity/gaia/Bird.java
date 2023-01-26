@@ -43,13 +43,13 @@ public class Bird extends Entity {
     }
 
     public void setBirdImage() {
-        up1 = setup("/entities/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
-        up2 = setup("/entities/Bird 5",gamePanel.tileSize,gamePanel.tileSize);
-        down1 = setup("/entities/Bird 2",gamePanel.tileSize,gamePanel.tileSize);
-        down2 = setup("/entities/Bird 4",gamePanel.tileSize,gamePanel.tileSize);
-        right1 = setup("/entities/Bird 2",gamePanel.tileSize,gamePanel.tileSize);
-        right2 = setup("/entities/Bird 4",gamePanel.tileSize,gamePanel.tileSize);
-        left1 = setup("/entities/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
-        left2 = setup("/entities/Bird 5",gamePanel.tileSize,gamePanel.tileSize);
+        up1 = setup("/entities/bird/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
+        up2 = setup("/entities/bird/Bird 5",gamePanel.tileSize,gamePanel.tileSize);
+        down1 = setup("/entities/bird/Bird 2",gamePanel.tileSize,gamePanel.tileSize);
+        down2 = setup("/entities/bird/Bird 4",gamePanel.tileSize,gamePanel.tileSize);
+        right1 = setup("/entities/bird/Bird 2",gamePanel.tileSize,gamePanel.tileSize);
+        right2 = setup("/entities/bird/Bird 4",gamePanel.tileSize,gamePanel.tileSize);
+        left1 = setup("/entities/bird/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
+        left2 = setup("/entities/bird/Bird 5",gamePanel.tileSize,gamePanel.tileSize);
     }
 }

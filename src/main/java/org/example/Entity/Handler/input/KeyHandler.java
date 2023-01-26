@@ -1,4 +1,4 @@
-package org.example.Handler.input;
+package org.example.Entity.Handler.input;
 
 import org.example.Game.GamePanel;
 
