@@ -1,4 +1,4 @@
-package org.example.Entity.Handler.draw;
+package org.example.Handler.draw;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

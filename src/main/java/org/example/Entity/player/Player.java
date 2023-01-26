@@ -2,7 +2,7 @@ package org.example.Entity.player;
 
 import org.example.Entity.Entity;
 import org.example.Game.GamePanel;
-import org.example.Entity.Handler.input.KeyHandler;
+import org.example.Handler.input.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -65,8 +65,8 @@ public class Player extends Entity {
         attackDown_2 = setup("/player/attack 1_2", gamePanel.tileSize, gamePanel.tileSize * 2);
 
 
-        attackUp_1=setup("/player/attack 2_1", gamePanel.tileSize, gamePanel.tileSize * 2);
-        attackUp_2=setup("/player/attack 2_2", gamePanel.tileSize, gamePanel.tileSize * 2);
+        attackUp_1 = setup("/player/attack 2_1", gamePanel.tileSize, gamePanel.tileSize * 2);
+        attackUp_2 = setup("/player/attack 2_2", gamePanel.tileSize, gamePanel.tileSize * 2);
 
         attackRight_1 = setup("/player/attack 3_1", gamePanel.tileSize * 2, gamePanel.tileSize);
         attackRight_2 = setup("/player/attack 3_2", gamePanel.tileSize * 2, gamePanel.tileSize);
@@ -187,18 +187,17 @@ public class Player extends Entity {
 
     private void damageMonster(int i) {
         if (i != 999) {
-            gamePanel.monsters[i].life -= 2;
 
-            if (gamePanel.monsters[i].life <= 0) {
-                gamePanel.monsters[i] = null;
-                System.out.println("you killed it");
+            if (!gamePanel.monsters[i].invincible) {
+                gamePanel.monsters[i].life -= 4;
+                gamePanel.monsters[i].invincible = true;
 
-            } else {
-                System.out.println("hit! enemy remaining health :" + gamePanel.monsters[i].life);
+                if (gamePanel.monsters[i].life <= 0) {
+                    gamePanel.monsters[i] = null;
+                    System.out.println("you killed it");
+                }
             }
 
-        } else {
-            System.out.println("miss");
         }
     }
 

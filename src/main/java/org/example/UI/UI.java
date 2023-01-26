@@ -103,7 +103,7 @@ public class UI {
         }
     }
 
-    public void drawMessageWindow(int x, int y, int width, int height) {
+    public void drawDamageDealt(int x, int y, int width, int height, Entity entity) {
         Color c = new Color(0, 1, 1, 140); // paint ->SOLID UI
 
         graphics2D.setColor(c);

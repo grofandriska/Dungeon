@@ -2,10 +2,10 @@ package org.example.Game;
 
 import org.example.Entity.Entity;
 import org.example.Entity.player.Player;
-import org.example.Event.EventHandler;
-import org.example.Entity.Handler.draw.AssetSetter;
-import org.example.Entity.Handler.collision.CollisionChecker;
-import org.example.Entity.Handler.input.KeyHandler;
+import org.example.Events.EventHandler;
+import org.example.Handler.draw.AssetSetter;
+import org.example.Handler.collision.CollisionChecker;
+import org.example.Handler.input.KeyHandler;
 import org.example.Sound.Sound;
 import org.example.Tile.TileManager;
 import org.example.UI.UI;
@@ -17,34 +17,23 @@ import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     public int gameState;
-    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4;
-    public final int originalTileSize = 16, scale = 3, FPS = 60;
-    public final int maxScreenCol = 16, maxScreenRow = 12;
-    public final int maxWorldCol = 50, maxWorldRow = 50;
-    public final int tileSize = originalTileSize * scale;
-    public final int screenWidth = tileSize * maxScreenCol;
-    public final int screenHeight = tileSize * maxScreenRow;
+    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4,originalTileSize = 16, scale = 3, FPS = 60,maxScreenCol = 16, maxScreenRow = 12;
+    public final int maxWorldCol = 50, maxWorldRow = 50,tileSize = originalTileSize * scale,screenWidth = tileSize * maxScreenCol,screenHeight = tileSize * maxScreenRow;
     public AssetSetter assetSetter;
     public CollisionChecker collisionChecker;
-    public Entity[] entities;
+    public Entity[] entities,objects,npc,monsters,gaia;
     public EventHandler eventHandler;
     public KeyHandler keyHandler;
-    public Sound music;
+    public Sound music,sound;
 
     public Player player;
-    public Sound sound;
-
-    public Entity[] objects;
-    public Entity[] npc;
-    public Entity[] gaia = new Entity[6];
-    public Entity[] monsters;
     public Thread gameThread;
     public TileManager tileManager;
     public UI UI;
-
-    ArrayList<Entity> entityList = new ArrayList<>();
+    public ArrayList<Entity> entityList = new ArrayList<>();
 
     public GamePanel() {
+        this.gaia = new Entity[6];
         this.assetSetter = new AssetSetter(this);
         this.collisionChecker = new CollisionChecker(this);
         this.entities = new Entity[10];
@@ -59,8 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.sound = new Sound();
         this.npc = new Entity[10];
 
-        this.monsters = new Entity[10];
-
+        this.monsters = new Entity[15];
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);

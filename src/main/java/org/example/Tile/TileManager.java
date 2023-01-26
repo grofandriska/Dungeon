@@ -1,6 +1,6 @@
 package org.example.Tile;
 
-import org.example.Entity.Handler.draw.UtilityTool;
+import org.example.Handler.draw.UtilityTool;
 import org.example.Game.GamePanel;
 
 import javax.imageio.ImageIO;

@@ -1,4 +1,4 @@
-package org.example.Event.model;
+package org.example.Events;
 
 import java.awt.*;
 

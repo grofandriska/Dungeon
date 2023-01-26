@@ -1,7 +1,6 @@
-package org.example.Event;
+package org.example.Events;
 
-import org.example.Event.model.Event;
-import org.example.Event.model.EventRectangle;
+import org.example.Events.model.Event;
 import org.example.Game.GamePanel;
 import org.example.UI.UI;
 
@@ -47,22 +46,17 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-
         checkDistance(events[1]);
-
        /* if (events[0].canTouchEvent) {
             if (hit(19, 8, "down", events[0])) {
                 welcome(gamePanel.dialogState, 1, 1);
             }
-
         }*/
         if (events[1].canTouchEvent) {
             if (hit(11, 10, "left", events[0])) {
                 heal(gamePanel.dialogState, 11, 27);
             }
         }
-
-
     }
 
     public void damagePit(int gameState, int col, int row) {

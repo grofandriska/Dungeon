@@ -1,8 +1,7 @@
-package org.example.Entity.Handler.draw;
+package org.example.Handler.draw;
 
 import org.example.Entity.gaia.Bird;
 import org.example.Entity.monsters.Monster_ORC;
-import org.example.Entity.monsters.Orc;
 import org.example.Entity.npc.Mage;
 import org.example.Entity.npc.OldMan;
 import org.example.Entity.npc.Soldier;
@@ -17,38 +16,34 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        gamePanel.objects[0] = new OBJ_Potion(gamePanel);
-        gamePanel.objects[0].worldX = gamePanel.tileSize * 19;
-        gamePanel.objects[0].worldY = gamePanel.tileSize * 9;
     }
 
     public void setGaia() {
-
-       gamePanel.gaia[0] = new Bird(gamePanel);
+        gamePanel.gaia[0] = new Bird(gamePanel);
         gamePanel.gaia[0].worldX = gamePanel.tileSize * 21;
         gamePanel.gaia[0].worldY = gamePanel.tileSize * 9;
 
         gamePanel.gaia[1] = new Bird(gamePanel);
-        gamePanel.gaia[1].worldX = gamePanel.tileSize * 21;
-        gamePanel.gaia[1].worldY = gamePanel.tileSize * 17;
+        gamePanel.gaia[1].worldX = gamePanel.tileSize * 29;
+        gamePanel.gaia[1].worldY = gamePanel.tileSize * 9;
+
+        gamePanel.gaia[0] = new Bird(gamePanel);
+        gamePanel.gaia[0].worldX = gamePanel.tileSize * 13;
+        gamePanel.gaia[0].worldY = gamePanel.tileSize * 9;
+
+        gamePanel.gaia[0] = new Bird(gamePanel);
+        gamePanel.gaia[0].worldX = gamePanel.tileSize * 21;
+        gamePanel.gaia[0].worldY = gamePanel.tileSize * 45;
     }
 
     public void setNPC() {
         gamePanel.npc[0] = new OldMan(gamePanel);
-        gamePanel.npc[0].worldX = gamePanel.tileSize * 33;
-        gamePanel.npc[0].worldY = gamePanel.tileSize * 10;
+        gamePanel.npc[0].worldX = gamePanel.tileSize * 21;
+        gamePanel.npc[0].worldY = gamePanel.tileSize * 45;
 
-        gamePanel.npc[1] = new Orc(gamePanel);
-        gamePanel.npc[1].worldX = gamePanel.tileSize * 26;
-        gamePanel.npc[1].worldY = gamePanel.tileSize * 26;
-
-        gamePanel.npc[2] = new Mage(gamePanel);
-        gamePanel.npc[2].worldX = gamePanel.tileSize * 9;
-        gamePanel.npc[2].worldY = gamePanel.tileSize * 8;
-
-        gamePanel.npc[3] = new Soldier(gamePanel);
-        gamePanel.npc[3].worldX = gamePanel.tileSize * 9;
-        gamePanel.npc[3].worldY = gamePanel.tileSize * 22;
+        gamePanel.npc[1] = new Mage(gamePanel);
+        gamePanel.npc[1].worldX = gamePanel.tileSize * 21;
+        gamePanel.npc[1].worldY = gamePanel.tileSize * 45;
     }
 
     public void setMonster() {
@@ -95,5 +90,9 @@ public class AssetSetter {
         gamePanel.monsters[9] = new Monster_ORC(gamePanel);
         gamePanel.monsters[9].worldX = gamePanel. tileSize * 9;
         gamePanel.monsters[9].worldY = gamePanel.tileSize * 25;
+
+        gamePanel.monsters[10] = new Monster_ORC(gamePanel);
+        gamePanel.monsters[10].worldX = gamePanel.tileSize * 26;
+        gamePanel.monsters[10].worldY = gamePanel.tileSize * 26;
     }
 }

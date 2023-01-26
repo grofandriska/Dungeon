@@ -1,6 +1,7 @@
 package org.example.Entity;
 
-import org.example.Entity.Handler.draw.UtilityTool;
+import org.example.Events.model.Event;
+import org.example.Handler.draw.UtilityTool;
 import org.example.Game.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -126,6 +127,13 @@ public abstract class Entity {
             }
             spriteCounter = 0;
         }
+        if (invincible) {
+            invincibleCounter++;
+            if (invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
     }
 
     public BufferedImage setup(String imagePath ,int width, int height) {
@@ -139,6 +147,19 @@ public abstract class Entity {
         }
         System.out.println("setup image:" + imagePath + " ... done");
         return image;
+    }
+
+    public void checkDistance(Entity entity) {
+        boolean isTrue = false;
+
+        int xDistance = Math.abs(gamePanel.player.worldX - entity.worldX);
+        int yDistance = Math.abs(gamePanel.player.worldY - entity.worldY);
+        int distance = Math.max(xDistance, yDistance);
+
+        if (distance < gamePanel.tileSize * 2) {
+            // extend
+        }
+
     }
 
     public void draw(Graphics2D graphics2D) {
@@ -186,7 +207,14 @@ public abstract class Entity {
                     }
                 }
             }
+
+            if (invincible) {
+                graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+                
+            }
             graphics2D.drawImage(image, screenX, screenY, null);
+
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 }

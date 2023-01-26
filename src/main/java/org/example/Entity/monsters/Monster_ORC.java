@@ -14,7 +14,7 @@ public class Monster_ORC extends Entity {
 
         type = 2;
 
-        maxLife = 100;
+        maxLife = 10;
 
         life = maxLife;
 

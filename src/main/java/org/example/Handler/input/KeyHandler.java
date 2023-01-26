@@ -1,4 +1,4 @@
-package org.example.Entity.Handler.input;
+package org.example.Handler.input;
 
 import org.example.Game.GamePanel;
 
@@ -52,6 +52,7 @@ public class KeyHandler implements KeyListener {
             } else if (gamePanel.gameState == gamePanel.pauseState) {
                 gamePanel.gameState = gamePanel.playState;
                 gamePanel.playMusic(0);
+
             }
         }
     }
