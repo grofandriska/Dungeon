@@ -64,6 +64,7 @@ public abstract class Entity {
         if (dialogs[dialogIndex] == null) {
             dialogIndex = 0;
         }
+        gamePanel.playSoundEffect(4);
         gamePanel.UI.currentDialog = dialogs[dialogIndex];
         dialogIndex++;
     }
@@ -117,6 +118,7 @@ public abstract class Entity {
         }
 
         spriteCounter++;
+
         if (spriteCounter > 12) {
             if (spriteNum == 1) {
                 spriteNum = 2;
@@ -125,7 +127,9 @@ public abstract class Entity {
             }
             spriteCounter = 0;
         }
+
         if (invincible) {
+            if (this.invincibleCounter == 1) gamePanel.playSoundEffect(2);
             invincibleCounter++;
             if (invincibleCounter > 60) {
                 invincible = false;
@@ -143,7 +147,6 @@ public abstract class Entity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("setup image:" + imagePath + " ... done");
         return image;
     }
 
@@ -206,6 +209,7 @@ public abstract class Entity {
                 }
             }
 
+
             if (invincible) {
                 graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
             }
@@ -225,16 +229,35 @@ public abstract class Entity {
 
         int i = 5;
 
-        if (dyingCounter <= 5) {changeAlphaForAnimation(graphics2D, 0f);}
-        if (dyingCounter > i && dyingCounter <= i*2) {changeAlphaForAnimation(graphics2D, 1f);}
-        if (dyingCounter > i*2&& dyingCounter <= i*3) {changeAlphaForAnimation(graphics2D, 0f);}
-        if (dyingCounter > i*3&& dyingCounter <= i*4) {changeAlphaForAnimation(graphics2D, 1f);}
-        if (dyingCounter > i*4&& dyingCounter <= i*5) {changeAlphaForAnimation(graphics2D, 0f);}
-        if (dyingCounter > i*5&& dyingCounter <= i*6) {changeAlphaForAnimation(graphics2D, 1f);}
-        if (dyingCounter > i*6&& dyingCounter <= i*7) {changeAlphaForAnimation(graphics2D, 0f);}
-        if (dyingCounter > i*7&& dyingCounter <= i*8) {changeAlphaForAnimation(graphics2D, 1f);}
+        if (dyingCounter <= 5) {
+            changeAlphaForAnimation(graphics2D, 0f);
+        }
+        if (dyingCounter > i && dyingCounter <= i * 2) {
+            changeAlphaForAnimation(graphics2D, 1f);
+        }
+        if (dyingCounter > i * 2 && dyingCounter <= i * 3) {
+            changeAlphaForAnimation(graphics2D, 0f);
+        }
+        if (dyingCounter > i * 3 && dyingCounter <= i * 4) {
+            changeAlphaForAnimation(graphics2D, 1f);
+        }
+        if (dyingCounter > i * 4 && dyingCounter <= i * 5) {
+            changeAlphaForAnimation(graphics2D, 0f);
+        }
+        if (dyingCounter > i * 5 && dyingCounter <= i * 6) {
+            changeAlphaForAnimation(graphics2D, 1f);
+        }
+        if (dyingCounter > i * 6 && dyingCounter <= i * 7) {
+            changeAlphaForAnimation(graphics2D, 0f);
+        }
+        if (dyingCounter > i * 7 && dyingCounter <= i * 8) {
+            changeAlphaForAnimation(graphics2D, 1f);
+        }
 
-        if (dyingCounter > i*8) {dying = false; alive = false;}
+        if (dyingCounter > i * 8) {
+            dying = false;
+            alive = false;
+        }
     }
 
     public void changeAlphaForAnimation(Graphics2D graphics2D, float alpha) {

@@ -6,12 +6,18 @@ import java.net.URL;
 
 public class Sound {
 
-    Clip clip;
+    public Clip clip;
     URL[] soundURL = new URL[10];
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/theme.wav");
         soundURL[1] = getClass().getResource("/sound/drink.wav");
+        soundURL[2] = getClass().getResource("/sound/hit.wav");
+        soundURL[3] = getClass().getResource("/sound/die.wav");
+        soundURL[4] = getClass().getResource("/sound/talk.wav");
+        soundURL[5] = getClass().getResource("/sound/player_die.wav");
+        soundURL[6] = getClass().getResource("/sound/receiveDMG.wav");
+        soundURL[7] = getClass().getResource("/sound/BLANK.wav");
     }
     public void setFile(int i) {
         try {

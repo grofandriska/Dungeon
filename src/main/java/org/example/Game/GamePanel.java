@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setGaia();
         assetSetter.setMonster();
         gameState = playState;
-        playMusic(0);
+       /* playMusic(0);*/
     }
 
     public void startGameThread() {
@@ -105,9 +105,6 @@ public class GamePanel extends JPanel implements Runnable {
                 if (monsters[i] != null) {
                     if (monsters[i].alive && !monsters[i].dying) {
                         monsters[i].update();
-                    }
-                    if (!monsters[i].alive) {
-                        monsters[i] = null;
                     }
                 }
             }
@@ -194,8 +191,19 @@ public class GamePanel extends JPanel implements Runnable {
         music.stop();
     }
 
-    public void playSoundEffect(int i) {
-        sound.setFile(i);
-        sound.play();
+    public void stopSoundEffect() {
+        sound.stop();
     }
+
+    public void playSoundEffect(int i) {
+        if (i != 0) {
+            sound.setFile(i);
+        }
+        sound.play();
+
+        if (i == 0) {
+            sound.setFile(i);
+        }
+    }
+
 }

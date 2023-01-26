@@ -6,13 +6,14 @@ import org.example.Game.GamePanel;
 public class Mage extends Entity {
     public Mage(GamePanel gamePanel) {
         super(gamePanel);
-        type = 2;
+        type = 1;
         name = "Mage";
         speed = 1;
         maxLife = 4;
         life = maxLife;
 
         getImage();
+        setDialog();
 
     }
 
@@ -30,9 +31,15 @@ public class Mage extends Entity {
         down1 = setup("/entities/mage/Mage 1", gamePanel.tileSize, gamePanel.tileSize);
         down2 = setup("/entities/mage/Mage 2", gamePanel.tileSize, gamePanel.tileSize);
 
-
     }
 
+    public void setDialog() {
+        dialogs[0] = "Be Aware! \nOrcs are everywhere!\n Do you know how to handle?!\n";
+        dialogs[1] = "When you get close,\n press ENTER to attack!";
+        dialogs[2] = "Blinking means entity\ncan't receive damage.";
+        dialogs[3] = "Let's see how many \ncan you kill ...";
+        dialogs[4] = "...";
+    }
     public void checkDistance(Entity entity) {
         boolean isTrue = false;
 
@@ -46,7 +53,6 @@ public class Mage extends Entity {
     }
 
     private void teleport() {
-
 
     }
 }

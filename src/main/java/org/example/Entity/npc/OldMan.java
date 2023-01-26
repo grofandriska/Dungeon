@@ -36,11 +36,11 @@ public class OldMan extends Entity {
     }
 
     public void setDialog() {
-        dialogs[0] = "Hello Stranger! \nI am Altas the old sailor and I don't know you ! \n";
-        dialogs[4] = "What's bring you here! \n!";
-        dialogs[1] = "So you've come back?\nGot anything for me?";
-        dialogs[2] = "Ahh! You are so good!?";
-        dialogs[3] = "I am the ?";
+        dialogs[0] = "Hello Stranger!\nI am Altas the old sailor\nand I don't know you!";
+        dialogs[1] = "If you loose your health\n the game is over!";
+        dialogs[2] = "Please come back later";
+        dialogs[3] = "...";
+        dialogs[4] = "I am just an old man!";
     }
 
     public void speak() {

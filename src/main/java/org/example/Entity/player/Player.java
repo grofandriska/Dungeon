@@ -3,6 +3,7 @@ package org.example.Entity.player;
 import org.example.Entity.Entity;
 import org.example.Game.GamePanel;
 import org.example.Handler.input.KeyHandler;
+import org.example.Sound.Sound;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -100,6 +101,8 @@ public class Player extends Entity {
             gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
             gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
 
+            gamePanel.eventHandler.checkEvent();
+
             int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);
 
@@ -107,8 +110,6 @@ public class Player extends Entity {
             contactMonster(monsterIndex);
 
             int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
-            gamePanel.eventHandler.checkEvent();
-
             interactNPC(npcIndex);
 
             if (!collisionOn && !keyHandler.enterPressed) {
@@ -143,15 +144,17 @@ public class Player extends Entity {
 
         if (life <= 0) {
             gamePanel.gameState = 4;
+            gamePanel.playMusic(5);
         }
     }
 
     private void attacking() {
         spriteCounter++;
+
         if (spriteCounter <= 5) {
             spriteNum = 1;
-
         }
+
         if (spriteCounter <= 25 && spriteCounter > 5) {
             spriteNum = 2;
 
@@ -178,6 +181,7 @@ public class Player extends Entity {
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
         }
+
         if (spriteCounter > 25) {
             spriteNum = 1;
             spriteCounter = 0;
@@ -187,25 +191,25 @@ public class Player extends Entity {
 
     private void damageMonster(int i) {
         if (i != 999) {
-
             if (!gamePanel.monsters[i].invincible) {
-                gamePanel.monsters[i].life -= 4;
                 gamePanel.monsters[i].invincible = true;
-
+                gamePanel.monsters[i].life -= 4;
+                gamePanel.playSoundEffect(2);
                 if (gamePanel.monsters[i].life <= 0) {
                     gamePanel.monsters[i].dying = true;
-                    System.out.println("you killed it");
+                    gamePanel.monsters[i] = null;
+                    gamePanel.playSoundEffect(3);
                 }
             }
-
         }
     }
 
     private void contactMonster(int i) {
         if (i != 999) {
             if (!invincible) {
-                life -= 1;
                 invincible = true;
+                life -= 1;
+                gamePanel.playSoundEffect(6);
             }
         }
     }
@@ -218,7 +222,6 @@ public class Player extends Entity {
             } else {
                 isAttacking = true;
             }
-            gamePanel.keyHandler.enterPressed = false;
         }
     }
 

@@ -52,7 +52,6 @@ public class KeyHandler implements KeyListener {
             } else if (gamePanel.gameState == gamePanel.pauseState) {
                 gamePanel.gameState = gamePanel.playState;
                 gamePanel.playMusic(0);
-
             }
         }
     }
@@ -70,6 +69,5 @@ public class KeyHandler implements KeyListener {
         } else if (code == KeyEvent.VK_D) {
             rightPressed = false;
         }
-
     }
 }
