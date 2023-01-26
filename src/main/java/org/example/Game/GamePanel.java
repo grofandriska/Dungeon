@@ -17,14 +17,14 @@ import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     public int gameState;
-    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4,originalTileSize = 16, scale = 3, FPS = 60,maxScreenCol = 16, maxScreenRow = 12;
-    public final int maxWorldCol = 50, maxWorldRow = 50,tileSize = originalTileSize * scale,screenWidth = tileSize * maxScreenCol,screenHeight = tileSize * maxScreenRow;
+    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, originalTileSize = 16, scale = 3, FPS = 60, maxScreenCol = 16, maxScreenRow = 12;
+    public final int maxWorldCol = 50, maxWorldRow = 50, tileSize = originalTileSize * scale, screenWidth = tileSize * maxScreenCol, screenHeight = tileSize * maxScreenRow;
     public AssetSetter assetSetter;
     public CollisionChecker collisionChecker;
-    public Entity[] entities,objects,npc,monsters,gaia;
+    public Entity[] entities, objects, npc, monsters, gaia;
     public EventHandler eventHandler;
     public KeyHandler keyHandler;
-    public Sound music,sound;
+    public Sound music, sound;
 
     public Player player;
     public Thread gameThread;
@@ -101,9 +101,14 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == playState) {
             player.update();
 
-            for (Entity monster : monsters) {
-                if (monster != null) {
-                    monster.update();
+            for (int i = 0; i < monsters.length; i++) {
+                if (monsters[i] != null) {
+                    if (monsters[i].alive && !monsters[i].dying) {
+                        monsters[i].update();
+                    }
+                    if (!monsters[i].alive) {
+                        monsters[i] = null;
+                    }
                 }
             }
             for (Entity item : entities) {
@@ -143,7 +148,8 @@ public class GamePanel extends JPanel implements Runnable {
             if (object != null) {
                 entityList.add(object);
             }
-        } for (Entity object : objects) {
+        }
+        for (Entity object : objects) {
             if (object != null) {
                 object.draw(g2);
             }

@@ -193,7 +193,7 @@ public class Player extends Entity {
                 gamePanel.monsters[i].invincible = true;
 
                 if (gamePanel.monsters[i].life <= 0) {
-                    gamePanel.monsters[i] = null;
+                    gamePanel.monsters[i].dying = true;
                     System.out.println("you killed it");
                 }
             }

@@ -12,30 +12,29 @@ import java.util.Objects;
 import java.util.Random;
 
 public abstract class Entity {
-
-
-    public String direction ;
-
-
-
+    public String direction;
     public String[] dialogs;
+
     public String name;
     public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2;
     public BufferedImage image, image2, image3;
     public BufferedImage attackUp_1, attackUp_2, attackDown_1, attackDown_2, attackRight_1, attackRight_2, attackLeft_1, attackLeft_2;
-    public Rectangle solidArea ;
+    public Rectangle solidArea;
 
     public GamePanel gamePanel;
-    public boolean collisionOn ;
-
+    public boolean collisionOn;
     public Rectangle attackRectangle;
 
+    public boolean alive = true;
+    public boolean dying = false;
+
+    int dyingCounter;
     public boolean collision;
     public int worldX, worldY;
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
     public int speed;
-    public int spriteCounter ;
+    public int spriteCounter;
     public int spriteNum;
     public int maxLife;
     public int life;
@@ -45,9 +44,8 @@ public abstract class Entity {
     public int invincibleCounter;
     public int type; // 0 for player, 1 npc, 2 monster ****change to Enum if possible
 
-
     public Entity(GamePanel gamePanel) {
-        spriteCounter=0;
+        spriteCounter = 0;
         spriteNum = 1;
         imageCounter = 0;
         invincibleCounter = 0;
@@ -57,8 +55,8 @@ public abstract class Entity {
         collision = false;
         collisionOn = false;
         solidArea = new Rectangle(0, 0, 40, 40);
-        attackRectangle = new Rectangle(0,0,0,0);
-        this.dialogs[0] ="...";
+        attackRectangle = new Rectangle(0, 0, 0, 0);
+        this.dialogs[0] = "...";
         this.gamePanel = gamePanel;
     }
 
@@ -136,7 +134,7 @@ public abstract class Entity {
         }
     }
 
-    public BufferedImage setup(String imagePath ,int width, int height) {
+    public BufferedImage setup(String imagePath, int width, int height) {
         UtilityTool utilityTool = new UtilityTool();
         BufferedImage image;
         try {
@@ -210,12 +208,37 @@ public abstract class Entity {
 
             if (invincible) {
                 graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
-                
+            }
+
+            if (dying) {
+                dyingAnimation(graphics2D);
             }
             graphics2D.drawImage(image, screenX, screenY, null);
 
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
+    }
+
+    private void dyingAnimation(Graphics2D graphics2D) {
+
+        dyingCounter++;
+
+        int i = 5;
+
+        if (dyingCounter <= 5) {changeAlphaForAnimation(graphics2D, 0f);}
+        if (dyingCounter > i && dyingCounter <= i*2) {changeAlphaForAnimation(graphics2D, 1f);}
+        if (dyingCounter > i*2&& dyingCounter <= i*3) {changeAlphaForAnimation(graphics2D, 0f);}
+        if (dyingCounter > i*3&& dyingCounter <= i*4) {changeAlphaForAnimation(graphics2D, 1f);}
+        if (dyingCounter > i*4&& dyingCounter <= i*5) {changeAlphaForAnimation(graphics2D, 0f);}
+        if (dyingCounter > i*5&& dyingCounter <= i*6) {changeAlphaForAnimation(graphics2D, 1f);}
+        if (dyingCounter > i*6&& dyingCounter <= i*7) {changeAlphaForAnimation(graphics2D, 0f);}
+        if (dyingCounter > i*7&& dyingCounter <= i*8) {changeAlphaForAnimation(graphics2D, 1f);}
+
+        if (dyingCounter > i*8) {dying = false; alive = false;}
+    }
+
+    public void changeAlphaForAnimation(Graphics2D graphics2D, float alpha) {
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
     }
 }
 
