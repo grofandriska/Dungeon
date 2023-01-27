@@ -7,8 +7,12 @@ import org.example.Sound.Sound;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Player extends Entity {
+    boolean isCritical = false;
+    int attack = 3;
+    Random random = new Random();
     KeyHandler keyHandler;
     public boolean isAttacking;
     public final int screenX;
@@ -32,31 +36,35 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
+        type = 3;
 
         direction = "up";
         speed = 2;
         maxLife = 10;
         life = maxLife;
 
-        worldX = gamePanel.tileSize * 45;
+        worldX = gamePanel.tileSize * 31;
         worldY = gamePanel.tileSize * 25;
 
         attackRectangle.height = 36;
         attackRectangle.width = 36;
     }
 
-
     //happens 60 times /second
     public void update() {
         if (isAttacking) {
             attacking();
-        } else if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.enterPressed) {
+        }
+        if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.enterPressed) {
 
             if (keyHandler.upPressed) {
                 direction = "up";
             } else if (keyHandler.downPressed) {
                 direction = "down";
-            } else if (keyHandler.rightPressed) {direction = "right";} else if (keyHandler.leftPressed) {direction = "left";
+            } else if (keyHandler.rightPressed) {
+                direction = "right";
+            } else if (keyHandler.leftPressed) {
+                direction = "left";
             }
 
             collisionOn = false;
@@ -69,16 +77,14 @@ public class Player extends Entity {
             gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
             gamePanel.eventHandler.checkEvent();
 
-
             // player methods and interactions
             int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);
 
-            int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
-            contactMonster(monsterIndex);
-
             int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
             interactNPC(npcIndex);
+
+
 
             if (!collisionOn && !keyHandler.enterPressed) {
                 switch (direction) {
@@ -103,6 +109,9 @@ public class Player extends Entity {
             }
         }
 
+        int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
+        contactMonster(monsterIndex);
+
         if (invincible) {
             invincibleCounter++;
             if (invincibleCounter > 60) {
@@ -112,6 +121,7 @@ public class Player extends Entity {
         }
         if (life <= 0) {
             gamePanel.gameState = 4;
+            gamePanel.stopMusic();
             gamePanel.playSoundEffect(5);
         }
     }
@@ -156,27 +166,48 @@ public class Player extends Entity {
             isAttacking = false;
         }
     }
+
     private void damageMonster(int i) {
         if (i != 999) {
             if (!gamePanel.monsters[i].invincible) {
+                gamePanel.monsters[i].life -= generateCriticalAttack();
                 gamePanel.monsters[i].invincible = true;
-                gamePanel.monsters[i].life -= 4;
-                gamePanel.playSoundEffect(2);
+                gamePanel.monsters[i].damageReaction();
+
                 if (gamePanel.monsters[i].life <= 0) {
                     gamePanel.monsters[i].dying = true;
                     gamePanel.monsters[i] = null;
-                    gamePanel.playSoundEffect(3);
+                    gamePanel.playSoundEffect(10);
                 }
             }
         }
     }
 
+    public int generateCriticalAttack() {
+
+        int attackValue = attack;
+        int criticalValue;
+
+        int randomNumber = random.nextInt(100) + 1;
+
+        if (randomNumber > 80) {
+            System.out.println("Critical DMG");
+            criticalValue = 2;
+        }
+        else {
+            gamePanel.playSoundEffect(2);
+            return attackValue;
+        }
+
+        return attackValue + criticalValue;
+    }
+
     private void contactMonster(int i) {
         if (i != 999) {
             if (!invincible) {
-                gamePanel.playSoundEffect(6);
                 life -= 1;
                 invincible = true;
+                gamePanel.playSoundEffect(6);
             }
         }
     }
@@ -192,7 +223,7 @@ public class Player extends Entity {
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D graphics2D) {
         BufferedImage image = null;
 
         int tempScreenX = screenX;
@@ -269,7 +300,6 @@ public class Player extends Entity {
                     }
                 }
                 if (!isAttacking) {
-
                     if (spriteNum == 1) {
                         image = left1;
                     }
@@ -279,11 +309,13 @@ public class Player extends Entity {
                 }
             }
         }
+
         if (invincible) {
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+            drawHealthBar(graphics2D);
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
-        g2.drawImage(image, tempScreenX, tempScreenY, null);
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        graphics2D.drawImage(image, tempScreenX, tempScreenY, null);
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
 
     public void pickupObject(int i) {

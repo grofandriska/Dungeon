@@ -11,15 +11,19 @@ import java.util.Objects;
 import java.util.Random;
 
 public abstract class Entity {
+
+    Random random = new Random();
     public String[] dialogs;
-    public String direction,name;
+
+    public String direction, name;
 
     public GamePanel gamePanel;
-    public Rectangle attackRectangle,solidArea;
+    public Rectangle attackRectangle, solidArea;
     public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2;
-    public BufferedImage image, image2, image3 , attackUp_1, attackUp_2, attackDown_1, attackDown_2, attackRight_1, attackRight_2, attackLeft_1, attackLeft_2;
-    public int spriteCounter,spriteNum,maxLife,life,imageCounter,dialogIndex,invincibleCounter,type, deathCounter,worldX, worldY,solidAreaDefaultX,solidAreaDefaultY,speed;
-    public boolean collisionOn,collision,invincible,dying,alive;
+    public BufferedImage image, image2, image3, attackUp_1, attackUp_2, attackDown_1, attackDown_2, attackRight_1, attackRight_2, attackLeft_1, attackLeft_2;
+    public int spriteCounter, spriteNum, maxLife, life, imageCounter, dialogIndex, invincibleCounter, type, deathCounter, worldX, worldY, solidAreaDefaultX, solidAreaDefaultY, speed;
+    public boolean collisionOn, collision, invincible, dying, alive;
+
     public Entity(GamePanel gamePanel) {
         dying = false;
         alive = true;
@@ -36,15 +40,6 @@ public abstract class Entity {
         attackRectangle = new Rectangle(0, 0, 0, 0);
         dialogs[0] = "...";
         this.gamePanel = gamePanel;
-    }
-
-    public void speak() {
-        gamePanel.playSoundEffect(4);
-        if (dialogs[dialogIndex] == null) {
-            dialogIndex = 0;
-        }
-        gamePanel.UI.currentDialog = dialogs[dialogIndex];
-        dialogIndex++;
     }
 
     public void setDirection() {
@@ -116,29 +111,15 @@ public abstract class Entity {
         }
     }
 
-    public BufferedImage setup(String imagePath, int width, int height) {
-        UtilityTool utilityTool = new UtilityTool();
-        BufferedImage image;
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
-            image = utilityTool.scaleImage(image, width, height);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public int generateCriticalAttack(){
+        int criticalValue = 0;
+        int randomNumber = 0;
+        randomNumber = random.nextInt(100) + 1;
+        System.out.println(randomNumber);
+        if (randomNumber > 90) {
+            criticalValue =  2;
         }
-        return image;
-    }
-
-    public boolean checkDistance(Entity entity) {
-        boolean isTrue = false;
-
-        int xDistance = Math.abs(gamePanel.player.worldX - entity.worldX);
-        int yDistance = Math.abs(gamePanel.player.worldY - entity.worldY);
-        int distance = Math.max(xDistance, yDistance);
-
-        if (distance < gamePanel.tileSize * 2) {
-            // extend
-        }
-        return isTrue;
+        return criticalValue;
     }
 
     public void draw(Graphics2D graphics2D) {
@@ -189,6 +170,7 @@ public abstract class Entity {
 
 
             if (invincible) {
+                drawHealthBar(graphics2D);
                 graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
             }
 
@@ -198,6 +180,36 @@ public abstract class Entity {
             graphics2D.drawImage(image, screenX, screenY, null);
 
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        }
+    }
+
+    public boolean checkDistance(Entity entity) {
+        boolean isTrue = false;
+
+        int xDistance = Math.abs(gamePanel.player.worldX - entity.worldX);
+        int yDistance = Math.abs(gamePanel.player.worldY - entity.worldY);
+        int distance = Math.max(xDistance, yDistance);
+
+        if (distance < gamePanel.tileSize * 2) {
+            // extend
+        }
+        return isTrue;
+    }
+
+    public void drawHealthBar(Graphics2D graphics2D) {
+        if (type == 2 || type == 3) {
+            int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
+            int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+
+            double oneScale = (double) gamePanel.tileSize / maxLife;
+            double healthBarValue = oneScale * life;
+
+            graphics2D.setColor(new Color(35, 35, 35));
+            graphics2D.fillRect(screenX - 1, screenY - 16, gamePanel.tileSize, 10);
+
+            graphics2D.setColor(new Color(255, 0, 30));
+            graphics2D.fillRect(screenX - 1, screenY - 16, (int) healthBarValue, 10);
+
         }
     }
 
@@ -238,8 +250,30 @@ public abstract class Entity {
         }
     }
 
+    public void speak() {
+        gamePanel.playSoundEffect(4);
+        if (dialogs[dialogIndex] == null) {
+            dialogIndex = 0;
+        }
+        gamePanel.UI.currentDialog = dialogs[dialogIndex];
+        dialogIndex++;
+    }
+
+    public void damageReaction(){}
     public void changeAlphaForAnimation(Graphics2D graphics2D, float alpha) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+    }
+
+    public BufferedImage setup(String imagePath, int width, int height) {
+        UtilityTool utilityTool = new UtilityTool();
+        BufferedImage image;
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
+            image = utilityTool.scaleImage(image, width, height);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return image;
     }
 }
 
