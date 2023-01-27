@@ -138,7 +138,6 @@ public class Mage extends Entity {
             Random random = new Random();
             int i = random.nextInt(120) + 1;
             if (i <= 25) direction = "down";
-            canTeleport = true;
             if (i >= 25 && i <= 50) direction = "left";
             if (i >= 50 && i <= 75) direction = "right";
             if (i >= 75 && i <= 100) direction = "up";
@@ -267,6 +266,8 @@ public class Mage extends Entity {
 
         worldX = x.get(randomNum) * gamePanel.tileSize;
         worldY = y.get(randomNum) * gamePanel.tileSize;
+
+        System.out.println("\n");
 
         System.out.print("X : " + worldX + " | Y : " + worldY);
 

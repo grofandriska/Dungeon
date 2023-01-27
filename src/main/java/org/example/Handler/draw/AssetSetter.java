@@ -44,7 +44,7 @@ public class AssetSetter {
         gamePanel.npc[1] = new Mage(gamePanel);
         gamePanel.npc[1].worldX = gamePanel.tileSize * 41;
         gamePanel.npc[1].worldY = gamePanel.tileSize * 29;
-        gamePanel.npc[1].direction = "teleport";
+        gamePanel.npc[1].direction = "down";
     }
 
     public void setMonster() {
