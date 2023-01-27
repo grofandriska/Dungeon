@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, originalTileSize = 16, scale = 3, FPS = 60, maxScreenCol = 16, maxScreenRow = 12;
     public final int maxWorldCol = 50, maxWorldRow = 50, tileSize = originalTileSize * scale, screenWidth = tileSize * maxScreenCol, screenHeight = tileSize * maxScreenRow;
+    public ArrayList<Entity> entityList = new ArrayList<>();
     public AssetSetter assetSetter;
     public CollisionChecker collisionChecker;
     public Entity[] entities, objects, npc, monsters, gaia;
@@ -30,7 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
     public Thread gameThread;
     public TileManager tileManager;
     public UI UI;
-    public ArrayList<Entity> entityList = new ArrayList<>();
 
     public GamePanel() {
         this.gaia = new Entity[6];
@@ -189,10 +189,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void stopMusic() {
         music.stop();
-    }
-
-    public void stopSoundEffect() {
-        sound.stop();
     }
 
     public void playSoundEffect(int i) {

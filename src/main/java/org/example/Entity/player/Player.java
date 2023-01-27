@@ -41,41 +41,10 @@ public class Player extends Entity {
         worldX = gamePanel.tileSize * 45;
         worldY = gamePanel.tileSize * 25;
 
-        //testing  later depends on weapon also x y ?
         attackRectangle.height = 36;
         attackRectangle.width = 36;
     }
 
-    public void pickupObject(int i) {
-    }
-
-    public void setPlayerImage() {
-        up1 = setup("/player/NHU1", gamePanel.tileSize, gamePanel.tileSize);
-        up2 = setup("/player/NHU2", gamePanel.tileSize, gamePanel.tileSize);
-
-        down1 = setup("/player/NHD1", gamePanel.tileSize, gamePanel.tileSize);
-
-        down2 = setup("/player/NHD2", gamePanel.tileSize, gamePanel.tileSize);
-        right1 = setup("/player/NHR1", gamePanel.tileSize, gamePanel.tileSize);
-
-        right2 = setup("/player/NHR2", gamePanel.tileSize, gamePanel.tileSize);
-        left1 = setup("/player/NHL1", gamePanel.tileSize, gamePanel.tileSize);
-        left2 = setup("/player/NHL2", gamePanel.tileSize, gamePanel.tileSize);
-
-        attackDown_1 = setup("/player/attack 1_1", gamePanel.tileSize, gamePanel.tileSize * 2);
-        attackDown_2 = setup("/player/attack 1_2", gamePanel.tileSize, gamePanel.tileSize * 2);
-
-
-        attackUp_1 = setup("/player/attack 2_1", gamePanel.tileSize, gamePanel.tileSize * 2);
-        attackUp_2 = setup("/player/attack 2_2", gamePanel.tileSize, gamePanel.tileSize * 2);
-
-        attackRight_1 = setup("/player/attack 3_1", gamePanel.tileSize * 2, gamePanel.tileSize);
-        attackRight_2 = setup("/player/attack 3_2", gamePanel.tileSize * 2, gamePanel.tileSize);
-
-        attackLeft_2 = setup("/player/attack 4_2", gamePanel.tileSize * 2, gamePanel.tileSize);
-        attackLeft_1 = setup("/player/attack 4_1", gamePanel.tileSize * 2, gamePanel.tileSize);
-
-    }
 
     //happens 60 times /second
     public void update() {
@@ -87,22 +56,21 @@ public class Player extends Entity {
                 direction = "up";
             } else if (keyHandler.downPressed) {
                 direction = "down";
-            } else if (keyHandler.rightPressed) {
-                direction = "right";
-            } else if (keyHandler.leftPressed) {
-                direction = "left";
+            } else if (keyHandler.rightPressed) {direction = "right";} else if (keyHandler.leftPressed) {direction = "left";
             }
 
             collisionOn = false;
 
+            //check surround
             gamePanel.collisionChecker.checkTile(this);
             gamePanel.collisionChecker.checkBorder(this);
             gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
             gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
             gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
-
             gamePanel.eventHandler.checkEvent();
 
+
+            // player methods and interactions
             int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickupObject(objIndex);
 
@@ -134,6 +102,7 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+
         if (invincible) {
             invincibleCounter++;
             if (invincibleCounter > 60) {
@@ -187,7 +156,6 @@ public class Player extends Entity {
             isAttacking = false;
         }
     }
-
     private void damageMonster(int i) {
         if (i != 999) {
             if (!gamePanel.monsters[i].invincible) {
@@ -206,9 +174,9 @@ public class Player extends Entity {
     private void contactMonster(int i) {
         if (i != 999) {
             if (!invincible) {
-                invincible = true;
-                life -= 1;
                 gamePanel.playSoundEffect(6);
+                life -= 1;
+                invincible = true;
             }
         }
     }
@@ -311,16 +279,41 @@ public class Player extends Entity {
                 }
             }
         }
-
         if (invincible) {
-
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
-
         g2.drawImage(image, tempScreenX, tempScreenY, null);
-
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+    }
 
+    public void pickupObject(int i) {
+    }
+
+    public void setPlayerImage() {
+        up1 = setup("/player/NHU1", gamePanel.tileSize, gamePanel.tileSize);
+        up2 = setup("/player/NHU2", gamePanel.tileSize, gamePanel.tileSize);
+
+        down1 = setup("/player/NHD1", gamePanel.tileSize, gamePanel.tileSize);
+
+        down2 = setup("/player/NHD2", gamePanel.tileSize, gamePanel.tileSize);
+        right1 = setup("/player/NHR1", gamePanel.tileSize, gamePanel.tileSize);
+
+        right2 = setup("/player/NHR2", gamePanel.tileSize, gamePanel.tileSize);
+        left1 = setup("/player/NHL1", gamePanel.tileSize, gamePanel.tileSize);
+        left2 = setup("/player/NHL2", gamePanel.tileSize, gamePanel.tileSize);
+
+        attackDown_1 = setup("/player/attack 1_1", gamePanel.tileSize, gamePanel.tileSize * 2);
+        attackDown_2 = setup("/player/attack 1_2", gamePanel.tileSize, gamePanel.tileSize * 2);
+
+
+        attackUp_1 = setup("/player/attack 2_1", gamePanel.tileSize, gamePanel.tileSize * 2);
+        attackUp_2 = setup("/player/attack 2_2", gamePanel.tileSize, gamePanel.tileSize * 2);
+
+        attackRight_1 = setup("/player/attack 3_1", gamePanel.tileSize * 2, gamePanel.tileSize);
+        attackRight_2 = setup("/player/attack 3_2", gamePanel.tileSize * 2, gamePanel.tileSize);
+
+        attackLeft_2 = setup("/player/attack 4_2", gamePanel.tileSize * 2, gamePanel.tileSize);
+        attackLeft_1 = setup("/player/attack 4_1", gamePanel.tileSize * 2, gamePanel.tileSize);
 
     }
 }
