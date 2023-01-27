@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setGaia();
         assetSetter.setMonster();
         gameState = playState;
-       /* playMusic(0);*/
+        playMusic(9);
     }
 
     public void startGameThread() {

@@ -11,14 +11,16 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Mage extends Entity {
 
-    public int teleportCounter = 0;
+    public int nextTeleportCounter = 0;
 
-    public boolean isTeleported = false;
+    public boolean canTeleport = true;
 
     public Mage(GamePanel gamePanel) {
         super(gamePanel);
-        type = 1;
+
         name = "Mage";
+
+        type = 1;
         speed = 1;
         maxLife = 4;
         life = maxLife;
@@ -47,12 +49,11 @@ public class Mage extends Entity {
 
     }
 
-
     public void setDialog() {
-        dialogs[0] = "Be Aware! \nOrcs are everywhere!\n Do you know how to handle?!\n";
-        dialogs[1] = "When you get close,\n press ENTER to attack!";
+        dialogs[0] = "Be Aware!\nOrcs are everywhere!\nDo you know how to handle?!\n";
+        dialogs[1] = "When you get close,\npress ENTER to attack!";
         dialogs[2] = "Blinking means entity\ncan't receive damage.";
-        dialogs[3] = "Let's see how many \ncan you kill ...";
+        dialogs[3] = "Let's see how many\ncan you kill...";
         dialogs[4] = "...";
     }
 
@@ -60,16 +61,19 @@ public class Mage extends Entity {
 
         int xDistance = Math.abs(gamePanel.player.worldX - entity.worldX);
         int yDistance = Math.abs(gamePanel.player.worldY - entity.worldY);
+
         int distance = Math.max(xDistance, yDistance);
-        if (distance < gamePanel.tileSize * 3 && !isTeleported) {
-            isTeleported = true;
+
+        if (distance < gamePanel.tileSize * 3) {
+            canTeleport = true;
             return true;
         }
+
         return false;
     }
 
     public void update() {
-        setAction();
+        setDirection();
 
         collisionOn = false;
 
@@ -128,19 +132,21 @@ public class Mage extends Entity {
         }
     }
 
-    public void setAction() {
+    public void setDirection() {
         imageCounter++;
         if (imageCounter == 120) {
             Random random = new Random();
             int i = random.nextInt(120) + 1;
             if (i <= 25) direction = "down";
+            canTeleport = true;
             if (i >= 25 && i <= 50) direction = "left";
             if (i >= 50 && i <= 75) direction = "right";
             if (i >= 75 && i <= 100) direction = "up";
             if (i >= 100 && i <= 120) direction = "teleport";
+            {
+            }
             imageCounter = 0;
         }
-        //makes characters movement.
     }
 
     public void draw(Graphics2D graphics2D) {
@@ -188,21 +194,20 @@ public class Mage extends Entity {
                     }
                 }
                 case "teleport" -> {
-                    teleportCounter++;
+                    canTeleport = true;
+                    nextTeleportCounter++;
                     if (spriteNum == 1) {
                         image = this.image;
                     }
                     if (spriteNum == 2) {
                         image = this.image2;
                     }
-
-                    if (!isTeleported) {
-                        if (teleportCounter == 30) {
-                            isTeleported = true;
-                            teleportCounter = 0;
-                            gamePanel.playSoundEffect(8);
-                            teleport();
-                        }
+                    System.out.println("TeleportPower :"+nextTeleportCounter);
+                    if (nextTeleportCounter == 20 && canTeleport) {
+                        gamePanel.playSoundEffect(8);
+                        teleport();
+                        nextTeleportCounter = 0;
+                        direction = "down";
                     }
                 }
             }
@@ -218,6 +223,7 @@ public class Mage extends Entity {
 
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
+
     }
 
     private void teleport() {
@@ -257,16 +263,13 @@ public class Mage extends Entity {
 
         int randomNum = ThreadLocalRandom.current().nextInt(0, x.size());
 
+        spriteCounter++;
+
         worldX = x.get(randomNum) * gamePanel.tileSize;
         worldY = y.get(randomNum) * gamePanel.tileSize;
 
-        System.out.println("----------------------------");
-        System.out.println("Mage worldX :" + worldX);
-        System.out.println("Mage worldY :" + worldY);
-        System.out.println("----------------------------");
-        System.out.println("\n");
+        System.out.print("X : " + worldX + " | Y : " + worldY);
 
-        isTeleported = false;
-
+        canTeleport = false;
     }
 }

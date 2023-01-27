@@ -17,7 +17,7 @@ public class TileManager {
 
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        tiles = new Tile[30];
+        tiles = new Tile[50];
         mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
         getTileImage();
         loadMap();
@@ -38,16 +38,16 @@ public class TileManager {
     }
     public void getTileImage() {
 
-        setup(0,"Grass1",false);
-        setup(1,"Tree",true);
-        setup(2,"Grave",false);
+        setup(0,"g",false);
+        setup(1,"t",true);
+        setup(2,"fog2",false);
         setup(3,"Grave Haunted",false);
         setup(4,"Path Corner1",false);
         setup(5,"Path Corner2",false);
         setup(6,"Path Corner3",false);
         setup(7,"Path Corner4",false);
         setup(8,"Path Horizontal",false);
-        setup(9,"Water 1",true);
+        setup(9,"wata",true);
         setup(10,"Path Stop2",false);
         setup(11,"Path Stop3",false);
         setup(13,"Path Stop4",false);
@@ -63,10 +63,15 @@ public class TileManager {
         setup(22,"Road Stop4",false);
         setup(23,"Road Straight",false);
         setup(24,"Road 3W",false);
-        setup(25,"Wall1",true);
-        setup(26,"Wall2",true);
-        setup(27,"Wall3",true);
-        setup(28,"Wall4",true);
+        setup(25,"w",true);
+        setup(26,"w",true);
+        setup(27,"w",true);
+        setup(28,"w",true);
+
+        setup(29,"3",false);
+        setup(30,"4",false);
+        setup(31,"5",false);
+        setup(32,"6",false);
     }
     public void loadMap() {
         try {

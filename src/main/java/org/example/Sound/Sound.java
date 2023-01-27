@@ -19,6 +19,7 @@ public class Sound {
         soundURL[6] = getClass().getResource("/sound/receiveDMG.wav");
         soundURL[7] = getClass().getResource("/sound/BLANK.wav");
         soundURL[8] = getClass().getResource("/sound/teleport.wav");
+        soundURL[9] = getClass().getResource("/sound/tia.wav");
     }
     public void setFile(int i) {
         try {

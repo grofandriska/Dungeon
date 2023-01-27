@@ -39,15 +39,15 @@ public abstract class Entity {
     }
 
     public void speak() {
+        gamePanel.playSoundEffect(4);
         if (dialogs[dialogIndex] == null) {
             dialogIndex = 0;
         }
-        gamePanel.playSoundEffect(4);
         gamePanel.UI.currentDialog = dialogs[dialogIndex];
         dialogIndex++;
     }
 
-    public void setAction() {
+    public void setDirection() {
         imageCounter++;
         if (imageCounter == 120) {
             Random random = new Random();
@@ -62,7 +62,7 @@ public abstract class Entity {
     }
 
     public void update() {
-        setAction();
+        setDirection();
 
         collisionOn = false;
 

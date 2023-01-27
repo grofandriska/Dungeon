@@ -51,7 +51,7 @@ public class KeyHandler implements KeyListener {
                 gamePanel.stopMusic();
             } else if (gamePanel.gameState == gamePanel.pauseState) {
                 gamePanel.gameState = gamePanel.playState;
-                gamePanel.playMusic(0);
+                gamePanel.playMusic(9);
             }
         }
     }

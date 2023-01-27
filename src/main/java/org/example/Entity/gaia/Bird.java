@@ -14,7 +14,7 @@ public class Bird extends Entity {
     }
 
     public void update() {
-        setAction();
+        setDirection();
 
         collisionOn = false;
 
