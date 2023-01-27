@@ -20,7 +20,7 @@ public class Mage extends Entity {
 
         name = "Mage";
 
-        type = 1;
+        type = 2;
         speed = 1;
         maxLife = 4;
         life = maxLife;
@@ -50,25 +50,20 @@ public class Mage extends Entity {
     }
 
     public void setDialog() {
-        dialogs[0] = "Be Aware!\nOrcs are everywhere!\nDo you know how to handle?!\n";
-        dialogs[1] = "When you get close,\npress ENTER to attack!";
-        dialogs[2] = "Blinking means entity\ncan't receive damage.";
-        dialogs[3] = "Let's see how many\ncan you kill...";
-        dialogs[4] = "...";
+
     }
 
     public boolean checkDistance(Entity entity) {
 
-        int xDistance = Math.abs(gamePanel.player.worldX - entity.worldX);
-        int yDistance = Math.abs(gamePanel.player.worldY - entity.worldY);
+        int xDistance = Math.abs(this.worldX - entity.worldX);
+        int yDistance = Math.abs(this.worldY - entity.worldY);
 
         int distance = Math.max(xDistance, yDistance);
 
-        if (distance < gamePanel.tileSize * 3) {
+        if (distance < gamePanel.tileSize * 2) {
             canTeleport = true;
             return true;
         }
-
         return false;
     }
 
@@ -89,8 +84,6 @@ public class Mage extends Entity {
 
         boolean contactPLayer = gamePanel.collisionChecker.checkPlayer(this);
 
-
-        //player class contact monster would come here
         if (contactPLayer && this.type == 2) {
             if (!gamePanel.player.invincible) {
                 gamePanel.player.life -= 2;
@@ -98,17 +91,19 @@ public class Mage extends Entity {
             }
         }
 
-        //if not want to teleport
-
-        if (!collisionOn) {
+        if (!collisionOn ) {
             switch (direction) {
                 case "up" -> worldY -= speed;
                 case "down" -> worldY += speed;
                 case "left" -> worldX -= speed;
                 case "right" -> worldX += speed;
                 case "teleport" -> {
+
                 }
             }
+        }
+        if (checkDistance(gamePanel.player)){
+            direction = "teleport";
         }
 
         spriteCounter++;
@@ -193,6 +188,7 @@ public class Mage extends Entity {
                     }
                 }
                 case "teleport" -> {
+                    drawTeleportBar(graphics2D);
                     canTeleport = true;
                     nextTeleportCounter++;
                     if (spriteNum == 1) {
@@ -201,8 +197,7 @@ public class Mage extends Entity {
                     if (spriteNum == 2) {
                         image = this.image2;
                     }
-                    System.out.println("TeleportPower :"+nextTeleportCounter);
-                    if (nextTeleportCounter == 20 && canTeleport) {
+                    if (nextTeleportCounter == 15 && canTeleport) {
                         gamePanel.playSoundEffect(8);
                         teleport();
                         nextTeleportCounter = 0;
@@ -212,6 +207,7 @@ public class Mage extends Entity {
             }
 
             if (invincible) {
+                drawHealthBar(graphics2D);
                 graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
             }
             if (dying) {
@@ -272,5 +268,22 @@ public class Mage extends Entity {
         System.out.print("X : " + worldX + " | Y : " + worldY);
 
         canTeleport = false;
+    }
+
+    public void drawTeleportBar(Graphics2D graphics2D) {
+
+            int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
+            int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+
+            double oneScale = (double) gamePanel.tileSize / 20;
+            double healthBarValue = oneScale * nextTeleportCounter;
+
+            graphics2D.setColor(new Color(35, 35, 35));
+            graphics2D.fillRect(screenX - 1, screenY - 32, gamePanel.tileSize, 10);
+
+            graphics2D.setColor(new Color(25, 50, 255));
+            graphics2D.fillRect(screenX - 1, screenY - 32, (int) healthBarValue, 10);
+
+
     }
 }

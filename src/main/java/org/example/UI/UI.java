@@ -103,23 +103,6 @@ public class UI {
         }
     }
 
-    public void drawDamageDealt(int x, int y, int width, int height, Entity entity) {
-        Color c = new Color(0, 1, 1, 140); // paint ->SOLID UI
-
-        graphics2D.setColor(c);
-        graphics2D.fillRoundRect(x, y, width, height, 35, 35);
-
-        c = new Color(255, 255, 255);
-
-        graphics2D.setColor(c);
-        graphics2D.setStroke(new BasicStroke(5));
-        graphics2D.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
-
-        graphics2D.setFont(graphics2D.getFont().deriveFont(Font.ITALIC, 40F));
-        String text = "You are waked up on an island\n, you don't remember what's happened...";
-        graphics2D.drawString(text, x, y);
-    }
-
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 1, 1, 140); // paint ->SOLID UI
         graphics2D.setColor(c);

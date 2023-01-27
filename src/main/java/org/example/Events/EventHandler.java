@@ -46,15 +46,21 @@ public class EventHandler {
     }
 
     public void checkEvent() {
+
+        checkDistance(events[0]);
         checkDistance(events[1]);
-       /* if (events[0].canTouchEvent) {
+
+        if (events[0].canTouchEvent && !(events[0].isHappened)) {
             if (hit(19, 8, "down", events[0])) {
                 welcome(gamePanel.dialogState, 1, 1);
+                events[0].isHappened = true;
             }
-        }*/
+        }
+
         if (events[1].canTouchEvent) {
-            if (hit(11, 10, "left", events[0])) {
+            if (hit(11, 10, "left", events[1])) {
                 heal(gamePanel.dialogState, 11, 27);
+                events[1].canTouchEvent = false;
             }
         }
     }
@@ -76,27 +82,21 @@ public class EventHandler {
     }
 
     public void heal(int gameState, int col, int row) {
-        // if (!events[1]) {
         gamePanel.gameState = gameState;
         gamePanel.UI.currentDialog = "You feel safe ! \n +4 life ";
         gamePanel.player.life += 4;
         events[1].canTouchEvent = false;
         eventRectangle[col][row].eventHappened = true;
-        //events[1] = true;}
     }
-
-    // I separated into this method - even could move into Event class so arrays would gone ---
     public void checkDistance(Event event) {
         int xDistance = Math.abs(gamePanel.player.worldX - event.previousEventX);
         int yDistance = Math.abs(gamePanel.player.worldY - event.previousEventY);
         int distance = Math.max(xDistance, yDistance);
 
-        if (distance > gamePanel.tileSize * 2) {
+        if (distance > gamePanel.tileSize * 15) {
             event.canTouchEvent = true;
         }
     }
-
-    //almost same as object collision check
     public boolean hit(int col, int row, String reqDirection, Event event) {
 
         boolean hit = false;

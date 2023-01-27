@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public UI UI;
 
     public GamePanel() {
-        this.gaia = new Entity[6];
+        this.gaia = new Entity[15];
         this.assetSetter = new AssetSetter(this);
         this.collisionChecker = new CollisionChecker(this);
         this.entities = new Entity[10];

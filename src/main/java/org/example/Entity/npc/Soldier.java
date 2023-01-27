@@ -10,6 +10,15 @@ public class Soldier extends Entity {
         name = "Soldier";
         direction = "down";
         speed = 1 ;
+        setDialog();
+    }
+
+    public void setDialog() {
+        dialogs[0] = "Be Aware!\nOrcs are everywhere!\nDo you know how to handle?!\n";
+        dialogs[1] = "When you get close,\npress ENTER to attack!";
+        dialogs[2] = "Blinking means entity\ncan't receive damage.";
+        dialogs[3] = "Let's see how many\ncan you kill...";
+        dialogs[4] = "...";
     }
 
     public void getImage() {

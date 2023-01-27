@@ -11,9 +11,11 @@ import java.util.Random;
 
 public class Player extends Entity {
     boolean isCritical = false;
-    int attack = 3;
+    public int attack = 3;
     Random random = new Random();
     KeyHandler keyHandler;
+
+    public String playerName = "Bandi";
     public boolean isAttacking;
     public final int screenX;
     public final int screenY;
@@ -21,6 +23,7 @@ public class Player extends Entity {
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
         name = "Player";
+        this.speed = 1;
         this.keyHandler = keyHandler;
         screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
@@ -36,26 +39,26 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
+
         type = 3;
 
         direction = "up";
         speed = 2;
-        maxLife = 10;
+        maxLife = 12;
         life = maxLife;
 
-        worldX = gamePanel.tileSize * 31;
-        worldY = gamePanel.tileSize * 25;
+        worldX = gamePanel.tileSize * 20;
+        worldY = gamePanel.tileSize * 3;
 
         attackRectangle.height = 36;
         attackRectangle.width = 36;
+
     }
 
-    //happens 60 times /second
     public void update() {
         if (isAttacking) {
             attacking();
-        }
-        if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.enterPressed) {
+        } else if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.enterPressed) {
 
             if (keyHandler.upPressed) {
                 direction = "up";
@@ -84,7 +87,8 @@ public class Player extends Entity {
             int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
             interactNPC(npcIndex);
 
-
+            int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
+            contactMonster(monsterIndex);
 
             if (!collisionOn && !keyHandler.enterPressed) {
                 switch (direction) {
@@ -193,8 +197,7 @@ public class Player extends Entity {
         if (randomNumber > 80) {
             System.out.println("Critical DMG");
             criticalValue = 2;
-        }
-        else {
+        } else {
             gamePanel.playSoundEffect(2);
             return attackValue;
         }
@@ -319,6 +322,12 @@ public class Player extends Entity {
     }
 
     public void pickupObject(int i) {
+        if (i != 999){
+            if (gamePanel.objects[i].name == "Potion"){
+                gamePanel.objects[i] = null;
+                speed += 2;
+            }
+        }
     }
 
     public void setPlayerImage() {

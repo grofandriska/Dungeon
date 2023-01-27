@@ -122,6 +122,19 @@ public abstract class Entity {
         return criticalValue;
     }
 
+    public boolean checkDistance(Entity entity) {
+        boolean isTrue = false;
+
+        int xDistance = Math.abs(gamePanel.player.worldX - entity.worldX);
+        int yDistance = Math.abs(gamePanel.player.worldY - entity.worldY);
+        int distance = Math.max(xDistance, yDistance);
+
+        if (distance < gamePanel.tileSize * 2) {
+            // extend
+        }
+        return isTrue;
+    }
+
     public void draw(Graphics2D graphics2D) {
 
         BufferedImage image = null;
@@ -183,19 +196,6 @@ public abstract class Entity {
         }
     }
 
-    public boolean checkDistance(Entity entity) {
-        boolean isTrue = false;
-
-        int xDistance = Math.abs(gamePanel.player.worldX - entity.worldX);
-        int yDistance = Math.abs(gamePanel.player.worldY - entity.worldY);
-        int distance = Math.max(xDistance, yDistance);
-
-        if (distance < gamePanel.tileSize * 2) {
-            // extend
-        }
-        return isTrue;
-    }
-
     public void drawHealthBar(Graphics2D graphics2D) {
         if (type == 2 || type == 3) {
             int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
@@ -250,6 +250,12 @@ public abstract class Entity {
         }
     }
 
+    public void damageReaction(){
+    }
+
+    public void changeAlphaForAnimation(Graphics2D graphics2D, float alpha) {
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+    }
     public void speak() {
         gamePanel.playSoundEffect(4);
         if (dialogs[dialogIndex] == null) {
@@ -257,11 +263,6 @@ public abstract class Entity {
         }
         gamePanel.UI.currentDialog = dialogs[dialogIndex];
         dialogIndex++;
-    }
-
-    public void damageReaction(){}
-    public void changeAlphaForAnimation(Graphics2D graphics2D, float alpha) {
-        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
     }
 
     public BufferedImage setup(String imagePath, int width, int height) {
