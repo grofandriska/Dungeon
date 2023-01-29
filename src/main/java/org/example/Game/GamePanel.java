@@ -17,7 +17,7 @@ import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     public int gameState;
-    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, originalTileSize = 16, scale = 3, FPS = 60, maxScreenCol = 16, maxScreenRow = 12;
+    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4,characterState = 5, originalTileSize = 16, scale = 3, FPS = 60, maxScreenCol = 16, maxScreenRow = 12;
     public final int maxWorldCol = 50, maxWorldRow = 50, tileSize = originalTileSize * scale, screenWidth = tileSize * maxScreenCol, screenHeight = tileSize * maxScreenRow;
     public ArrayList<Entity> entityList = new ArrayList<>();
     public AssetSetter assetSetter;
@@ -69,7 +69,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread.start();
     }
-
     @Override
     public void run() {
 
@@ -128,6 +127,12 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public void playMusic(int i) {
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -181,18 +186,12 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
-    public void playMusic(int i) {
-        music.setFile(i);
-        music.play();
-        music.loop();
+    public void playSoundEffect(int i) {
+        sound.setFile(i);
+        sound.play();
     }
 
     public void stopMusic() {
         music.stop();
-    }
-
-    public void playSoundEffect(int i) {
-        sound.setFile(i);
-        sound.play();
     }
 }

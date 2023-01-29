@@ -1,6 +1,8 @@
 package org.example.Entity.player;
 
 import org.example.Entity.Entity;
+import org.example.Entity.Objects.inventory.OBJ_SHIELD;
+import org.example.Entity.Objects.inventory.OBJ_SWORD;
 import org.example.Game.GamePanel;
 import org.example.Handler.input.KeyHandler;
 import org.example.Sound.Sound;
@@ -11,7 +13,6 @@ import java.util.Random;
 
 public class Player extends Entity {
     boolean isCritical = false;
-    public int attack = 3;
     Random random = new Random();
     KeyHandler keyHandler;
 
@@ -40,20 +41,38 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        type = 3;
-
-        direction = "up";
-        speed = 2;
-        maxLife = 12;
-        life = maxLife;
-
-        worldX = gamePanel.tileSize * 4;
         worldY = gamePanel.tileSize * 3;
-
+        worldX = gamePanel.tileSize * 4;
         attackRectangle.height = 36;
         attackRectangle.width = 36;
 
+        level = 1;
+        type = 3;
+        speed = 2;
+        maxLife = 12;
+        life = maxLife;
+        strength = 1;
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 25;
+        coi = 0;
+
+        currentWeapon = new OBJ_SWORD(gamePanel);
+        currentShield = new OBJ_SHIELD(gamePanel);
+
+        attack = getAttack();
+        defense = getDefense();
+
     }
+
+    public int getAttack() {
+        return  strength * currentWeapon.attackValue;
+    }
+
+    public int getDefense() {
+        return dexterity * currentShield.defenseValue;
+    }
+
 
     public void update() {
         if (isAttacking) {
@@ -80,15 +99,12 @@ public class Player extends Entity {
             gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
             gamePanel.eventHandler.checkEvent();
 
-            // player methods and interactions
-            int objIndex = gamePanel.collisionChecker.checkObject(this, true);
-            pickupObject(objIndex);
+            // int param x
+            pickupObject(gamePanel.collisionChecker.checkObject(this, true));
 
-            int npcIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
-            interactNPC(npcIndex);
+            interactNPC(gamePanel.collisionChecker.checkEntity(this, gamePanel.npc));
 
-            int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
-            contactMonster(monsterIndex);
+            contactMonster(gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters));
 
             if (!collisionOn && !keyHandler.enterPressed) {
                 switch (direction) {
@@ -314,7 +330,9 @@ public class Player extends Entity {
         }
 
         if (invincible) {
-            if (life>0){drawHealthBar(graphics2D);}
+            if (life >= 0) {
+                drawHealthBar(graphics2D);
+            }
 
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
@@ -323,8 +341,8 @@ public class Player extends Entity {
     }
 
     public void pickupObject(int i) {
-        if (i != 999){
-            if (gamePanel.objects[i].name == "Potion"){
+        if (i != 999) {
+            if (gamePanel.objects[i].name == "Potion") {
                 gamePanel.objects[i] = null;
                 speed += 2;
             }

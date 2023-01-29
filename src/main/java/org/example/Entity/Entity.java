@@ -20,9 +20,21 @@ public abstract class Entity {
     public GamePanel gamePanel;
     public Rectangle attackRectangle, solidArea;
     public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2;
+
     public BufferedImage image, image2, image3, attackUp_1, attackUp_2, attackDown_1, attackDown_2, attackRight_1, attackRight_2, attackLeft_1, attackLeft_2;
     public int spriteCounter, spriteNum, maxLife, life, imageCounter, dialogIndex, invincibleCounter, type, deathCounter, worldX, worldY, solidAreaDefaultX, solidAreaDefaultY, speed;
     public boolean collisionOn, collision, invincible, dying, alive;
+
+    //player stats
+    public int level,strength,dexterity,attack,defense,exp,nextLevelExp,coi;
+
+    public Entity currentWeapon, currentShield;
+
+    public int attackValue,defenseValue;
+
+
+
+
 
     public Entity(GamePanel gamePanel) {
         dying = false;
