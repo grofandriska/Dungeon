@@ -40,7 +40,7 @@ public class OldMan extends Entity {
         dialogs[1] = "Ahh so you are :"+ gamePanel.player.playerName;
         dialogs[2] = "Have you seen the wizard?!\nI bet you don't. He is\nuntouchable";
         dialogs[3] = "If you are fast enough\nyou can deal damage to Him!";
-        dialogs[4] = "I see that your\nattack power is :!"+gamePanel.player.attack+".";
+        dialogs[4] = "I see that your\nattack power is :"+gamePanel.player.attack+".";
         dialogs[5] = "You can preform critical attack\nbut it's random tho'.";
     }
 

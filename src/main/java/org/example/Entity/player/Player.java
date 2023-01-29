@@ -47,7 +47,7 @@ public class Player extends Entity {
         maxLife = 12;
         life = maxLife;
 
-        worldX = gamePanel.tileSize * 20;
+        worldX = gamePanel.tileSize * 4;
         worldY = gamePanel.tileSize * 3;
 
         attackRectangle.height = 36;
@@ -314,7 +314,8 @@ public class Player extends Entity {
         }
 
         if (invincible) {
-            drawHealthBar(graphics2D);
+            if (life>0){drawHealthBar(graphics2D);}
+
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
         graphics2D.drawImage(image, tempScreenX, tempScreenY, null);

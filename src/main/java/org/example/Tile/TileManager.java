@@ -22,6 +22,7 @@ public class TileManager {
         getTileImage();
         loadMap();
     }
+
     public void setup(int index, String imagePath, boolean collision) {
         UtilityTool utilityTool = new UtilityTool();
 
@@ -36,55 +37,74 @@ public class TileManager {
         }
 
     }
+
     public void getTileImage() {
 
-        setup(0,"g",false);
-        setup(1,"t",true);
-        setup(2,"fog2",false);
-        setup(3,"Grave Haunted",false);
-        setup(4,"Path Corner1",false);
-        setup(5,"Path Corner2",false);
-        setup(6,"Path Corner3",false);
-        setup(7,"Path Corner4",false);
-        setup(8,"Path Horizontal",false);
-        setup(9,"wata",true);
-        setup(10,"Path Stop2",false);
-        setup(11,"Path Stop3",false);
-        setup(13,"Path Stop4",false);
-        setup(12,"Path Straight",false);
-        setup(14,"Road Corner1",false);
-        setup(15,"Road Corner2",false);
-        setup(16,"Road Corner3",false);
-        setup(17,"Road Corner4",false);
-        setup(18,"Road Hori",false);
-        setup(19,"Road Stop1",false);
-        setup(20,"Road Stop2",false);
-        setup(21,"Road Stop3",false);
-        setup(22,"Road Stop4",false);
-        setup(23,"Road Straight",false);
-        setup(24,"Road 3W",false);
-        setup(25,"w",true);
-        setup(26,"w",true);
-        setup(27,"w",true);
-        setup(28,"w",true);
+        setup(0, "g", false);
+        setup(1, "t", true);
+        setup(2, "fog2", false);
+        setup(3, "Grave Haunted", false);
+        setup(4, "Path Corner1", false);
+        setup(5, "Path Corner2", false);
+        setup(6, "Path Corner3", false);
+        setup(7, "Path Corner4", false);
+        setup(8, "Path Horizontal", false);
+        setup(9, "wata", true);
+        setup(10, "Path Stop2", false);
+        setup(11, "Path Stop3", false);
+        setup(13, "Path Stop4", false);
+        setup(12, "Path Straight", false);
+        setup(14, "Road Corner1", false);
+        setup(15, "Road Corner2", false);
+        setup(16, "Road Corner3", false);
+        setup(17, "Road Corner4", false);
+        setup(18, "Road Hori", false);
+        setup(19, "Road Stop1", false);
+        setup(20, "Road Stop2", false);
+        setup(21, "Road Stop3", false);
+        setup(22, "Road Stop4", false);
+        setup(23, "Road Straight", false);
+        setup(24, "Road 3W", false);
+        setup(25, "Wall4", true);
+        setup(26, "w", true);
+        setup(27, "w", true);
+        setup(28, "w", true);
 
-        setup(29,"3",false);
-        setup(30,"4",false);
-        setup(31,"5",false);
-        setup(32,"6",false);
+        setup(29, "3", false);
+        setup(30, "4", false);
+        setup(31, "5", false);
+        setup(32, "6", false);
     }
+
     public void loadMap() {
         try {
             int col = 0;
             int row = 0;
 
-            InputStream input = getClass().getResourceAsStream("/maps/Level_01.txt");
+            int cutValue = 0;
+
+            InputStream input = getClass().getResourceAsStream("/maps/Level_Grass.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
             while (col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {
                 String line = reader.readLine();
                 while (col < gamePanel.maxWorldCol) {
+
                     String[] numbers = line.split(" ");
+
+                    for (int i = 0; i < numbers.length; i++) {
+                        for (int x = 0; x < numbers[i].length();) {
+                            while (x < 4) {
+                                if (numbers[i].startsWith("0")) {
+                                    cutValue++;
+                                }
+                                x++;
+                            }
+                            numbers[i].substring(cutValue);
+                            cutValue = 0;
+                        }
+                    }
+
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
                     col++;
@@ -94,11 +114,13 @@ public class TileManager {
                     row++;
                 }
             }
+
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public void draw(Graphics2D g) {
         int worldCol = 0;
         int worldRow = 0;
