@@ -41,8 +41,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldY = gamePanel.tileSize * 3;
-        worldX = gamePanel.tileSize * 4;
+        worldY = gamePanel.tileSize * 25;
+        worldX = gamePanel.tileSize * 45;
         attackRectangle.height = 36;
         attackRectangle.width = 36;
 
@@ -66,11 +66,11 @@ public class Player extends Entity {
     }
 
     public int getAttack() {
-        return  strength * currentWeapon.attackValue;
+        return  attack = strength * currentWeapon.attackValue;
     }
 
     public int getDefense() {
-        return dexterity * currentShield.defenseValue;
+        return  defense = dexterity * currentShield.defenseValue;
     }
 
 

@@ -16,7 +16,7 @@ public class UI {
     Font arial40;
     Font arial80;
 
-    Font arial20, arial10, arial20_bold;
+    Font arial20, arial10, arial20_bold, arial21, gabriola20;
     Graphics2D graphics2D;
 
     UtilityTool utilityTool = new UtilityTool();
@@ -25,7 +25,8 @@ public class UI {
     public UI(GamePanel gp) {
         this.gamePanel = gp;
         arial10 = new Font("Arial", Font.PLAIN, 10);
-        arial20 = new Font("Arial", Font.PLAIN, 20);
+        gabriola20 = new Font("Gabriola", Font.PLAIN, 22);
+        arial21 = new Font("Arial", Font.PLAIN, 21);
         arial20_bold = new Font("Arial", Font.HANGING_BASELINE, 20);
         arial40 = new Font("Cambria", Font.PLAIN, 40);
         arial80 = new Font("Arial", Font.BOLD, 80);
@@ -73,84 +74,89 @@ public class UI {
 
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
-        int textX = frameX + 20;
-        int textY = frameY + gamePanel.tileSize;
-        final int lineHeight = 36;
+        int textX = frameX + 28;
+        int textY = frameY + 36;
+        final int lineHeight = 18;
+
 
         graphics2D.setFont(arial20_bold);
 
-
         graphics2D.drawString("level ", textX, textY);
         textY += lineHeight;
-
         graphics2D.drawString("speed ", textX, textY);
         textY += lineHeight;
-
         graphics2D.drawString("max life ", textX, textY);
         textY += lineHeight;
-
         graphics2D.drawString("hp ", textX, textY);
         textY += lineHeight;
-
         graphics2D.drawString("strength ", textX, textY);
         textY += lineHeight;
-
         graphics2D.drawString("dexterity ", textX, textY);
         textY += lineHeight;
-
         graphics2D.drawString("experience ", textX, textY);
         textY += lineHeight;
-
         graphics2D.drawString("next level ", textX, textY);
         textY += lineHeight;
-
         graphics2D.drawString("coins ", textX, textY);
         textY += lineHeight;
+        graphics2D.drawString("attack ", textX, textY);
+        textY += lineHeight;
 
-
+        graphics2D.drawImage(gamePanel.player.right1, frameX + 20, textY, null);
         //values
         int tailX = (frameX + frameWidth) - 30;
-        textY = frameY + gamePanel.tileSize;
+        textY = frameY + 36;
 
         String value;
 
         value = String.valueOf(gamePanel.player.level);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
+
         value = String.valueOf(gamePanel.player.speed);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
+
         value = String.valueOf(gamePanel.player.maxLife);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
         value = String.valueOf(gamePanel.player.life);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
         value = String.valueOf(gamePanel.player.strength);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
         value = String.valueOf(gamePanel.player.dexterity);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
         value = String.valueOf(gamePanel.player.exp);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
         value = String.valueOf(gamePanel.player.nextLevelExp);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
         value = String.valueOf(gamePanel.player.coi);
         textX = getXForRightAlignedText(value, tailX);
-        graphics2D.drawString(value,textX,textY);
+        graphics2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gamePanel.player.attack);
+        textX = getXForRightAlignedText(value, tailX);
+        graphics2D.drawString(value, textX, textY);
+        textY += lineHeight;
+
+
     }
 
+    public void drawCharacterStateText() {
+    }
 
     public void drawDialogScreen() {
 
@@ -180,6 +186,9 @@ public class UI {
         int i = 0;
 
         while (i < gamePanel.player.maxLife / 2) {
+            Color c = new Color(0, 1, 1, 140);
+            graphics2D.setColor(c);
+            graphics2D.fillRoundRect(x+13, y + gamePanel.tileSize -10, 16, 8, 10, 10);
             graphics2D.drawImage(heart3, x, y, null);
             i++;
             x += gamePanel.tileSize;
@@ -222,18 +231,26 @@ public class UI {
         //background
         Color c = new Color(0, 1, 1, 140);
         graphics2D.setColor(c);
-        graphics2D.fillRoundRect(0, 10, 900, 40, 10, 10);
+        graphics2D.fillRoundRect(-10, 10, 900, 30, 10, 10);
 
         for (int i = 0; i < 50; i++) {
-            graphics2D.drawImage(image, i * 30, 5, null);
+            graphics2D.drawImage(image, i * 30, 0, null);
+            graphics2D.drawImage(image, i * 30, 545, null);
         }
 
-        g.setFont(arial20);
-        g.setColor(Color.yellow);
-        g.drawString("x: " + gamePanel.player.worldX, 5, 28);
-        g.drawString("y: " + gamePanel.player.worldY, 85, 28);
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 630, 28);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 700, 28);
+        g.setFont(gabriola20);
+        g.setColor(Color.darkGray);
+        g.drawString("x: " + gamePanel.player.worldX, 5, 20);
+        g.drawString("y: " + gamePanel.player.worldY, 85, 20);
+        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 630, 20);
+        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 700, 20);
+
+        g.setColor(Color.black);
+        g.setFont(gabriola20);
+        g.drawString("x: " + gamePanel.player.worldX, 4, 21);
+        g.drawString("y: " + gamePanel.player.worldY, 84, 21);
+        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 629, 21);
+        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 699, 21);
 
         drawPlayerLife();
     }

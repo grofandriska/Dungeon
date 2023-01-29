@@ -32,10 +32,6 @@ public abstract class Entity {
 
     public int attackValue,defenseValue;
 
-
-
-
-
     public Entity(GamePanel gamePanel) {
         dying = false;
         alive = true;
