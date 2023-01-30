@@ -83,7 +83,7 @@ public class TileManager {
 
             int cutValue = 0;
 
-            InputStream input = getClass().getResourceAsStream("/maps/Level_Grass.txt");
+            InputStream input = getClass().getResourceAsStream("/maps/Level_01.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
             while (col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {

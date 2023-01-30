@@ -77,16 +77,16 @@ public class AssetSetter {
 
     public void setMonster() {
         gamePanel.monsters[0] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[0].worldX = gamePanel.tileSize * 28;
+        gamePanel.monsters[0].worldX = gamePanel.tileSize * 35;
         gamePanel.monsters[0].worldY = gamePanel.tileSize * 11;
 
         gamePanel.monsters[1] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[1].worldX = gamePanel.tileSize * 29;
+        gamePanel.monsters[1].worldX = gamePanel.tileSize * 34;
         gamePanel.monsters[1].worldY = gamePanel.tileSize * 11;
         gamePanel.monsters[1].direction ="left";
 
         gamePanel.monsters[2] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[2].worldX = gamePanel.tileSize * 30;
+        gamePanel.monsters[2].worldX = gamePanel.tileSize * 36;
         gamePanel.monsters[2].worldY = gamePanel.tileSize * 19;
 
         gamePanel.monsters[3] = new Monster_ORC(gamePanel);
@@ -94,20 +94,26 @@ public class AssetSetter {
         gamePanel.monsters[3].worldY = gamePanel.tileSize * 11;
         gamePanel.monsters[3].direction ="up";
 
+
+
         gamePanel.monsters[4] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[4].worldX = gamePanel.tileSize * 23;
-        gamePanel.monsters[4].worldY = gamePanel.tileSize * 11;
+        gamePanel.monsters[4].worldX = gamePanel.tileSize * 8;
+        gamePanel.monsters[4].worldY = gamePanel.tileSize * 25;
 
         gamePanel.monsters[5] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[5].worldX = gamePanel.tileSize * 25;
-        gamePanel.monsters[5].worldY = gamePanel.tileSize * 11;
+        gamePanel.monsters[5].worldX = gamePanel.tileSize * 8;
+        gamePanel.monsters[5].worldY = gamePanel.tileSize * 26;
 
         gamePanel.monsters[6] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[6].worldX = gamePanel.tileSize * 14;
-        gamePanel.monsters[6].worldY = gamePanel.tileSize * 1;
+        gamePanel.monsters[6].worldX = gamePanel.tileSize * 26;
+        gamePanel.monsters[6].worldY = gamePanel.tileSize * 30;
+
+        gamePanel.monsters[7] = new Monster_ORC(gamePanel);
+        gamePanel.monsters[7].worldX = gamePanel.tileSize * 30;
+        gamePanel.monsters[7].worldY = gamePanel.tileSize * 30;
 
         gamePanel.monsters[11] = new Mage(gamePanel);
-        gamePanel.monsters[11].worldX = gamePanel.tileSize * 41;
-        gamePanel.monsters[11].worldY = gamePanel.tileSize * 29;
+        gamePanel.monsters[11].worldX = gamePanel.tileSize * 45;
+        gamePanel.monsters[11].worldY = gamePanel.tileSize * 26;
     }
 }

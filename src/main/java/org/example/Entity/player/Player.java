@@ -41,8 +41,9 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldY = gamePanel.tileSize * 11;
-        worldX = gamePanel.tileSize * 5;
+        worldX = gamePanel.tileSize * 20;
+        worldY = gamePanel.tileSize * 3;
+
         attackRectangle.height = 36;
         attackRectangle.width = 36;
 
