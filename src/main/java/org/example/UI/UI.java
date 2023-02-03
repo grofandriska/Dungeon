@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class UI {
     BufferedImage heart3, heart2, heart1, image;
@@ -20,6 +21,9 @@ public class UI {
     Graphics2D graphics2D;
 
     UtilityTool utilityTool = new UtilityTool();
+
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
     public String currentDialog;
 
     public UI(GamePanel gp) {
@@ -38,6 +42,9 @@ public class UI {
         heart3 = heart.image3;
     }
 
+    public void drawCharacterStateText() {
+    }
+
     public void drawPlayerSolidArea() {
         int screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         int screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
@@ -51,6 +58,7 @@ public class UI {
 
         if (gamePanel.gameState == gamePanel.playState) {
             drawUtility(graphics2D);
+            drawScrollMessage();
 
         }
         if (gamePanel.gameState == gamePanel.pauseState) {
@@ -65,6 +73,34 @@ public class UI {
         }
         if (gamePanel.gameState == gamePanel.characterState) {
             drawCharacterState();
+        }
+    }
+
+    private void drawScrollMessage() {
+        int messageX = gamePanel.tileSize * 11;
+        int messageY = (gamePanel.tileSize * 11) + 12;
+        gamePanel.setFont(arial20_bold);
+
+        for (int i = 0; i < message.size(); i++) {
+
+            if (message.get(i) != null) {
+                graphics2D.setFont(new Font("Gabriola", Font.PLAIN, 20));
+                graphics2D.setColor(Color.darkGray);
+                graphics2D.drawString(message.get(i), messageX+1 , messageY-1);
+                graphics2D.setColor(Color.black);
+                graphics2D.drawString(message.get(i), messageX, messageY);
+                int counter = messageCounter.get(i) + 1; // messageCounter++
+                messageCounter.set(i, counter); //set counter to the array
+                messageY += 25;
+
+                if (message.size() > 2) {
+                    message.remove(0);
+                }
+                if (messageCounter.get(i) > 120) {
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
         }
     }
 
@@ -160,9 +196,6 @@ public class UI {
 
     }
 
-    public void drawCharacterStateText() {
-    }
-
     public void drawDialogScreen() {
 
         int x = gamePanel.tileSize * 2;
@@ -187,7 +220,7 @@ public class UI {
     public void drawPlayerLife() {
 
         int x = 10;
-        int y = gamePanel.tileSize * gamePanel.maxScreenRow - 50;
+        int y = gamePanel.tileSize * gamePanel.maxScreenRow - 55;
         int i = 0;
 
         while (i < gamePanel.player.maxLife / 2) {
@@ -201,7 +234,7 @@ public class UI {
         }
 
         x = 10;
-        y = gamePanel.tileSize * gamePanel.maxScreenRow - 50;
+        y = gamePanel.tileSize * gamePanel.maxScreenRow - 55;
         i = 0;
 
         while (i < gamePanel.player.life) {
@@ -239,8 +272,8 @@ public class UI {
         graphics2D.fillRoundRect(-10, 10, 900, 30, 10, 10);
 
         for (int i = 0; i < 50; i++) {
-            graphics2D.drawImage(image, i * 30, 0, null);
-            graphics2D.drawImage(image, i * 30, 545, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize + 8), i * 30, 0, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize + 8), i * 30, 520, null);
         }
 
         g.setFont(gabriola20);
@@ -268,6 +301,11 @@ public class UI {
         int y = gamePanel.screenWidth / 2;
         graphics2D.drawString(text, x, y);
 
+    }
+
+    public void addMessage(String text) {
+        message.add(text);
+        messageCounter.add(0);
     }
 
     public void drawEndState() {

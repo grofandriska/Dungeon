@@ -74,7 +74,6 @@ public class AssetSetter {
         gamePanel.monsters[1] = new Monster_ORC(gamePanel);
         gamePanel.monsters[1].worldX = gamePanel.tileSize * 34;
         gamePanel.monsters[1].worldY = gamePanel.tileSize * 11;
-        gamePanel.monsters[1].direction = "left";
 
         gamePanel.monsters[2] = new Monster_ORC(gamePanel);
         gamePanel.monsters[2].worldX = gamePanel.tileSize * 36;
@@ -82,31 +81,19 @@ public class AssetSetter {
 
         gamePanel.monsters[3] = new Monster_ORC(gamePanel);
         gamePanel.monsters[3].worldX = gamePanel.tileSize * 27;
-        gamePanel.monsters[3].worldY = gamePanel.tileSize * 11;
-        gamePanel.monsters[3].direction = "up";
+        gamePanel.monsters[3].worldY = gamePanel.tileSize * 10;
 
 
         gamePanel.monsters[4] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[4].worldX = gamePanel.tileSize * 8;
-        gamePanel.monsters[4].worldY = gamePanel.tileSize * 25;
+        gamePanel.monsters[4].worldX = gamePanel.tileSize * 6;
+        gamePanel.monsters[4].worldY = gamePanel.tileSize * 23;
 
         gamePanel.monsters[5] = new Monster_ORC(gamePanel);
         gamePanel.monsters[5].worldX = gamePanel.tileSize * 8;
-        gamePanel.monsters[5].worldY = gamePanel.tileSize * 26;
+        gamePanel.monsters[5].worldY = gamePanel.tileSize * 23;
 
-        gamePanel.monsters[6] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[6].worldX = gamePanel.tileSize * 50;
-        gamePanel.monsters[6].worldY = gamePanel.tileSize * 0;
 
-        gamePanel.monsters[7] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[7].worldX = gamePanel.tileSize * 0;
-        gamePanel.monsters[7].worldY = gamePanel.tileSize * 50;
-        gamePanel.monsters[7].direction = "down";
 
-        gamePanel.monsters[11] = new Mage(gamePanel);
-        gamePanel.monsters[11].worldX = gamePanel.tileSize * 0;
-        gamePanel.monsters[11].worldY = gamePanel.tileSize * 0;
-        gamePanel.monsters[11].direction = "up";
 
     }
 }

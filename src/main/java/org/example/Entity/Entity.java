@@ -26,11 +26,11 @@ public abstract class Entity {
     public boolean collisionOn, collision, invincible, dying, alive;
 
     //player stats
-    public int level,strength,dexterity,attack,defense,exp,nextLevelExp,coi;
+    public int level, strength, dexterity, attack, defense, exp, nextLevelExp, coi;
 
     public Entity currentWeapon, currentShield;
 
-    public int attackValue,defenseValue;
+    public int attackValue, defenseValue;
 
     public Entity(GamePanel gamePanel) {
         dying = false;
@@ -83,8 +83,15 @@ public abstract class Entity {
 
         //player class contact monster would come here
         if (contactPLayer && this.type == 2) {
+
+            System.out.println("dmg rec");
             if (!gamePanel.player.invincible) {
-                gamePanel.player.life -= 2;
+                int damage = attack - gamePanel.player.defense;
+                if (damage < 0) {
+                    damage = 0;
+                }
+                gamePanel.playSoundEffect(6);
+                gamePanel.player.life -= damage;
                 gamePanel.player.invincible = true;
             }
         }
@@ -109,8 +116,8 @@ public abstract class Entity {
             spriteCounter = 0;
         }
 
+
         if (invincible) {
-            if (this.invincibleCounter == 1) gamePanel.playSoundEffect(2);
             invincibleCounter++;
             if (invincibleCounter > 60) {
                 invincible = false;
@@ -119,13 +126,13 @@ public abstract class Entity {
         }
     }
 
-    public int generateCriticalAttack(){
+    public int generateCriticalAttack() {
         int criticalValue = 0;
         int randomNumber = 0;
         randomNumber = random.nextInt(100) + 1;
         System.out.println(randomNumber);
         if (randomNumber > 90) {
-            criticalValue =  2;
+            criticalValue = 2;
         }
         return criticalValue;
     }
@@ -258,12 +265,13 @@ public abstract class Entity {
         }
     }
 
-    public void damageReaction(){
+    public void damageReaction() {
     }
 
     public void changeAlphaForAnimation(Graphics2D graphics2D, float alpha) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
     }
+
     public void speak() {
         gamePanel.playSoundEffect(4);
         if (dialogs[dialogIndex] == null) {

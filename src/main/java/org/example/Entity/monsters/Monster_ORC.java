@@ -10,10 +10,15 @@ public class Monster_ORC extends Entity {
     public Monster_ORC(GamePanel gamePanel) {
         super(gamePanel);
         name = "Orc";
+
         speed = 1;
         type = 2;
         maxLife = 10;
         life = maxLife;
+        attack = 3;
+        defense = 0;
+        exp = 3;
+
         solidArea = new Rectangle();
         solidArea.x = 3;
         solidArea.y = 5;
@@ -29,9 +34,7 @@ public class Monster_ORC extends Entity {
             imageCounter = 0;
             this.direction = gamePanel.player.direction;
         }
-
     }
-
     public void setDirection() {
         imageCounter++;
         if (imageCounter == 120) {

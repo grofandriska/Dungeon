@@ -6,6 +6,7 @@ import org.example.Entity.Objects.inventory.OBJ_SWORD;
 import org.example.Game.GamePanel;
 import org.example.Handler.input.KeyHandler;
 import org.example.Sound.Sound;
+import org.example.UI.UI;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -43,8 +44,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gamePanel.tileSize * 5;
-        worldY = gamePanel.tileSize * 9;
+        worldX = gamePanel.tileSize * 4;
+        worldY = gamePanel.tileSize * 23;
 
         attackRectangle.height = 36;
         attackRectangle.width = 36;
@@ -57,7 +58,7 @@ public class Player extends Entity {
         strength = 1;
         dexterity = 1;
         exp = 0;
-        nextLevelExp = 25;
+        nextLevelExp = 4;
         coi = 0;
 
         currentWeapon = new OBJ_SWORD(gamePanel);
@@ -69,13 +70,12 @@ public class Player extends Entity {
     }
 
     public int getAttack() {
-        return  attack = strength * currentWeapon.attackValue;
+        return attack = strength * currentWeapon.attackValue;
     }
 
     public int getDefense() {
-        return  defense = dexterity * currentShield.defenseValue;
+        return defense = dexterity * currentShield.defenseValue;
     }
-
 
     public void update() {
         if (isAttacking) {
@@ -131,9 +131,6 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
-
-        int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
-        contactMonster(monsterIndex);
 
         if (invincible) {
             invincibleCounter++;
@@ -193,43 +190,68 @@ public class Player extends Entity {
     private void damageMonster(int i) {
         if (i != 999) {
             if (!gamePanel.monsters[i].invincible) {
-                gamePanel.monsters[i].life -= generateCriticalAttack();
+                int damage = generateCriticalAttack() - gamePanel.monsters[i].defense;
+                if (damage < 0) {
+                    damage = 0;
+                }
+                gamePanel.monsters[i].life -= damage;
+                if (isCritical) {
+                    gamePanel.UI.addMessage("*" + damage + "*" + " critical damage dealt to " + gamePanel.monsters[i].name + " !");
+                } else {
+                    gamePanel.UI.addMessage(damage + " damage dealt to " + gamePanel.monsters[i].name + " !");
+                }
+
                 gamePanel.monsters[i].invincible = true;
                 gamePanel.monsters[i].damageReaction();
+                gamePanel.playSoundEffect(2);
 
                 if (gamePanel.monsters[i].life <= 0) {
                     gamePanel.monsters[i].dying = true;
-                    gamePanel.monsters[i] = null;
+                    exp += gamePanel.monsters[i].exp;
+                    gamePanel.UI.addMessage("Killed " + gamePanel.monsters[i].name + " !  +" + exp + " xp");
                     gamePanel.playSoundEffect(10);
+                    checkLevelUp();
+
+                    gamePanel.monsters[i] = null;
                 }
             }
         }
     }
 
-    public int generateCriticalAttack() {
+    private void checkLevelUp() {
+        if (exp > nextLevelExp) {
+            level++;
+            nextLevelExp *= 2;
+            maxLife += 2;
+            strength++;
+            dexterity++;
+            attack = getAttack();//reset attack value
+            defense = getDefense();
+            gamePanel.gameState = gamePanel.dialogState;
+            gamePanel.UI.currentDialog = "Level " + level + " reached!\n" + "Your stats improved.";
+        }
+    }
 
+    public int generateCriticalAttack() {
         int attackValue = attack;
         int criticalValue;
 
         int randomNumber = random.nextInt(100) + 1;
 
         if (randomNumber > 80) {
-            System.out.println("Critical DMG");
             criticalValue = 2;
         } else {
-            gamePanel.playSoundEffect(2);
             return attackValue;
         }
-
+        isCritical = true;
         return attackValue + criticalValue;
     }
 
     private void contactMonster(int i) {
         if (i != 999) {
             if (!invincible) {
-                life -= 1;
-                invincible = true;
-                gamePanel.playSoundEffect(6);
+                int damage = gamePanel.monsters[i].attack;
+
             }
         }
     }
