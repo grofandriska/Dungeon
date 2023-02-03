@@ -26,8 +26,10 @@ public class Player extends Entity {
         name = "Player";
         this.speed = 1;
         this.keyHandler = keyHandler;
+
         screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
+
         solidArea = new Rectangle();
         solidArea.x = 10;
         solidArea.y = 16;
@@ -41,8 +43,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gamePanel.tileSize * 20;
-        worldY = gamePanel.tileSize * 3;
+        worldX = gamePanel.tileSize * 5;
+        worldY = gamePanel.tileSize * 9;
 
         attackRectangle.height = 36;
         attackRectangle.width = 36;
@@ -100,7 +102,7 @@ public class Player extends Entity {
             gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
             gamePanel.eventHandler.checkEvent();
 
-            // int param x
+
             pickupObject(gamePanel.collisionChecker.checkObject(this, true));
 
             interactNPC(gamePanel.collisionChecker.checkEntity(this, gamePanel.npc));

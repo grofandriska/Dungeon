@@ -44,7 +44,7 @@ public abstract class Entity {
         collision = false;
         collisionOn = false;
         dialogs = new String[20];
-        solidArea = new Rectangle(0, 0, 40, 40);
+        solidArea = new Rectangle(0, 0, gamePanel.tileSize, gamePanel.tileSize);
         attackRectangle = new Rectangle(0, 0, 0, 0);
         dialogs[0] = "...";
         this.gamePanel = gamePanel;

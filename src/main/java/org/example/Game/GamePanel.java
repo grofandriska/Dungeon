@@ -3,7 +3,7 @@ package org.example.Game;
 import org.example.Entity.Entity;
 import org.example.Entity.player.Player;
 import org.example.Events.EventHandler;
-import org.example.Handler.draw.AssetSetter;
+import org.example.Handler.AssetSetter;
 import org.example.Handler.collision.CollisionChecker;
 import org.example.Handler.input.KeyHandler;
 import org.example.Sound.Sound;

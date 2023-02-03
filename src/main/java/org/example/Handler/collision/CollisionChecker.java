@@ -37,6 +37,7 @@ public class CollisionChecker {
 
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
                 target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
                 target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
 
@@ -169,39 +170,39 @@ public class CollisionChecker {
                 entityTopRow = (entityTopWorldY - entity.speed) / gamePanel.tileSize;
                 tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityTopRow];
-                if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) && !entity.name.equals("Bird")) {
+                if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision )&& !entity.name.equals("Bird") ) {
                     entity.collisionOn = true;
                 }
             }
             case "down" -> {
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gamePanel.tileSize;
-                if (entityBottomRow < 50){
+                if (entityBottomRow < 49) {
                     tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
                     tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityBottomRow];
-                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) && !entity.name.equals("Bird")) {
+                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision)&& !entity.name.equals("Bird") ) {
                         entity.collisionOn = true;
                     }
                 }
             }
             case "left" -> {
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gamePanel.tileSize;
-                tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
-                tileNum2 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
-                if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) && !entity.name.equals("Bird")) {
-                    entity.collisionOn = true;
+                if (entityLeftCol > 1 && entityTopRow > 0) {
+                    tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
+                    tileNum2 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
+                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) && !entity.name.equals("Bird") ) {
+                        entity.collisionOn = true;
+                    }
                 }
+
             }
             case "right" -> {
                 entityRightCol = (entityRightWorldX + entity.speed) / gamePanel.tileSize;
-
                 if (entityRightCol < 50) {
                     tileNum1 = gamePanel.tileManager.mapTileNum[entityRightCol][entityTopRow];
                     tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityBottomRow];
-
-                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) && !entity.name.equals("Bird")) {
+                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision)&& !entity.name.equals("Bird") ) {
                         entity.collisionOn = true;
                     }
-
                 }
             }
         }

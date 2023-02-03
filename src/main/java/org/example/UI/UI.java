@@ -38,6 +38,12 @@ public class UI {
         heart3 = heart.image3;
     }
 
+    public void drawPlayerSolidArea() {
+        int screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
+        int screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
+        graphics2D.fillRect(screenX + gamePanel.player.solidAreaDefaultX, screenY + gamePanel.player.solidAreaDefaultY, gamePanel.player.solidArea.width, gamePanel.player.solidArea.height);
+    }
+
     public void draw(Graphics2D g) {
         this.graphics2D = g;
         g.setFont(arial40);
@@ -45,7 +51,6 @@ public class UI {
 
         if (gamePanel.gameState == gamePanel.playState) {
             drawUtility(graphics2D);
-
 
         }
         if (gamePanel.gameState == gamePanel.pauseState) {
@@ -188,7 +193,7 @@ public class UI {
         while (i < gamePanel.player.maxLife / 2) {
             Color c = new Color(0, 1, 1, 140);
             graphics2D.setColor(c);
-            graphics2D.fillRoundRect(x+13, y + gamePanel.tileSize -10, 16, 8, 10, 10);
+            graphics2D.fillRoundRect(x + 13, y + gamePanel.tileSize - 10, 16, 8, 10, 10);
             graphics2D.drawImage(heart3, x, y, null);
             i++;
             x += gamePanel.tileSize;
