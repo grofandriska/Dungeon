@@ -29,7 +29,7 @@ public class UI {
     public UI(GamePanel gp) {
         this.gamePanel = gp;
         arial10 = new Font("Arial", Font.PLAIN, 10);
-        gabriola20 = new Font("Gabriola", Font.PLAIN, 22);
+        gabriola20 = new Font("Gabriola", Font.PLAIN, 24);
         arial21 = new Font("Arial", Font.PLAIN, 21);
         arial20_bold = new Font("Arial", Font.HANGING_BASELINE, 20);
         arial40 = new Font("Cambria", Font.PLAIN, 40);
@@ -86,8 +86,8 @@ public class UI {
             if (message.get(i) != null) {
                 graphics2D.setFont(new Font("Gabriola", Font.PLAIN, 20));
                 graphics2D.setColor(Color.darkGray);
-                graphics2D.drawString(message.get(i), messageX+1 , messageY-1);
-                graphics2D.setColor(Color.black);
+                graphics2D.drawString(message.get(i), messageX + 1, messageY - 1);
+                graphics2D.setColor(Color.gray);
                 graphics2D.drawString(message.get(i), messageX, messageY);
                 int counter = messageCounter.get(i) + 1; // messageCounter++
                 messageCounter.set(i, counter); //set counter to the array
@@ -262,7 +262,7 @@ public class UI {
     public void drawUtility(Graphics2D g) {
         /* drawSubWindow(20, 70, 170, 185);*/
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + "Road Hori" + ".png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + "row3" + ".png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -271,24 +271,24 @@ public class UI {
         graphics2D.setColor(c);
         graphics2D.fillRoundRect(-10, 10, 900, 30, 10, 10);
 
-        for (int i = 0; i < 50; i++) {
-            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize + 8), i * 30, 0, null);
-            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize, gamePanel.tileSize + 8), i * 30, 520, null);
+        for (int i = 0; i < 10; i++) {
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize*2, gamePanel.tileSize + 8), i * 95, 0, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize*2, gamePanel.tileSize + 8), i * 95, 520, null);
         }
 
         g.setFont(gabriola20);
         g.setColor(Color.darkGray);
-        g.drawString("x: " + gamePanel.player.worldX, 5, 20);
-        g.drawString("y: " + gamePanel.player.worldY, 85, 20);
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 630, 20);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 700, 20);
+        g.drawString("x: " + gamePanel.player.worldX, 5, 31);
+        g.drawString("y: " + gamePanel.player.worldY, 85, 31);
+        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 630, 31);
+        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 700, 31);
 
-        g.setColor(Color.black);
         g.setFont(gabriola20);
-        g.drawString("x: " + gamePanel.player.worldX, 4, 21);
-        g.drawString("y: " + gamePanel.player.worldY, 84, 21);
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 629, 21);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 699, 21);
+        g.setColor(Color.gray);
+        g.drawString("x: " + gamePanel.player.worldX, 4, 33);
+        g.drawString("y: " + gamePanel.player.worldY, 84, 33);
+        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 629, 31);
+        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 699, 31);
 
         drawPlayerLife();
     }
