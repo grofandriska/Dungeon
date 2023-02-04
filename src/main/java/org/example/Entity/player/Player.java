@@ -200,15 +200,15 @@ public class Player extends Entity {
                 } else {
                     gamePanel.UI.addMessage(damage + " damage dealt to " + gamePanel.monsters[i].name + " !");
                 }
-
+                isCritical = false;
                 gamePanel.monsters[i].invincible = true;
                 gamePanel.monsters[i].damageReaction();
                 gamePanel.playSoundEffect(2);
 
                 if (gamePanel.monsters[i].life <= 0) {
                     gamePanel.monsters[i].dying = true;
-                    exp += gamePanel.monsters[i].exp;
-                    gamePanel.UI.addMessage("Killed " + gamePanel.monsters[i].name + " !  +" + exp + " xp");
+                    gamePanel.player.exp += gamePanel.monsters[i].exp;
+                    gamePanel.UI.addMessage("Killed " + gamePanel.monsters[i].name + " !  +" + gamePanel.monsters[i].exp + " xp");
                     gamePanel.playSoundEffect(10);
                     checkLevelUp();
 
@@ -221,11 +221,12 @@ public class Player extends Entity {
     private void checkLevelUp() {
         if (exp > nextLevelExp) {
             level++;
-            nextLevelExp *= 2;
+            nextLevelExp = nextLevelExp * 2;
             maxLife += 2;
             strength++;
             dexterity++;
-            attack = getAttack();//reset attack value
+            life = maxLife;
+            attack = getAttack(); //reset attack value
             defense = getDefense();
             gamePanel.gameState = gamePanel.dialogState;
             gamePanel.UI.currentDialog = "Level " + level + " reached!\n" + "Your stats improved.";
