@@ -101,24 +101,19 @@ Updates:
 - test: invincible Time and monster attack
 - gameOver state 
 - talk to nPc is fixed
-- refacrors in code and packages
-
-
-
-# -> next major update / dev plans
+- refacrors in code and packag
 
 # The living surrounds 0.2.0
 
 - Better rendering performance
 - First level design
 - UI 
-- Others
-
-
-# known Bugs.: 
-nO1: Solid area of player is not fixed and not proper 
-on right collisions. (Fixed)
-nO2: Leaving map throws exceptiont(fixed)
+- character Stat screen
+- Mage
+- Combat System
+- border and collision
+- nPc dialogs
+- New tile design
 
 github/grofandriska
 
