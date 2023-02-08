@@ -28,7 +28,7 @@ D - Lett
 P - Pause
 C - info
 
-Enter - Speak with NPC \ skip dialog
+Enter - Speak with NPC \ skip dialog \ attack 
 
 ------------------------------------------------------
 
