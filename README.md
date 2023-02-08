@@ -1,10 +1,10 @@
 Dungeon Adventures : Untold Story 
 
-This is my pure java practice project from a tutorial
+This is my pure java practice project from a youtube tutorial
 and my ideas. I am using own and downloaded tiles
 so far for rendering using javax.This is an 2D
 adventure RPG game. The player can move around 
-the map, pick up and interact with objects.
+the map, pick up Objects and interact npcs .
 
 The code is under development.
 
@@ -26,6 +26,7 @@ S - Down
 D - Lett 
 
 P - Pause
+C - info
 
 Enter - Speak with NPC \ skip dialog
 
@@ -87,8 +88,6 @@ Updates:
 - New water tile
 - Event class and methods
 - some debug started with worldBorder 
-
-# Dungeon 0.1.93b
 
 
 # Dungeon 0.1.95
