@@ -20,15 +20,18 @@ andrasgrof93@gmail.com
 
 
 Controls:
+
+PLayer movement / inventory management
+
 W - Up
 A - Right
 S - Down
-D - Lett 
+D - Left 
 
 P - Pause
 C - info
 
-Enter - Speak with NPC \ skip dialog \ attack 
+Enter - Speak with NPC \ skip dialog \ attack \ select
 
 ------------------------------------------------------
 
@@ -113,6 +116,7 @@ Updates:
 - border and collision
 - nPc dialogs
 - New tile design
+- inventory management and pick up stuff
 
 github/grofandriska
 
