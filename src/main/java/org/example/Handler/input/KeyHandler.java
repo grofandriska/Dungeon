@@ -20,21 +20,18 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (gamePanel.gameState == gamePanel.playState){
+        if (gamePanel.gameState == gamePanel.playState) {
             playState(code);
-        }
-        else if (gamePanel.gameState == gamePanel.pauseState){
+        } else if (gamePanel.gameState == gamePanel.pauseState) {
             pauseState(code);
-        }
-        else if (gamePanel.gameState == gamePanel.dialogState){
-           dialogState(code);
-        }
-        else if (gamePanel.gameState == gamePanel.characterState){
-           characterState(code);
-        }
-       else if (gamePanel.gameState == gamePanel.endState){
+        } else if (gamePanel.gameState == gamePanel.dialogState) {
+            dialogState(code);
+        } else if (gamePanel.gameState == gamePanel.characterState) {
+            characterState(code);
+        } else if (gamePanel.gameState == gamePanel.endState) {
         }
     }
+
     @Override
     public void keyReleased(KeyEvent e) {
 
@@ -50,11 +47,10 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         } else if (code == KeyEvent.VK_ENTER) {
             enterPressed = false;
-
         }
     }
 
-    public void playState(int code){
+    public void playState(int code) {
         if (gamePanel.gameState == gamePanel.playState) {
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
@@ -75,10 +71,10 @@ public class KeyHandler implements KeyListener {
                 gamePanel.gameState = gamePanel.characterState;
             }
             pauseState(code);
-
         }
-}
-    public void pauseState(int code){
+    }
+
+    public void pauseState(int code) {
         if (code == KeyEvent.VK_P) {
             if (gamePanel.gameState == gamePanel.playState) {
                 gamePanel.gameState = gamePanel.pauseState;
@@ -89,18 +85,43 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-    public void dialogState(int code){
+
+    public void dialogState(int code) {
         if (gamePanel.gameState == gamePanel.dialogState) {
             if (code == KeyEvent.VK_ENTER) {
                 gamePanel.gameState = gamePanel.playState;
             }
         }
     }
-    public void characterState(int code){
-        if (gamePanel.gameState == gamePanel.characterState) {
-            if (code == KeyEvent.VK_C) {
-                gamePanel.gameState = gamePanel.playState;
+
+    public void characterState(int code) {
+
+        if (code == KeyEvent.VK_C) {
+            gamePanel.gameState = gamePanel.playState;
+        }
+        // moving cursor inventory
+        if (code == KeyEvent.VK_W) {
+            if (gamePanel.UI.slotRow != 0) {
+                gamePanel.UI.slotRow--;
             }
+        }
+        if (code == KeyEvent.VK_A) {
+            if (gamePanel.UI.slotCol != 0) {
+                gamePanel.UI.slotCol--;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            if (gamePanel.UI.slotRow != 3) {
+                gamePanel.UI.slotRow++;
+            }
+        }
+        if (code == KeyEvent.VK_D) {
+            if (gamePanel.UI.slotCol != 4) {
+                gamePanel.UI.slotCol++;
+            }
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            gamePanel.player.selectItem();
         }
     }
 }

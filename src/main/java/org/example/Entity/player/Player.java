@@ -1,8 +1,12 @@
 package org.example.Entity.player;
 
 import org.example.Entity.Entity;
+import org.example.Entity.Objects.consum.OBJ_Key;
+import org.example.Entity.Objects.consum.OBJ_Potion;
+import org.example.Entity.Objects.consum.OBJ_SpeedPotion;
 import org.example.Entity.Objects.inventory.OBJ_SHIELD;
 import org.example.Entity.Objects.inventory.OBJ_SWORD;
+import org.example.Entity.Objects.solid.OBJ_GIFT;
 import org.example.Game.GamePanel;
 import org.example.Handler.input.KeyHandler;
 import org.example.Sound.Sound;
@@ -10,12 +14,19 @@ import org.example.UI.UI;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Player extends Entity {
     boolean isCritical = false;
     Random random = new Random();
     KeyHandler keyHandler;
+
+    // move to Entity
+
+    public ArrayList<Entity> inventory = new ArrayList<>();
+
+    public final int inventorySize = 20;
 
     public String playerName = "Bandi";
     public boolean isAttacking;
@@ -61,15 +72,53 @@ public class Player extends Entity {
         nextLevelExp = 4;
         coi = 0;
 
-        currentWeapon = new OBJ_SWORD(gamePanel);
-        currentShield = new OBJ_SHIELD(gamePanel);
+        setItems();
+
+        currentWeapon = inventory.get(0);
+        currentShield = inventory.get(1);
 
         attack = getAttack();
         defense = getDefense();
 
+
     }
 
+    public void setItems() {
+        inventory.add(new OBJ_SWORD(gamePanel));
+        inventory.add(new OBJ_SHIELD(gamePanel));
+        inventory.add(new OBJ_SpeedPotion(gamePanel));
+        inventory.add(new OBJ_SpeedPotion(gamePanel));
+        inventory.add(new OBJ_Key(gamePanel));
+        inventory.add(new OBJ_Key(gamePanel));
+        inventory.add(new OBJ_GIFT(gamePanel));
+        inventory.add(new OBJ_GIFT(gamePanel));
+    }
+
+    public void selectItem() {
+        int itemIndex = gamePanel.UI.getItemIndexFromSlot();
+        if (itemIndex < inventory.size()) {
+            Entity selectedItem = inventory.get(itemIndex);
+            if (selectedItem.type == 5) {
+                if (selectedItem.attackValue > 0) {
+                    currentWeapon = selectedItem;
+                    attack = getAttack();
+                }
+                if (selectedItem.defenseValue > 0) {
+                    currentShield = selectedItem;
+                    defense = getDefense();
+                }
+            }
+            if (selectedItem.type == 4) {
+                selectedItem.consume();
+                inventory.remove(itemIndex);
+            }
+        }
+    }
+
+    //use in entity and npc
     public int getAttack() {
+        attackRectangle = currentWeapon.attackRectangle;
+
         return attack = strength * currentWeapon.attackValue;
     }
 
@@ -252,7 +301,6 @@ public class Player extends Entity {
         if (i != 999) {
             if (!invincible) {
                 int damage = gamePanel.monsters[i].attack;
-
             }
         }
     }
@@ -366,12 +414,18 @@ public class Player extends Entity {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
 
+    // implement to NPC to make em work and so on
     public void pickupObject(int i) {
         if (i != 999) {
-            if (gamePanel.objects[i].name == "Potion") {
-                gamePanel.objects[i] = null;
-                speed += 2;
+            String text = "";
+            if (inventory.size() != inventorySize) {
+                inventory.add(gamePanel.objects[i]);
+                text = "You've picked up a(n)" + gamePanel.objects[i].name + "!";
+            } else {
+                text = "Inventory is full ,can't carry more !";
             }
+            gamePanel.UI.addMessage(text);
+            gamePanel.objects[i] = null;
         }
     }
 

@@ -6,19 +6,29 @@ import org.example.Events.EventHandler;
 import org.example.Handler.AssetSetter;
 import org.example.Handler.collision.CollisionChecker;
 import org.example.Handler.input.KeyHandler;
+import org.example.Main;
 import org.example.Sound.Sound;
 import org.example.Tile.TileManager;
 import org.example.UI.UI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
+
+
     public int gameState;
-    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4,characterState = 5, originalTileSize = 16, scale = 3, FPS = 60, maxScreenCol = 16, maxScreenRow = 12;
+    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, characterState = 5, originalTileSize = 16, scale = 3, FPS = 60, maxScreenCol = 16, maxScreenRow = 12;
     public final int maxWorldCol = 50, maxWorldRow = 50, tileSize = originalTileSize * scale, screenWidth = tileSize * maxScreenCol, screenHeight = tileSize * maxScreenRow;
+
+    // FullscreenStuff
+    int screenWidthFullScreen = screenWidth;
+
+    int screenHeightFullScreen = screenHeight;
+
     public ArrayList<Entity> entityList = new ArrayList<>();
     public AssetSetter assetSetter;
     public CollisionChecker collisionChecker;
@@ -69,6 +79,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread.start();
     }
+
+
     @Override
     public void run() {
 
@@ -95,6 +107,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+
+
 
     public void update() {
         if (gameState == playState) {
@@ -126,14 +140,13 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == pauseState) {
         }
     }
-
     public void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.loop();
     }
-
     public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
@@ -190,7 +203,6 @@ public class GamePanel extends JPanel implements Runnable {
         sound.setFile(i);
         sound.play();
     }
-
     public void stopMusic() {
         music.stop();
     }

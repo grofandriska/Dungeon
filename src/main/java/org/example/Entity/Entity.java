@@ -32,6 +32,8 @@ public abstract class Entity {
 
     public int attackValue, defenseValue;
 
+    public String description = " no info ";
+
     public Entity(GamePanel gamePanel) {
         dying = false;
         alive = true;
@@ -64,6 +66,7 @@ public abstract class Entity {
         //makes characters movement.
     }
 
+    public void consume(){}
     public void update() {
         setDirection();
 

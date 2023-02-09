@@ -83,8 +83,8 @@ public class EventHandler {
 
     public void heal(int gameState, int col, int row) {
         gamePanel.gameState = gameState;
-        gamePanel.UI.currentDialog = "You feel safe ! \n +4 life ";
-        gamePanel.player.life += 4;
+        gamePanel.UI.currentDialog = "You feel safe ! \nYou're life is restored ";
+        gamePanel.player.life =gamePanel.player.maxLife;
         events[1].canTouchEvent = false;
         eventRectangle[col][row].eventHappened = true;
     }

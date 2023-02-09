@@ -9,15 +9,18 @@ public class OBJ_Key extends Entity {
         super(gamePanel);
 
         name = "Key";
-        down1 = setup("/objects/key_01c",gamePanel.tileSize,gamePanel.tileSize);
+        image = setup("/objects/key_01c", gamePanel.tileSize, gamePanel.tileSize);
         collisionOn = true;
 
         solidArea.x = 0;
         solidArea.y = 16;
+
         solidArea.width = 48;
         solidArea.height = 32;
 
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+
+        description = "[" + name + "]\n" + "It's a key made from silver.\nNot any sign or mark.";
     }
 }

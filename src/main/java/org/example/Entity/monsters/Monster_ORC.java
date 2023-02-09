@@ -48,7 +48,6 @@ public class Monster_ORC extends Entity {
         }
         //makes characters movement.
     }
-
     public void setImage() {
         up1 = setup("/entities/orc/Zombie 1", gamePanel.tileSize, gamePanel.tileSize);
         up2 = setup("/entities/orc/Zombie 1", gamePanel.tileSize, gamePanel.tileSize);

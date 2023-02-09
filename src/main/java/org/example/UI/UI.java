@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class UI {
     BufferedImage heart3, heart2, heart1, image;
     GamePanel gamePanel;
-    Font arial40;
+    Font cambria40;
     Font arial80;
 
     Font arial20, arial10, arial20_bold, arial21, gabriola20;
@@ -26,13 +26,15 @@ public class UI {
     ArrayList<Integer> messageCounter = new ArrayList<>();
     public String currentDialog;
 
+    public int slotCol = 0, slotRow = 0;
+
     public UI(GamePanel gp) {
         this.gamePanel = gp;
         arial10 = new Font("Arial", Font.PLAIN, 10);
-        gabriola20 = new Font("Gabriola", Font.PLAIN, 24);
         arial21 = new Font("Arial", Font.PLAIN, 21);
         arial20_bold = new Font("Arial", Font.HANGING_BASELINE, 20);
-        arial40 = new Font("Cambria", Font.PLAIN, 40);
+        gabriola20 = new Font("Gabriola", Font.PLAIN, 24);
+        cambria40 = new Font("Cambria", Font.PLAIN, 40);
         arial80 = new Font("Arial", Font.BOLD, 80);
 
         Entity heart = new OBJ_Heart(gamePanel);
@@ -42,7 +44,30 @@ public class UI {
         heart3 = heart.image3;
     }
 
-    public void drawCharacterStateText() {
+    public void draw(Graphics2D g) {
+        this.graphics2D = g;
+        g.setFont(cambria40);
+        g.setColor(Color.white);
+
+        if (gamePanel.gameState == gamePanel.playState) {
+            drawUtility(graphics2D);
+            drawScrollMessage();
+
+        }
+        else if (gamePanel.gameState == gamePanel.pauseState) {
+            drawPauseState();
+        }
+       else if (gamePanel.gameState == gamePanel.dialogState) {
+            drawDialogScreen();
+        }
+
+        else if (gamePanel.gameState == gamePanel.endState) {
+            drawEndState();
+        }
+        else if (gamePanel.gameState == gamePanel.characterState) {
+            drawCharacterState();
+            drawInventory();
+        }
     }
 
     public void drawPlayerSolidArea() {
@@ -51,48 +76,129 @@ public class UI {
         graphics2D.fillRect(screenX + gamePanel.player.solidAreaDefaultX, screenY + gamePanel.player.solidAreaDefaultY, gamePanel.player.solidArea.width, gamePanel.player.solidArea.height);
     }
 
-    public void draw(Graphics2D g) {
-        this.graphics2D = g;
-        g.setFont(arial40);
-        g.setColor(Color.white);
+    private void drawInventory() {
 
-        if (gamePanel.gameState == gamePanel.playState) {
-            drawUtility(graphics2D);
-            drawScrollMessage();
+        // frame
+        int frameX = gamePanel.tileSize * 9;
+        int frameY = gamePanel.tileSize;
+        int frameHeight = gamePanel.tileSize * 5;
+        int frameWidth = gamePanel.tileSize * 6;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
-        }
-        if (gamePanel.gameState == gamePanel.pauseState) {
-            drawPauseState();
-        }
-        if (gamePanel.gameState == gamePanel.dialogState) {
-            drawDialogScreen();
+        // Slot
+        int slotX, slotY;
+
+        final int slotXStart = frameX + 20;
+        final int slotYStart = frameY + 20;
+
+        // used in drawing items
+        slotX = slotXStart;
+        slotY = slotYStart;
+
+        // cursor
+        int cursorX = slotXStart + (gamePanel.tileSize * slotCol);
+        int cursorY = slotYStart + (gamePanel.tileSize * slotRow);
+
+        int cursorWidth = gamePanel.tileSize;
+        int cursorHeight = gamePanel.tileSize;
+
+        graphics2D.setColor(Color.cyan);
+        graphics2D.setStroke(new BasicStroke(5));
+        graphics2D.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+        // draw playerItems
+        for (int i = 0; i < gamePanel.player.inventory.size(); i++) {
+
+            //if equiped
+            if (gamePanel.player.currentShield.equals(gamePanel.player.inventory.get(i)) || gamePanel.player.currentWeapon.equals(gamePanel.player.inventory.get(i))) {
+                graphics2D.setColor(new Color(240, 190, 90, 75));
+                graphics2D.fillRoundRect(slotX + 2, slotY + 2, gamePanel.tileSize - 4, gamePanel.tileSize - 4, 10, 10);
+            }
+            graphics2D.drawImage(gamePanel.player.inventory.get(i).image, slotX, slotY, null);
+
+            slotX += gamePanel.tileSize;
+
+            if (i == 4 || i == 9 || i == 14) {
+                slotX = slotXStart;
+                slotY += gamePanel.tileSize;
+            }
         }
 
-        if (gamePanel.gameState == gamePanel.endState) {
-            drawEndState();
-        }
-        if (gamePanel.gameState == gamePanel.characterState) {
-            drawCharacterState();
+        // drawing descriptionArea for inventory
+
+        int dFrameX = frameX;
+        int dFrameY = frameY + frameHeight;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = gamePanel.tileSize * 3;
+
+        //draw description
+
+        int textX = dFrameX + 10;
+        int textY = dFrameY + gamePanel.tileSize / 2;
+
+        graphics2D.setFont(gabriola20);
+
+        // Breaking description String to separate lines
+        int itemIndex = getItemIndexFromSlot();
+        if (itemIndex < gamePanel.player.inventory.size()) {
+            //draw desc. only if item selected
+            drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+            for (String line : gamePanel.player.inventory.get(itemIndex).description.split("\n")) {
+                graphics2D.drawString(line, textX, textY);
+                textY += 20;
+            }
         }
     }
 
+    public int getItemIndexFromSlot() {
+        return slotCol + (slotRow * 5);
+    }
+
+    public void drawSubWindow(int x, int y, int width, int height) {
+        Color c = new Color(0, 1, 1, 140); // paint ->SOLID UI
+        graphics2D.setColor(c);
+        graphics2D.fillRoundRect(x, y, width, height, 35, 35);
+
+        c = new Color(255, 255, 255);
+        graphics2D.setColor(c);
+        graphics2D.setStroke(new BasicStroke(5));
+        graphics2D.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
+    }
+
     private void drawScrollMessage() {
+        gamePanel.setFont(arial20_bold);
+
         int messageX = gamePanel.tileSize * 11;
         int messageY = (gamePanel.tileSize * 11) + 12;
-        gamePanel.setFont(arial20_bold);
+
 
         for (int i = 0; i < message.size(); i++) {
 
             if (message.get(i) != null) {
+                //draw background
+
+                graphics2D.setColor(new Color(70, 70, 70, 140));
+                graphics2D.fillRoundRect(messageX - 10, messageY - 16, 400, 20, 35, 35);
+
+
+                //draw from message and it's shadow
                 graphics2D.setFont(new Font("Gabriola", Font.PLAIN, 20));
                 graphics2D.setColor(Color.darkGray);
                 graphics2D.drawString(message.get(i), messageX + 1, messageY - 1);
+
                 graphics2D.setColor(Color.gray);
                 graphics2D.drawString(message.get(i), messageX, messageY);
-                int counter = messageCounter.get(i) + 1; // messageCounter++
-                messageCounter.set(i, counter); //set counter to the array
-                messageY += 25;
 
+                // messageCounter++
+                int counter = messageCounter.get(i) + 1;
+
+                //set counter to the array
+                messageCounter.set(i, counter);
+
+                //set to nextLine
+                messageY += 24;
+
+                // if more than 2 lines, delete previous old
                 if (message.size() > 2) {
                     message.remove(0);
                 }
@@ -248,17 +354,6 @@ public class UI {
         }
     }
 
-    public void drawSubWindow(int x, int y, int width, int height) {
-        Color c = new Color(0, 1, 1, 140); // paint ->SOLID UI
-        graphics2D.setColor(c);
-        graphics2D.fillRoundRect(x, y, width, height, 35, 35);
-
-        c = new Color(255, 255, 255);
-        graphics2D.setColor(c);
-        graphics2D.setStroke(new BasicStroke(5));
-        graphics2D.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
-    }
-
     public void drawUtility(Graphics2D g) {
         /* drawSubWindow(20, 70, 170, 185);*/
         try {
@@ -272,8 +367,8 @@ public class UI {
         graphics2D.fillRoundRect(-10, 10, 900, 30, 10, 10);
 
         for (int i = 0; i < 10; i++) {
-            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize*2, gamePanel.tileSize + 8), i * 95, 0, null);
-            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize*2, gamePanel.tileSize + 8), i * 95, 520, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, 0, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, 520, null);
         }
 
         g.setFont(gabriola20);
@@ -303,6 +398,7 @@ public class UI {
 
     }
 
+    // for scrollMessage
     public void addMessage(String text) {
         message.add(text);
         messageCounter.add(0);

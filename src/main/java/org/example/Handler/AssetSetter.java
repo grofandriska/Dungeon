@@ -1,5 +1,8 @@
 package org.example.Handler;
 
+import org.example.Entity.Objects.inventory.OBJ_SHIELD;
+import org.example.Entity.Objects.inventory.OBJ_STAFF;
+import org.example.Entity.Objects.inventory.OBJ_SWORD;
 import org.example.Entity.gaia.Bird;
 import org.example.Entity.monsters.Monster_ORC;
 import org.example.Entity.npc.Mage;
@@ -16,9 +19,17 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        gamePanel.objects[0] = new OBJ_Potion(gamePanel);
+        gamePanel.objects[0] = new OBJ_SWORD(gamePanel);
         gamePanel.objects[0].worldX = 5 * gamePanel.tileSize;
-        gamePanel.objects[0].worldY = 6 * gamePanel.tileSize;
+        gamePanel.objects[0].worldY = 7 * gamePanel.tileSize;
+
+        gamePanel.objects[1] = new OBJ_SHIELD(gamePanel);
+        gamePanel.objects[1].worldX = 6 * gamePanel.tileSize;
+        gamePanel.objects[1].worldY = 7 * gamePanel.tileSize;
+
+        gamePanel.objects[2] = new OBJ_STAFF(gamePanel);
+        gamePanel.objects[2].worldX = 7 * gamePanel.tileSize;
+        gamePanel.objects[2].worldY = 7 * gamePanel.tileSize;
     }
 
     public void setGaia() {
