@@ -22,12 +22,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int gameState;
     public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, characterState = 5, originalTileSize = 16, scale = 3, FPS = 60, maxScreenCol = 16, maxScreenRow = 12;
-    public final int maxWorldCol = 50, maxWorldRow = 50, tileSize = originalTileSize * scale, screenWidth = 1600, screenHeight = 900;
-
-    // FullscreenStuff
-    int screenWidthFullScreen = screenWidth;
-
-    int screenHeightFullScreen = screenHeight;
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int tileSize = originalTileSize * scale;
+    public int screenWidth;
+    public int screenHeight ;
 
     public ArrayList<Entity> entityList = new ArrayList<>();
     public AssetSetter assetSetter;
@@ -60,11 +59,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         this.monsters = new Entity[15];
 
-        this.setPreferredSize(new Dimension(1600, 900));
+        this.addKeyListener(keyHandler);
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyHandler);
         this.setFocusable(true);
+
     }
 
     public void setupGame() {
@@ -74,6 +73,19 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setMonster();
         gameState = playState;
         playMusic(9);
+
+        GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
+
+        graphicsDevice.setFullScreenWindow(Main.window);
+
+        screenWidth = Main.window.getWidth();
+        screenHeight = Main.window.getHeight();
+
+        System.out.println(screenWidth);
+        System.out.println(screenHeight);
+
+        this.setPreferredSize(new Dimension(Main.window.getWidth(), Main.window.getHeight()));
     }
 
     public void startGameThread() {
@@ -109,7 +121,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
-
     public void update() {
         if (gameState == playState) {
             player.update();
@@ -140,11 +151,13 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == pauseState) {
         }
     }
+
     public void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.loop();
     }
+
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
@@ -203,6 +216,7 @@ public class GamePanel extends JPanel implements Runnable {
         sound.setFile(i);
         sound.play();
     }
+
     public void stopMusic() {
         music.stop();
     }

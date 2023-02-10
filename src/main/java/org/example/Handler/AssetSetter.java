@@ -103,8 +103,17 @@ public class AssetSetter {
         gamePanel.monsters[5].worldY = gamePanel.tileSize * 23;
 
         gamePanel.monsters[6] = new Mage(gamePanel);
-        gamePanel.monsters[6].worldX = gamePanel.tileSize * 44;
-        gamePanel.monsters[6].worldY = gamePanel.tileSize * 28;
+        gamePanel.monsters[6].worldX = gamePanel.tileSize * 20;
+        gamePanel.monsters[6].worldY = gamePanel.tileSize * 43;
+        gamePanel.monsters[7] = new Monster_ORC(gamePanel);
+        gamePanel.monsters[7].worldX = gamePanel.tileSize * 20;
+        gamePanel.monsters[7].worldY = gamePanel.tileSize * 44;
+        gamePanel.monsters[8] = new Monster_ORC(gamePanel);
+        gamePanel.monsters[8].worldX = gamePanel.tileSize * 20;
+        gamePanel.monsters[8].worldY = gamePanel.tileSize * 45;
+        gamePanel.monsters[9] = new Monster_ORC(gamePanel);
+        gamePanel.monsters[9].worldX = gamePanel.tileSize * 19;
+        gamePanel.monsters[9].worldY = gamePanel.tileSize * 45;
 
     }
 }

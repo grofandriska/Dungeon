@@ -163,7 +163,7 @@ public class UI {
     private void drawScrollMessage() {
         gamePanel.setFont(arial20_bold);
 
-        int messageX = gamePanel.screenWidth - 400;
+        int messageX = gamePanel.screenWidth - 250;
         int messageY = gamePanel.screenHeight - 200;
 
 
@@ -321,7 +321,7 @@ public class UI {
     public void drawPlayerLife() {
 
         int x = 10;
-        int y = gamePanel.screenHeight - 90;
+        int y = gamePanel.screenHeight - 56;
         int i = 0;
 
         while (i < gamePanel.player.maxLife / 2) {
@@ -335,7 +335,7 @@ public class UI {
         }
 
         x = 10;
-        y = gamePanel.screenHeight - 90;
+        y = gamePanel.screenHeight - 56;
         i = 0;
 
         while (i < gamePanel.player.life) {
@@ -363,22 +363,24 @@ public class UI {
 
         for (int i = 0; i < 30; i++) {
             graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, 0, null);
-            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, 810, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, gamePanel.screenHeight - gamePanel.tileSize - 5, null);
         }
 
         g.setFont(gabriola20);
         g.setColor(Color.darkGray);
         g.drawString("x: " + gamePanel.player.worldX, 5, 31);
         g.drawString("y: " + gamePanel.player.worldY, 85, 31);
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 1390, 31);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 1460, 31);
+
+        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, gamePanel.screenWidth - 200, 31);
+        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, gamePanel.screenWidth - 100, 31);
 
         g.setFont(gabriola20);
         g.setColor(Color.gray);
         g.drawString("x: " + gamePanel.player.worldX, 4, 33);
         g.drawString("y: " + gamePanel.player.worldY, 84, 33);
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 1391, 31);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 1461, 31);
+
+        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, gamePanel.screenWidth - 201, 31);
+        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, gamePanel.screenWidth - 101, 31);
 
         drawPlayerLife();
     }
