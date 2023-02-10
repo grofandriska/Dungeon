@@ -15,10 +15,10 @@ public class Main {
         window.setUndecorated(true);
 
         GamePanel gamePanel = new GamePanel();
+
+
         window.add(gamePanel);
-
         window.pack();
-
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 

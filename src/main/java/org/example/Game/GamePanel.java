@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldRow = 50;
     public final int tileSize = originalTileSize * scale;
     public int screenWidth;
-    public int screenHeight ;
+    public int screenHeight;
 
     public ArrayList<Entity> entityList = new ArrayList<>();
     public AssetSetter assetSetter;
@@ -67,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
+
         assetSetter.setObject();
         assetSetter.setNPC();
         assetSetter.setGaia();
@@ -79,13 +80,20 @@ public class GamePanel extends JPanel implements Runnable {
 
         graphicsDevice.setFullScreenWindow(Main.window);
 
+
+        // so far can get values only here, not at constructor, and can't get this values from player class so i set ScreenX Y here
         screenWidth = Main.window.getWidth();
         screenHeight = Main.window.getHeight();
+
+        player.screenX = screenWidth / 2;
+        player.screenY = screenHeight / 2;
 
         System.out.println(screenWidth);
         System.out.println(screenHeight);
 
         this.setPreferredSize(new Dimension(Main.window.getWidth(), Main.window.getHeight()));
+
+        // till here , anyway its working well :)
     }
 
     public void startGameThread() {

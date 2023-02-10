@@ -30,17 +30,15 @@ public class Player extends Entity {
 
     public String playerName = "Bandi";
     public boolean isAttacking;
-    public final int screenX;
-    public final int screenY;
+    public  int screenX;
+    public  int screenY;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
         name = "Player";
+
         this.speed = 1;
         this.keyHandler = keyHandler;
-
-        screenX = 1600 / 2 ;/*gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2)*/;
-        screenY = 900 / 2 ;/* gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);*/
 
         solidArea = new Rectangle();
         solidArea.x = 10;
@@ -49,6 +47,7 @@ public class Player extends Entity {
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 30;
         solidArea.height = 30;
+
         setDefaultValues();
         setPlayerImage();
     }
@@ -79,7 +78,6 @@ public class Player extends Entity {
 
         attack = getAttack();
         defense = getDefense();
-
 
     }
 
