@@ -11,23 +11,23 @@ import org.example.Sound.Sound;
 import org.example.Tile.TileManager;
 import org.example.UI.UI;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
+import javax.swing.*;
+import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
 
     public int gameState;
-    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, characterState = 5, originalTileSize = 16, scale = 3, FPS = 60, maxScreenCol = 16, maxScreenRow = 12;
+    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, characterState = 5,
+            originalTileSize = 16, scale = 3, FPS = 60,
+            maxScreenCol = 16, maxScreenRow = 12;
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public final int tileSize = originalTileSize * scale;
     public int screenWidth;
     public int screenHeight;
-
     public ArrayList<Entity> entityList = new ArrayList<>();
     public AssetSetter assetSetter;
     public CollisionChecker collisionChecker;
@@ -80,8 +80,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         graphicsDevice.setFullScreenWindow(Main.window);
 
-
-        // so far can get values only here, not at constructor, and can't get this values from player class so i set ScreenX Y here
         screenWidth = Main.window.getWidth();
         screenHeight = Main.window.getHeight();
 
@@ -91,16 +89,12 @@ public class GamePanel extends JPanel implements Runnable {
         System.out.println(screenWidth);
         System.out.println(screenHeight);
 
-        this.setPreferredSize(new Dimension(Main.window.getWidth(), Main.window.getHeight()));
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 
-        // till here , anyway its working well :)
     }
-
     public void startGameThread() {
         gameThread.start();
     }
-
-
     @Override
     public void run() {
 
@@ -130,12 +124,12 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public void update() {
+
         if (gameState == playState) {
             player.update();
-
             for (int i = 0; i < monsters.length; i++) {
                 if (monsters[i] != null) {
-                    if (monsters[i].alive && !monsters[i].dying) {
+                    if (monsters[i].isAlive && !monsters[i].isDying) {
                         monsters[i].update();
                     }
                 }
@@ -156,6 +150,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
+
         if (gameState == pauseState) {
         }
     }
@@ -206,6 +201,7 @@ public class GamePanel extends JPanel implements Runnable {
                 entityList.add(value);
             }
         }
+
         entityList.sort(Comparator.comparingInt(o -> o.worldY));
 
         for (Entity entity : entityList) {
@@ -213,9 +209,7 @@ public class GamePanel extends JPanel implements Runnable {
                 entity.draw(g2);
             }
         }
-
         entityList.clear();
-
         UI.draw(g2);
         g2.dispose();
     }

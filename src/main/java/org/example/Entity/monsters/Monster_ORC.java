@@ -9,42 +9,44 @@ import java.util.Random;
 public class Monster_ORC extends Entity {
     public Monster_ORC(GamePanel gamePanel) {
         super(gamePanel);
-        name = "Orc";
 
-        speed = 1;
-        type = 2;
-        maxLife = 10;
-        life = maxLife;
-        attack = 3;
-        defense = 0;
-        exp = 3;
+        //entity static
+        this.name = "Orc";
+        this.speed = 1;
+        this.type = 2;
+        this.maxLife = 10;
+        this.life = maxLife;
+        this.attack = 3;
+        this.defense = 0;
+        this.exp = 3;
 
-        solidArea = new Rectangle();
-        solidArea.x = 3;
-        solidArea.y = 5;
-        solidArea.height = 45;
-        solidArea.width = 43;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
+        //entity attributes
+        this.solidAreaRectangle = new Rectangle();
+        this.solidAreaRectangle.x = 3;
+        this.solidAreaRectangle.y = 5;
+        this.solidAreaRectangle.height = 45;
+        this.solidAreaRectangle.width = 43;
+        this.solidAreaDefaultX = solidAreaRectangle.x;
+        this.solidAreaDefaultY = solidAreaRectangle.y;
+
         setImage();
     }
-
     public void damageReaction() {
         if (this.life <= maxLife - 6) {
-            imageCounter = 0;
+            setDirectionCounter = 0;
             this.direction = gamePanel.player.direction;
         }
     }
-    public void setDirection() {
-        imageCounter++;
-        if (imageCounter == 120) {
+    public void setNewDirection() {
+        setDirectionCounter++;
+        if (setDirectionCounter == 120) {
             Random random = new Random();
             int i = random.nextInt(100) + 1;
             if (i <= 25) direction = "down";
             if (i >= 25 && i <= 50) direction = "left";
             if (i >= 50 && i <= 75) direction = "right";
             if (i >= 75 && i <= 100) direction = "up";
-            imageCounter = 0;
+            setDirectionCounter = 0;
         }
         //makes characters movement.
     }

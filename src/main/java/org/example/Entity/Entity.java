@@ -11,66 +11,85 @@ import java.util.Objects;
 import java.util.Random;
 
 public abstract class Entity {
-
-    Random random = new Random();
-    public String[] dialogs;
-
-    public String direction, name;
+    //dependency
 
     public GamePanel gamePanel;
-    public Rectangle attackRectangle, solidArea;
+    public Random random = new Random();
+
+
+    //entity stats
+
+    public String direction, name;
+    public int level, strength, dexterity, attack, defense, exp, nextLevelExp, coin;
+    public Entity currentWeapon, currentShield;
+    public int attackValue, defenseValue;
+
+
+    //entity static
+    public String[] dialogs;
+
+    public String description = " no info ";
+    public Rectangle attackAreaRectangle, solidAreaRectangle;
     public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2;
 
     public BufferedImage image, image2, image3, attackUp_1, attackUp_2, attackDown_1, attackDown_2, attackRight_1, attackRight_2, attackLeft_1, attackLeft_2;
-    public int spriteCounter, spriteNum, maxLife, life, imageCounter, dialogIndex, invincibleCounter, type, deathCounter, worldX, worldY, solidAreaDefaultX, solidAreaDefaultY, speed;
-    public boolean collisionOn, collision, invincible, dying, alive;
+    public int setMoveImageCounter, spriteImageNumber, maxLife, life, setDirectionCounter, dialogIndex, setInvincibleCounter, type, deathCounter, worldX, worldY, solidAreaDefaultX, solidAreaDefaultY, speed;
+    public boolean isCollisionOn, isSolid, isInvincible, isDying, isAlive,isCritical;
 
-    //player stats
-    public int level, strength, dexterity, attack, defense, exp, nextLevelExp, coi;
-
-    public Entity currentWeapon, currentShield;
-
-    public int attackValue, defenseValue;
-
-    public String description = " no info ";
-
+    //constructor
     public Entity(GamePanel gamePanel) {
-        dying = false;
-        alive = true;
-        spriteCounter = 0;
-        spriteNum = 1;
-        imageCounter = 0;
-        invincibleCounter = 0;
-        direction = "down";
-        invincible = false;
-        collision = false;
-        collisionOn = false;
-        dialogs = new String[20];
-        solidArea = new Rectangle(0, 0, gamePanel.tileSize, gamePanel.tileSize);
-        attackRectangle = new Rectangle(0, 0, 0, 0);
-        dialogs[0] = "...";
         this.gamePanel = gamePanel;
+
+        this.spriteImageNumber = 1;
+
+        this.setMoveImageCounter = 0;
+        this.setDirectionCounter = 0;
+        this.setInvincibleCounter = 0;
+
+        this.direction = "down";
+
+        this.isDying = false;
+        this.isAlive = true;
+        this.isInvincible = false;
+        this.isSolid = false;
+        this.isCollisionOn = false;
+
+        this.dialogs = new String[20];
+        this.dialogs[0] = "...";
+
+        this.solidAreaRectangle = new Rectangle(0, 0, gamePanel.tileSize, gamePanel.tileSize);
+        this.attackAreaRectangle = new Rectangle(0, 0, gamePanel.tileSize, gamePanel.tileSize);
+
+        this.attack = getAttack();
+
     }
 
-    public void setDirection() {
-        imageCounter++;
-        if (imageCounter == 120) {
+    //change entity(npc) direction
+    public void setNewDirection() {
+        setDirectionCounter++;
+        if (setDirectionCounter == 120) {
             Random random = new Random();
             int i = random.nextInt(100) + 1;
             if (i <= 25) direction = "down";
             if (i >= 25 && i <= 50) direction = "left";
             if (i >= 50 && i <= 75) direction = "right";
             if (i >= 75 && i <= 100) direction = "up";
-            imageCounter = 0;
+            setDirectionCounter = 0;
         }
-        //makes characters movement.
     }
 
-    public void consume(){}
-    public void update() {
-        setDirection();
+    //for objects
+    public void consume() {
+        //implement
+    }
 
-        collisionOn = false;
+    public void update() {
+
+        setNewDirection();
+
+        isCollisionOn = false;
+
+        //check surrounds
 
         gamePanel.collisionChecker.checkBorder(this);
 
@@ -84,22 +103,22 @@ public abstract class Entity {
 
         boolean contactPLayer = gamePanel.collisionChecker.checkPlayer(this);
 
-        //player class contact monster would come here
-        if (contactPLayer && this.type == 2) {
 
-            System.out.println("dmg rec");
-            if (!gamePanel.player.invincible) {
+        //
+        if (contactPLayer && this.type == 2) {
+            if (!gamePanel.player.isInvincible) {
                 int damage = attack - gamePanel.player.defense;
                 if (damage < 0) {
                     damage = 0;
                 }
                 gamePanel.playSoundEffect(6);
                 gamePanel.player.life -= damage;
-                gamePanel.player.invincible = true;
+                gamePanel.player.isInvincible = true;
             }
         }
 
-        if (!collisionOn) {
+
+        if (!isCollisionOn) {
             switch (direction) {
                 case "up" -> worldY -= speed;
                 case "down" -> worldY += speed;
@@ -108,36 +127,52 @@ public abstract class Entity {
             }
         }
 
-        spriteCounter++;
+        setMoveImageCounter++;
 
-        if (spriteCounter > 12) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 1;
+        if (setMoveImageCounter > 12) {
+            if (spriteImageNumber == 1) {
+                spriteImageNumber = 2;
+            } else if (spriteImageNumber == 2) {
+                spriteImageNumber = 1;
             }
-            spriteCounter = 0;
+            setMoveImageCounter = 0;
         }
 
 
-        if (invincible) {
-            invincibleCounter++;
-            if (invincibleCounter > 60) {
-                invincible = false;
-                invincibleCounter = 0;
+        if (isInvincible) {
+            setInvincibleCounter++;
+            if (setInvincibleCounter > 60) {
+                isInvincible = false;
+                setInvincibleCounter = 0;
             }
         }
     }
 
-    public int generateCriticalAttack() {
-        int criticalValue = 0;
-        int randomNumber = 0;
-        randomNumber = random.nextInt(100) + 1;
-        System.out.println(randomNumber);
-        if (randomNumber > 90) {
-            criticalValue = 2;
+
+    public void damageReaction() {
+    }
+
+    public int getAttack() {
+        if (currentWeapon != null) {
+            attackAreaRectangle = currentWeapon.attackAreaRectangle;
+            return attack = strength * currentWeapon.attackValue;
         }
-        return criticalValue;
+        return 1;
+    }
+
+    public int generateCriticalAttack() {
+        int attackValue = attack;
+        int criticalValue;
+
+        int randomNumber = random.nextInt(100) + 1;
+
+        if (randomNumber > 80) {
+            criticalValue = 2;
+        } else {
+            return attackValue;
+        }
+        isCritical = true;
+        return attackValue + criticalValue;
     }
 
     public boolean checkDistance(Entity entity) {
@@ -166,46 +201,46 @@ public abstract class Entity {
                 && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
             switch (direction) {
                 case "up" -> {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = up1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = up2;
                     }
                 }
                 case "down" -> {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = down1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = down2;
                     }
                 }
                 case "right" -> {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = right1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = right2;
                     }
                 }
                 case "left" -> {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = left1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = left2;
                     }
                 }
             }
 
 
-            if (invincible) {
+            if (isInvincible) {
                 drawHealthBar(graphics2D);
                 graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
             }
 
-            if (dying) {
+            if (isDying) {
                 dyingAnimation(graphics2D);
             }
             graphics2D.drawImage(image, screenX, screenY, null);
@@ -263,12 +298,9 @@ public abstract class Entity {
         }
 
         if (deathCounter > i * 8) {
-            dying = false;
-            alive = false;
+            isDying = false;
+            isAlive = false;
         }
-    }
-
-    public void damageReaction() {
     }
 
     public void changeAlphaForAnimation(Graphics2D graphics2D, float alpha) {

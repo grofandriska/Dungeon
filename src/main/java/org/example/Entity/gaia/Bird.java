@@ -5,23 +5,23 @@ import org.example.Game.GamePanel;
 
 public class Bird extends Entity {
 
+    //constructor
     public Bird(GamePanel gamePanel) {
         super(gamePanel);
-        direction = "left";
-        speed = 1;
-        name = "Bird";
+        this.direction = "left";
+        this.speed = 1;
+        this.name = "Bird";
         setBirdImage();
     }
-
+    //check tile and border and change image counter
     public void update() {
-        setDirection();
-
-        collisionOn = false;
+        setNewDirection();
+        isCollisionOn = false;
 
         gamePanel.collisionChecker.checkBorder(this);
         gamePanel.collisionChecker.checkTile(this);
 
-        if (!collisionOn) {
+        if (!isCollisionOn) {
             switch (direction) {
                 case "up" -> worldY -= speed;
                 case "down" -> worldY += speed;
@@ -30,18 +30,18 @@ public class Bird extends Entity {
             }
         }
 
-        spriteCounter++;
+        setMoveImageCounter++;
 
-        if (spriteCounter > 12) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 1;
+        if (setMoveImageCounter > 12) {
+            if (spriteImageNumber == 1) {
+                spriteImageNumber = 2;
+            } else if (spriteImageNumber == 2) {
+                spriteImageNumber = 1;
             }
-            spriteCounter = 0;
+            setMoveImageCounter = 0;
         }
     }
-
+    //load image files
     public void setBirdImage() {
         up1 = setup("/entities/bird/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
         up2 = setup("/entities/bird/Bird 5",gamePanel.tileSize,gamePanel.tileSize);

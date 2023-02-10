@@ -2,15 +2,12 @@ package org.example.Entity.player;
 
 import org.example.Entity.Entity;
 import org.example.Entity.Objects.consum.OBJ_Key;
-import org.example.Entity.Objects.consum.OBJ_Potion;
 import org.example.Entity.Objects.consum.OBJ_SpeedPotion;
 import org.example.Entity.Objects.inventory.OBJ_SHIELD;
 import org.example.Entity.Objects.inventory.OBJ_SWORD;
 import org.example.Entity.Objects.solid.OBJ_GIFT;
 import org.example.Game.GamePanel;
 import org.example.Handler.input.KeyHandler;
-import org.example.Sound.Sound;
-import org.example.UI.UI;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,70 +15,65 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Player extends Entity {
-    boolean isCritical = false;
-    Random random = new Random();
-    KeyHandler keyHandler;
+    //dependency
+    public Random random;
+    public KeyHandler keyHandler;
 
-    // move to Entity
-
+    //player attributes
+    public int screenY, screenX;
+    boolean isAttacking, isCritical = false;
+    public final int inventorySize;
     public ArrayList<Entity> inventory = new ArrayList<>();
 
-    public final int inventorySize = 20;
-
-    public String playerName = "Bandi";
-    public boolean isAttacking;
-    public  int screenX;
-    public  int screenY;
-
+    //constructor
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         super(gamePanel);
-        name = "Player";
-
-        this.speed = 1;
+        this.random = new Random();
         this.keyHandler = keyHandler;
 
-        solidArea = new Rectangle();
-        solidArea.x = 10;
-        solidArea.y = 16;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
-        solidArea.width = 30;
-        solidArea.height = 30;
+        //player attributes
+        this.type = 3;
+        this.inventorySize = 20;
+
+        //solid area
+        this.solidAreaRectangle = new Rectangle();
+        this.solidAreaRectangle.x = 10;
+        this.solidAreaRectangle.y = 16;
+        this.solidAreaRectangle.width = 30;
+        this.solidAreaRectangle.height = 30;
+        this.solidAreaDefaultX = solidAreaRectangle.x;
+        this.solidAreaDefaultY = solidAreaRectangle.y;
 
         setDefaultValues();
         setPlayerImage();
     }
 
+    //init fields
     public void setDefaultValues() {
+        //player stats
+        this.name = "Player_1";
+        this.speed = 1;
+        this.level = 1;
+        this.maxLife = 12;
+        this.life = maxLife;
+        this.strength = 1;
+        this.dexterity = 1;
+        this.exp = 0;
+        this.nextLevelExp = 4;
+        this.coin = 0;
 
-        worldX = gamePanel.tileSize * 6;
-        worldY = gamePanel.tileSize * 9;
+        //player attributes
+        this.worldX = 288;
+        this.worldY = 432;
+        this.attackAreaRectangle.height = 36;
+        this.attackAreaRectangle.width = 36;
 
-        attackRectangle.height = 36;
-        attackRectangle.width = 36;
-
-        level = 1;
-        type = 3;
-        speed = 2;
-        maxLife = 12;
-        life = maxLife;
-        strength = 1;
-        dexterity = 1;
-        exp = 0;
-        nextLevelExp = 4;
-        coi = 0;
-
-        setItems();
-
-        currentWeapon = inventory.get(0);
-        currentShield = inventory.get(1);
-
-        attack = getAttack();
-        defense = getDefense();
+        setInventory();
 
     }
 
-    public void setItems() {
+    //stack up inventory and set some field
+    public void setInventory() {
         inventory.add(new OBJ_SWORD(gamePanel));
         inventory.add(new OBJ_SHIELD(gamePanel));
         inventory.add(new OBJ_SpeedPotion(gamePanel));
@@ -90,12 +82,24 @@ public class Player extends Entity {
         inventory.add(new OBJ_Key(gamePanel));
         inventory.add(new OBJ_GIFT(gamePanel));
         inventory.add(new OBJ_GIFT(gamePanel));
+
+        this.currentWeapon = inventory.get(0);
+        this.currentShield = inventory.get(1);
+
+        this.attack = getAttack();
+        this.defense = getDefense();
     }
 
-    public void selectItem() {
+    //TODO :refactor if statements * separate logic
+    public void setOrConsumeItemFromInventory() {
+        //itemIndex
         int itemIndex = gamePanel.UI.getItemIndexFromSlot();
+
+        //if size is in inventory
         if (itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
+
+            //if type == inventory type
             if (selectedItem.type == 5) {
                 if (selectedItem.attackValue > 0) {
                     currentWeapon = selectedItem;
@@ -106,6 +110,8 @@ public class Player extends Entity {
                     defense = getDefense();
                 }
             }
+
+            //if consumable
             if (selectedItem.type == 4) {
                 selectedItem.consume();
                 inventory.remove(itemIndex);
@@ -113,50 +119,29 @@ public class Player extends Entity {
         }
     }
 
-    //use in entity and npc
-    public int getAttack() {
-        attackRectangle = currentWeapon.attackRectangle;
-
-        return attack = strength * currentWeapon.attackValue;
-    }
-
-    public int getDefense() {
-        return defense = dexterity * currentShield.defenseValue;
-    }
-
+    //check surround, change images, set counters
     public void update() {
-        if (isAttacking) {
-            attacking();
-        } else if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.enterPressed) {
+        //attack "state"
+        if (isAttacking) attacking();
+            //if moving key pressed
+        else if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.enterPressed) {
+            if (keyHandler.upPressed) direction = "up";
+            else if (keyHandler.downPressed) direction = "down";
+            else if (keyHandler.rightPressed) direction = "right";
+            else if (keyHandler.leftPressed) direction = "left";
 
-            if (keyHandler.upPressed) {
-                direction = "up";
-            } else if (keyHandler.downPressed) {
-                direction = "down";
-            } else if (keyHandler.rightPressed) {
-                direction = "right";
-            } else if (keyHandler.leftPressed) {
-                direction = "left";
-            }
-
-            collisionOn = false;
-
-            //check surround
-            gamePanel.collisionChecker.checkTile(this);
-            gamePanel.collisionChecker.checkBorder(this);
-            gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
-            gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
-            gamePanel.collisionChecker.checkEntity(this, gamePanel.entities);
+            this.isCollisionOn = false;
             gamePanel.eventHandler.checkEvent();
-
+            gamePanel.collisionChecker.checkBorder(this);
+            gamePanel.collisionChecker.checkTile(this);
+            gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
+            gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
 
             pickupObject(gamePanel.collisionChecker.checkObject(this, true));
-
             interactNPC(gamePanel.collisionChecker.checkEntity(this, gamePanel.npc));
-
             contactMonster(gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters));
-
-            if (!collisionOn && !keyHandler.enterPressed) {
+            //move player on map
+            if (!isCollisionOn && !keyHandler.enterPressed) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
                     case "down" -> worldY += speed;
@@ -164,28 +149,27 @@ public class Player extends Entity {
                     case "right" -> worldX += speed;
                 }
             }
-
             gamePanel.keyHandler.enterPressed = false;
-
-            spriteCounter++;
-
-            if (spriteCounter > 6) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+            //setting image when moving
+            setMoveImageCounter++;
+            if (setMoveImageCounter > 6) {
+                if (spriteImageNumber == 1) {
+                    spriteImageNumber = 2;
+                } else if (spriteImageNumber == 2) {
+                    spriteImageNumber = 1;
                 }
-                spriteCounter = 0;
+                setMoveImageCounter = 0;
             }
         }
-
-        if (invincible) {
-            invincibleCounter++;
-            if (invincibleCounter > 60) {
-                invincible = false;
-                invincibleCounter = 0;
+        //setting invincible timer
+        if (isInvincible) {
+            setInvincibleCounter++;
+            if (setInvincibleCounter > 60) {
+                isInvincible = false;
+                setInvincibleCounter = 0;
             }
         }
+        //die logic
         if (life <= 0) {
             gamePanel.gameState = 4;
             gamePanel.stopMusic();
@@ -194,92 +178,114 @@ public class Player extends Entity {
     }
 
     private void attacking() {
-        spriteCounter++;
 
-        if (spriteCounter <= 5) {
-            spriteNum = 1;
+        //set image variable
+        this.setMoveImageCounter++;
+        if (this.setMoveImageCounter <= 5) {
+            this.spriteImageNumber = 1;
+        }
+        if (this.setMoveImageCounter <= 25 && this.setMoveImageCounter > 5) {
+            this.spriteImageNumber = 2;
+        }
+        if (this.setMoveImageCounter > 25 && this.setMoveImageCounter < 35) {
+            this.spriteImageNumber = 1;
+        }
+        if (this.setMoveImageCounter > 35 && this.setMoveImageCounter < 45) {
+            this.spriteImageNumber = 2;
         }
 
-        if (spriteCounter <= 25 && spriteCounter > 5) {
-            spriteNum = 2;
+        //save player proper position since attack image 64 x 32
+        int currentWorldX = this.worldX;
+        int currentWorldY = this.worldY;
+        int currentSolidAreaWidth = this.solidAreaRectangle.width;
+        int currentSolidAreaHeight = this.solidAreaRectangle.height;
 
-            int currentWorldX = worldX;
-            int solidAreaWidth = solidArea.width;
-            int solidAreaHeight = solidArea.height;
-            int currentWorldY = worldY;
-
-            switch (direction) {
-                case "up" -> worldY -= attackRectangle.height;
-                case "down" -> worldY += attackRectangle.height;
-                case "left" -> worldX -= attackRectangle.width;
-                case "right" -> worldX += attackRectangle.width;
-            }
-
-            solidArea.width = attackRectangle.width;
-            solidArea.height = attackRectangle.height;
-
-            int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
-            damageMonster(monsterIndex);
-
-            worldX = currentWorldX;
-            worldY = currentWorldY;
-            solidArea.width = solidAreaWidth;
-            solidArea.height = solidAreaHeight;
+        //set new position
+        switch (direction) {
+            case "up" -> this.worldY -= this.attackAreaRectangle.height;
+            case "down" -> this.worldY += this.attackAreaRectangle.height;
+            case "left" -> this.worldX -= this.attackAreaRectangle.width;
+            case "right" -> this.worldX += this.attackAreaRectangle.width;
         }
 
-        if (spriteCounter > 25) {
-            spriteNum = 1;
-            spriteCounter = 0;
-            isAttacking = false;
+        //set player solid area for the new location ?!
+        this.solidAreaRectangle.width = this.attackAreaRectangle.width;
+        this.solidAreaRectangle.height = this.attackAreaRectangle.height;
+
+        //get monster index and do damage
+        int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
+        damageMonster(monsterIndex);
+
+        //change back player position
+        this.worldX = currentWorldX;
+        this.worldY = currentWorldY;
+        this.solidAreaRectangle.width = currentSolidAreaWidth;
+        this.solidAreaRectangle.height = currentSolidAreaHeight;
+
+        //reset image and counter
+        if (this.setMoveImageCounter > 45) {
+            this.setMoveImageCounter = 0;
+            this.isAttacking = false;
         }
     }
 
+    //calculate damage and update entity
     private void damageMonster(int i) {
         if (i != 999) {
-            if (!gamePanel.monsters[i].invincible) {
+            //calculate damage
+            if (!gamePanel.monsters[i].isInvincible) {
                 int damage = generateCriticalAttack() - gamePanel.monsters[i].defense;
                 if (damage < 0) {
                     damage = 0;
                 }
+                //set entity attributes
                 gamePanel.monsters[i].life -= damage;
+                gamePanel.monsters[i].isInvincible = true;
+                gamePanel.monsters[i].damageReaction();
+                //add scroll message
                 if (isCritical) {
                     gamePanel.UI.addMessage("*" + damage + "*" + " critical damage dealt to " + gamePanel.monsters[i].name + " !");
                 } else {
                     gamePanel.UI.addMessage(damage + " damage dealt to " + gamePanel.monsters[i].name + " !");
                 }
+                //reset and playSE
                 isCritical = false;
-                gamePanel.monsters[i].invincible = true;
-                gamePanel.monsters[i].damageReaction();
                 gamePanel.playSoundEffect(2);
-
+                //check if entity life <= 0 and level up
                 if (gamePanel.monsters[i].life <= 0) {
-                    gamePanel.monsters[i].dying = true;
+                    gamePanel.monsters[i].isDying = true;
                     gamePanel.player.exp += gamePanel.monsters[i].exp;
                     gamePanel.UI.addMessage("Killed " + gamePanel.monsters[i].name + " !  +" + gamePanel.monsters[i].exp + " xp");
                     gamePanel.playSoundEffect(10);
-                    checkLevelUp();
-
                     gamePanel.monsters[i] = null;
+                    checkLevelUp();
                 }
             }
         }
     }
 
+    //levelUp ,set new attributes
     private void checkLevelUp() {
         if (exp > nextLevelExp) {
+
+            //change attributes
             level++;
-            nextLevelExp = nextLevelExp * 2;
-            maxLife += 2;
             strength++;
             dexterity++;
-            life = maxLife;
-            attack = getAttack(); //reset attack value
+            attack = getAttack();
             defense = getDefense();
+            nextLevelExp *= 2;
+            maxLife += 2;
+            life += 1;
+            exp = 0;
+
+            // set to dialog
             gamePanel.gameState = gamePanel.dialogState;
             gamePanel.UI.currentDialog = "Level " + level + " reached!\n" + "Your stats improved.";
         }
     }
 
+    //more damage if random
     public int generateCriticalAttack() {
         int attackValue = attack;
         int criticalValue;
@@ -295,14 +301,16 @@ public class Player extends Entity {
         return attackValue + criticalValue;
     }
 
+    //TODO :implement
     private void contactMonster(int i) {
         if (i != 999) {
-            if (!invincible) {
+            if (!isInvincible) {
                 int damage = gamePanel.monsters[i].attack;
             }
         }
     }
 
+    //call npc methods - speak so far
     public void interactNPC(int index) {
         if (gamePanel.keyHandler.enterPressed) {
             if (index != 999) {
@@ -314,67 +322,68 @@ public class Player extends Entity {
         }
     }
 
+    //set image file, draw player
     public void draw(Graphics2D graphics2D) {
+        //variables
         BufferedImage image = null;
-
         int tempScreenX = screenX;
         int tempScreenY = screenY;
 
+        //set image 1 or 2 based on direction
         switch (direction) {
             case "up" -> {
-
                 if (isAttacking) {
                     tempScreenY = screenY - gamePanel.tileSize;
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = attackUp_1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = attackUp_2;
                     }
                 }
                 if (!isAttacking) {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = up1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = up2;
                     }
                 }
             }
             case "down" -> {
                 if (isAttacking) {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = attackDown_1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = attackDown_2;
                     }
                 }
 
                 if (!isAttacking) {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = down1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = down2;
                     }
                 }
             }
             case "right" -> {
                 if (isAttacking) {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = attackRight_1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = attackRight_2;
                     }
                 }
 
                 if (!isAttacking) {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = right1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = right2;
                     }
                 }
@@ -382,37 +391,39 @@ public class Player extends Entity {
             case "left" -> {
                 if (isAttacking) {
                     tempScreenX = screenX - gamePanel.tileSize;
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
 
                         image = attackLeft_1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = attackLeft_2;
                     }
                 }
                 if (!isAttacking) {
-                    if (spriteNum == 1) {
+                    if (spriteImageNumber == 1) {
                         image = left1;
                     }
-                    if (spriteNum == 2) {
+                    if (spriteImageNumber == 2) {
                         image = left2;
                     }
                 }
             }
         }
 
-        if (invincible) {
+        //set invincible state
+        if (isInvincible) {
             if (life >= 0) {
                 drawHealthBar(graphics2D);
             }
-
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
+
+        //draw character and reset blink
         graphics2D.drawImage(image, tempScreenX, tempScreenY, null);
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
 
-    // implement to NPC to make em work and so on
+    //add item to inventory
     public void pickupObject(int i) {
         if (i != 999) {
             String text = "";
@@ -427,6 +438,24 @@ public class Player extends Entity {
         }
     }
 
+    //calculate (new) attack value
+    public int getAttack() {
+        if (currentWeapon != null) {
+            attackAreaRectangle = currentWeapon.attackAreaRectangle;
+            return attack = strength * currentWeapon.attackValue;
+        }
+        return 1;
+    }
+
+    //calculate (new) deffense value
+    public int getDefense() {
+        if (currentShield != null) {
+            return defense = dexterity * currentShield.defenseValue;
+        }
+        return 0;
+    }
+
+    //load image files
     public void setPlayerImage() {
         up1 = setup("/player/NHU1", gamePanel.tileSize, gamePanel.tileSize);
         up2 = setup("/player/NHU2", gamePanel.tileSize, gamePanel.tileSize);

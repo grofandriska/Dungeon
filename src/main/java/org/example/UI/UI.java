@@ -68,7 +68,7 @@ public class UI {
     public void drawPlayerSolidArea() {
         int screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         int screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
-        graphics2D.fillRect(screenX + gamePanel.player.solidAreaDefaultX, screenY + gamePanel.player.solidAreaDefaultY, gamePanel.player.solidArea.width, gamePanel.player.solidArea.height);
+        graphics2D.fillRect(screenX + gamePanel.player.solidAreaDefaultX, screenY + gamePanel.player.solidAreaDefaultY, gamePanel.player.solidAreaRectangle.width, gamePanel.player.solidAreaRectangle.height);
     }
 
     private void drawInventory() {
@@ -285,7 +285,7 @@ public class UI {
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = String.valueOf(gamePanel.player.coi);
+        value = String.valueOf(gamePanel.player.coin);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;

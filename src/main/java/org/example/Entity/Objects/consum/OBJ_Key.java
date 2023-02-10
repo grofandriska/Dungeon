@@ -8,19 +8,19 @@ public class OBJ_Key extends Entity {
     public OBJ_Key(GamePanel gamePanel) {
         super(gamePanel);
 
-        name = "Key";
-        image = setup("/objects/key_01c", gamePanel.tileSize, gamePanel.tileSize);
-        collisionOn = true;
+        //entity attribute
+        this.name = "Key";
+        this.description = "[" + name + "]\n" + "It's a key made from silver.\nNot any sign or mark.";
+        this.image = setup("/objects/key_01c", gamePanel.tileSize, gamePanel.tileSize);
 
-        solidArea.x = 0;
-        solidArea.y = 16;
+        //entity static
+        this.isCollisionOn = true;
+        this.solidAreaRectangle.x = 0;
+        this.solidAreaRectangle.y = 16;
+        this.solidAreaRectangle.width = 48;
+        this.solidAreaRectangle.height = 32;
+        this.solidAreaDefaultX = solidAreaRectangle.x;
+        this.solidAreaDefaultY = solidAreaRectangle.y;
 
-        solidArea.width = 48;
-        solidArea.height = 32;
-
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
-
-        description = "[" + name + "]\n" + "It's a key made from silver.\nNot any sign or mark.";
     }
 }
