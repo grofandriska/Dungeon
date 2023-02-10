@@ -39,8 +39,8 @@ public class Player extends Entity {
         this.speed = 1;
         this.keyHandler = keyHandler;
 
-        screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
-        screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
+        screenX = 1600 / 2 ;/*gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2)*/;
+        screenY = 900 / 2 ;/* gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);*/
 
         solidArea = new Rectangle();
         solidArea.x = 10;

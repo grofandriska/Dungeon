@@ -18,7 +18,7 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[50];
-        mapTileNum = new int[52][52];
+        mapTileNum = new int[gamePanel.maxWorldCol*2][gamePanel.maxWorldRow*2];
         getTileImage();
         loadMap();
     }
@@ -98,7 +98,7 @@ public class TileManager {
                     String[] numbers = line.split(" ");
 
                     for (int i = 0; i < numbers.length; i++) {
-                        for (int x = 0; x < numbers[i].length();) {
+                        for (int x = 0; x < numbers[i].length(); ) {
                             while (x < 4) {
                                 if (numbers[i].startsWith("0")) {
                                     cutValue++;
@@ -130,23 +130,24 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while (worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow) {
+        while (worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow ) {
 
             int tileNum = mapTileNum[worldCol][worldRow];
 
             int worldX = worldCol * gamePanel.tileSize;
             int worldY = worldRow * gamePanel.tileSize;
+
             int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
             int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
 
-            if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
+            /*if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
                     && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
                     && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
                     && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
 
-                g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
-            }
 
+            }*/
+            g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
             worldCol++;
 
             if (worldCol == gamePanel.maxWorldCol) {

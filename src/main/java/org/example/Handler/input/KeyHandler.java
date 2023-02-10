@@ -75,6 +75,7 @@ public class KeyHandler implements KeyListener {
     }
 
     public void pauseState(int code) {
+        if (code == KeyEvent.VK_ESCAPE){System.exit(0);}
         if (code == KeyEvent.VK_P) {
             if (gamePanel.gameState == gamePanel.playState) {
                 gamePanel.gameState = gamePanel.pauseState;

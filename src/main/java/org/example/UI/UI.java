@@ -53,18 +53,13 @@ public class UI {
             drawUtility(graphics2D);
             drawScrollMessage();
 
-        }
-        else if (gamePanel.gameState == gamePanel.pauseState) {
+        } else if (gamePanel.gameState == gamePanel.pauseState) {
             drawPauseState();
-        }
-       else if (gamePanel.gameState == gamePanel.dialogState) {
+        } else if (gamePanel.gameState == gamePanel.dialogState) {
             drawDialogScreen();
-        }
-
-        else if (gamePanel.gameState == gamePanel.endState) {
+        } else if (gamePanel.gameState == gamePanel.endState) {
             drawEndState();
-        }
-        else if (gamePanel.gameState == gamePanel.characterState) {
+        } else if (gamePanel.gameState == gamePanel.characterState) {
             drawCharacterState();
             drawInventory();
         }
@@ -168,8 +163,8 @@ public class UI {
     private void drawScrollMessage() {
         gamePanel.setFont(arial20_bold);
 
-        int messageX = gamePanel.tileSize * 11;
-        int messageY = (gamePanel.tileSize * 11) + 12;
+        int messageX = gamePanel.screenWidth - 400;
+        int messageY = gamePanel.screenHeight - 200;
 
 
         for (int i = 0; i < message.size(); i++) {
@@ -326,7 +321,7 @@ public class UI {
     public void drawPlayerLife() {
 
         int x = 10;
-        int y = gamePanel.tileSize * gamePanel.maxScreenRow - 55;
+        int y = gamePanel.screenHeight - 90;
         int i = 0;
 
         while (i < gamePanel.player.maxLife / 2) {
@@ -340,7 +335,7 @@ public class UI {
         }
 
         x = 10;
-        y = gamePanel.tileSize * gamePanel.maxScreenRow - 55;
+        y = gamePanel.screenHeight - 90;
         i = 0;
 
         while (i < gamePanel.player.life) {
@@ -366,24 +361,24 @@ public class UI {
         graphics2D.setColor(c);
         graphics2D.fillRoundRect(-10, 10, 900, 30, 10, 10);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, 0, null);
-            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, 520, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, 810, null);
         }
 
         g.setFont(gabriola20);
         g.setColor(Color.darkGray);
         g.drawString("x: " + gamePanel.player.worldX, 5, 31);
         g.drawString("y: " + gamePanel.player.worldY, 85, 31);
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 630, 31);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 700, 31);
+        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 1390, 31);
+        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 1460, 31);
 
         g.setFont(gabriola20);
         g.setColor(Color.gray);
         g.drawString("x: " + gamePanel.player.worldX, 4, 33);
         g.drawString("y: " + gamePanel.player.worldY, 84, 33);
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 629, 31);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 699, 31);
+        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, 1391, 31);
+        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, 1461, 31);
 
         drawPlayerLife();
     }
@@ -393,8 +388,9 @@ public class UI {
         graphics2D.setFont(graphics2D.getFont().deriveFont(Font.ITALIC, 80F));
         String text = "PAUSED";
         int x = getXForCenteredText(text);
-        int y = gamePanel.screenWidth / 2;
+        int y = gamePanel.screenWidth / 4;
         graphics2D.drawString(text, x, y);
+        graphics2D.drawString("Esc - quit game", x - 46 * 3, y + gamePanel.tileSize * 3);
 
     }
 
