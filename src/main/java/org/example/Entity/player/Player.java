@@ -52,7 +52,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
         //player stats
         this.name = "Player_1";
-        this.speed = 1;
+        this.speed = 3;
         this.level = 1;
         this.maxLife = 12;
         this.life = maxLife;

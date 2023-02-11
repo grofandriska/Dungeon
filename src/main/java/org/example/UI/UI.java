@@ -150,7 +150,7 @@ public class UI {
     }
 
     public void drawSubWindow(int x, int y, int width, int height) {
-        Color c = new Color(0, 1, 1, 140); // paint ->SOLID UI
+        Color c = new Color(0, 1, 1, 200); // paint ->SOLID UI
         graphics2D.setColor(c);
         graphics2D.fillRoundRect(x, y, width, height, 35, 35);
 
@@ -214,14 +214,23 @@ public class UI {
         final int frameWidth = gamePanel.tileSize * 5;
         final int frameHeight = gamePanel.tileSize * 10;
 
+        graphics2D.setColor(new Color(0, 0, 0, 80));
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        graphics2D.setColor(new Color(180, 180, 77, 50) );
+       /* graphics2D.fillRect(frameX + 20, frameY + 10, frameWidth - 53, 200);*/
+
+        graphics2D.setColor(new Color(140, 0, 0, 80));
+        graphics2D.fillRect(frameX + 20, frameY + 15, frameWidth - 40, 190);
+
 
         int textX = frameX + 28;
         int textY = frameY + 36;
         final int lineHeight = 18;
 
 
-        graphics2D.setFont(arial20_bold);
+        graphics2D.setFont(gabriola20);
+        graphics2D.setColor(new Color(75, 190, 250));
 
         graphics2D.drawString("level ", textX, textY);
         textY += lineHeight;
@@ -244,7 +253,7 @@ public class UI {
         graphics2D.drawString("attack ", textX, textY);
         textY += lineHeight;
 
-        graphics2D.drawImage(gamePanel.player.right1, frameX + 20, textY, null);
+
         //values
         int tailX = (frameX + frameWidth) - 30;
         textY = frameY + 36;
@@ -294,7 +303,9 @@ public class UI {
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-
+        graphics2D.setColor(new Color(180, 180, 77, 50));
+        graphics2D.fillRect(frameX, textY, 240, 220);
+        graphics2D.drawImage(gamePanel.player.right1, frameX + 5, textY, 240, 220, null);
     }
 
     public void drawDialogScreen() {
