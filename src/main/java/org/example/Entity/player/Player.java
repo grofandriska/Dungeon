@@ -1,6 +1,7 @@
 package org.example.Entity.player;
 
 import org.example.Entity.Entity;
+import org.example.Entity.OBJ_GoldKey;
 import org.example.Entity.Objects.consum.OBJ_Key;
 import org.example.Entity.Objects.consum.OBJ_SpeedPotion;
 import org.example.Entity.Objects.inventory.OBJ_SHIELD;
@@ -439,7 +440,7 @@ public class Player extends Entity {
                 gamePanel.objects[i] = null;
             }
 
-            if (gamePanel.objects[i].name.equals("door") && gamePanel.player.keyHandler.oPressed) {
+            else if (gamePanel.objects[i].name.equals("door") && gamePanel.player.keyHandler.oPressed) {
                 gamePanel.player.keyHandler.oPressed = false;
                 String keyName = gamePanel.objects[i].keyName;
                 boolean isOpen = false;

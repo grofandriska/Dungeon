@@ -1,6 +1,7 @@
 package org.example.Handler;
 
 import org.example.Entity.Door;
+import org.example.Entity.OBJ_GoldKey;
 import org.example.Entity.Objects.inventory.OBJ_SHIELD;
 import org.example.Entity.Objects.inventory.OBJ_STAFF;
 import org.example.Entity.Objects.inventory.OBJ_SWORD;
@@ -33,16 +34,26 @@ public class AssetSetter {
         gamePanel.objects[2].worldY = 7 * gamePanel.tileSize;
 
         gamePanel.objects[3] = new Door(gamePanel);
-        gamePanel.objects[3].worldX = 11 * gamePanel.tileSize;
-        gamePanel.objects[3].worldY = 40 * gamePanel.tileSize;
+        gamePanel.objects[3].worldX = 13 * gamePanel.tileSize;
+        gamePanel.objects[3].worldY = 43 * gamePanel.tileSize;
 
         gamePanel.objects[4] = new Door(gamePanel);
         gamePanel.objects[4].worldX = 12 * gamePanel.tileSize;
         gamePanel.objects[4].worldY = 40 * gamePanel.tileSize;
 
         gamePanel.objects[5] = new Door(gamePanel);
-        gamePanel.objects[5].worldX = 13 * gamePanel.tileSize;
-        gamePanel.objects[5].worldY = 42 * gamePanel.tileSize;
+        gamePanel.objects[5].worldX = 20 * gamePanel.tileSize;
+        gamePanel.objects[5].worldY = 31 * gamePanel.tileSize;
+        gamePanel.objects[5].keyName = "Gold key";
+
+        gamePanel.objects[6] = new Door(gamePanel);
+        gamePanel.objects[6].worldX = 19 * gamePanel.tileSize;
+        gamePanel.objects[6].worldY = 31 * gamePanel.tileSize;
+        gamePanel.objects[6].keyName = "Gold key";
+
+        gamePanel.objects[7] = new OBJ_GoldKey(gamePanel);
+        gamePanel.objects[7].worldX = 8 * gamePanel.tileSize;
+        gamePanel.objects[7].worldY = 48 * gamePanel.tileSize;
 
 
     }
@@ -113,7 +124,8 @@ public class AssetSetter {
 
         gamePanel.monsters[4] = new Monster_ORC(gamePanel);
         gamePanel.monsters[4].worldX = gamePanel.tileSize * 13;
-        gamePanel.monsters[4].worldY = gamePanel.tileSize * 44;
+        gamePanel.monsters[4].worldY = gamePanel.tileSize * 41;
+        gamePanel.monsters[4].direction = "up";
 
         gamePanel.monsters[5] = new Monster_ORC(gamePanel);
         gamePanel.monsters[5].worldX = gamePanel.tileSize * 19;
