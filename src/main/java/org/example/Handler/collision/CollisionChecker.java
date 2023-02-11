@@ -170,7 +170,7 @@ public class CollisionChecker {
                 entityTopRow = (entityTopWorldY - entity.speed) / gamePanel.tileSize;
                 tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityTopRow];
-                if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision )&& !entity.name.equals("Bird") ) {
+                if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision ) ) {
                     entity.isCollisionOn = true;
                 }
             }
@@ -179,7 +179,7 @@ public class CollisionChecker {
                 if (entityBottomRow < 50) {
                     tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
                     tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityBottomRow];
-                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision)&& !entity.name.equals("Bird") ) {
+                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) ) {
                         entity.isCollisionOn = true;
                     }
                 }
@@ -189,7 +189,7 @@ public class CollisionChecker {
                 if (entityLeftCol >=0 && entityTopRow > 0) {
                     tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
                     tileNum2 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
-                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) && !entity.name.equals("Bird") ) {
+                    if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision)  ) {
                         entity.isCollisionOn = true;
                     }
                 }

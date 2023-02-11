@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
     GamePanel gamePanel;
     public boolean upPressed, downPressed, rightPressed, leftPressed, enterPressed;
+    public boolean oPressed;
 
     public KeyHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -39,13 +40,20 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_W) {
             upPressed = false;
-        } else if (code == KeyEvent.VK_A) {
+        }
+        if (code == KeyEvent.VK_A) {
             leftPressed = false;
-        } else if (code == KeyEvent.VK_S) {
+        }
+        if (code == KeyEvent.VK_S) {
             downPressed = false;
-        } else if (code == KeyEvent.VK_D) {
+        }
+        if (code == KeyEvent.VK_D) {
             rightPressed = false;
-        } else if (code == KeyEvent.VK_ENTER) {
+        }
+        if (code == KeyEvent.VK_O) {
+            oPressed = false;
+        }
+        if (code == KeyEvent.VK_ENTER) {
             enterPressed = false;
         }
     }
@@ -67,6 +75,9 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             }
+            if (code == KeyEvent.VK_O) {
+                oPressed = true;
+            }
             if (code == KeyEvent.VK_C) {
                 gamePanel.gameState = gamePanel.characterState;
             }
@@ -75,7 +86,9 @@ public class KeyHandler implements KeyListener {
     }
 
     public void pauseState(int code) {
-        if (code == KeyEvent.VK_ESCAPE){System.exit(0);}
+        if (code == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
         if (code == KeyEvent.VK_P) {
             if (gamePanel.gameState == gamePanel.playState) {
                 gamePanel.gameState = gamePanel.pauseState;

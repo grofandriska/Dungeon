@@ -1,5 +1,6 @@
 package org.example.Handler;
 
+import org.example.Entity.Door;
 import org.example.Entity.Objects.inventory.OBJ_SHIELD;
 import org.example.Entity.Objects.inventory.OBJ_STAFF;
 import org.example.Entity.Objects.inventory.OBJ_SWORD;
@@ -30,6 +31,20 @@ public class AssetSetter {
         gamePanel.objects[2] = new OBJ_STAFF(gamePanel);
         gamePanel.objects[2].worldX = 7 * gamePanel.tileSize;
         gamePanel.objects[2].worldY = 7 * gamePanel.tileSize;
+
+        gamePanel.objects[3] = new Door(gamePanel);
+        gamePanel.objects[3].worldX = 11 * gamePanel.tileSize;
+        gamePanel.objects[3].worldY = 40 * gamePanel.tileSize;
+
+        gamePanel.objects[4] = new Door(gamePanel);
+        gamePanel.objects[4].worldX = 12 * gamePanel.tileSize;
+        gamePanel.objects[4].worldY = 40 * gamePanel.tileSize;
+
+        gamePanel.objects[5] = new Door(gamePanel);
+        gamePanel.objects[5].worldX = 13 * gamePanel.tileSize;
+        gamePanel.objects[5].worldY = 42 * gamePanel.tileSize;
+
+
     }
 
     public void setGaia() {
@@ -40,8 +55,8 @@ public class AssetSetter {
 
 
         gamePanel.gaia[1] = new Bird(gamePanel);
-        gamePanel.gaia[1].worldX = gamePanel.tileSize *3;
-        gamePanel.gaia[1].worldY = gamePanel.tileSize ;
+        gamePanel.gaia[1].worldX = gamePanel.tileSize * 3;
+        gamePanel.gaia[1].worldY = gamePanel.tileSize;
         gamePanel.gaia[1].direction = "up";
 
         gamePanel.gaia[2] = new Bird(gamePanel);
@@ -50,7 +65,7 @@ public class AssetSetter {
         gamePanel.gaia[2].direction = "right";
 
         gamePanel.gaia[3] = new Bird(gamePanel);
-        gamePanel.gaia[3].worldX = gamePanel.tileSize *7;
+        gamePanel.gaia[3].worldX = gamePanel.tileSize * 7;
         gamePanel.gaia[3].worldY = gamePanel.tileSize * 49;
         gamePanel.gaia[3].direction = "down";
 
@@ -88,11 +103,11 @@ public class AssetSetter {
         gamePanel.monsters[1].worldY = gamePanel.tileSize * 48;
 
         gamePanel.monsters[2] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[2].worldX = gamePanel.tileSize ;
+        gamePanel.monsters[2].worldX = gamePanel.tileSize;
         gamePanel.monsters[2].worldY = gamePanel.tileSize * 44;
 
         gamePanel.monsters[3] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[3].worldX = gamePanel.tileSize ;
+        gamePanel.monsters[3].worldX = gamePanel.tileSize;
         gamePanel.monsters[3].worldY = gamePanel.tileSize * 46;
 
 
@@ -105,11 +120,11 @@ public class AssetSetter {
         gamePanel.monsters[5].worldY = gamePanel.tileSize * 48;
 
         gamePanel.monsters[6] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[6].worldX = gamePanel.tileSize *18;
+        gamePanel.monsters[6].worldX = gamePanel.tileSize * 18;
         gamePanel.monsters[6].worldY = gamePanel.tileSize * 40;
 
         gamePanel.monsters[7] = new Monster_ORC(gamePanel);
-        gamePanel.monsters[7].worldX = gamePanel.tileSize *18;
+        gamePanel.monsters[7].worldX = gamePanel.tileSize * 18;
         gamePanel.monsters[7].worldY = gamePanel.tileSize * 35;
     }
 }

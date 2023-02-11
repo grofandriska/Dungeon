@@ -79,6 +79,7 @@ public class TileManager {
         setup(35, "floor1", true);
         setup(36, "torch2", false);
         setup(37, "torch1", false);
+        setup(38, "door1", true);
     }
 
     public void loadMap() {

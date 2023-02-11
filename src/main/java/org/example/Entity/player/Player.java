@@ -426,15 +426,35 @@ public class Player extends Entity {
     //add item to inventory
     public void pickupObject(int i) {
         if (i != 999) {
-            String text = "";
-            if (inventory.size() != inventorySize) {
-                inventory.add(gamePanel.objects[i]);
-                text = "You've picked up a(n)" + gamePanel.objects[i].name + "!";
-            } else {
-                text = "Inventory is full ,can't carry more !";
+            // if not door
+            if (!gamePanel.objects[i].name.equals("door")) {
+                String text = "";
+                if (inventory.size() != inventorySize) {
+                    inventory.add(gamePanel.objects[i]);
+                    text = "You've picked up a(n)" + gamePanel.objects[i].name + "!";
+                } else {
+                    text = "Inventory is full ,can't carry more !";
+                }
+                gamePanel.UI.addMessage(text);
+                gamePanel.objects[i] = null;
             }
-            gamePanel.UI.addMessage(text);
-            gamePanel.objects[i] = null;
+
+            if (gamePanel.objects[i].name.equals("door") && gamePanel.player.keyHandler.oPressed) {
+                gamePanel.player.keyHandler.oPressed = false;
+                String keyName = gamePanel.objects[i].keyName;
+                boolean isOpen = false;
+                for (int t = 0; t < this.inventory.size(); t++) {
+                    if (inventory.get(t).name.equals(keyName)) {
+                        inventory.remove(t);
+                        gamePanel.objects[i] = null;
+                        isOpen = true;
+                        break;
+                    }
+                }
+                if (!isOpen) {
+                    gamePanel.UI.addMessage("you need" + keyName);
+                }
+            }
         }
     }
 

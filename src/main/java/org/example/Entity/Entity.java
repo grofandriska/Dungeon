@@ -26,6 +26,8 @@ public abstract class Entity {
 
 
     //entity static
+
+    public String keyName="";
     public String[] dialogs;
 
     public String description = " no info ";
@@ -51,7 +53,7 @@ public abstract class Entity {
         this.isDying = false;
         this.isAlive = true;
         this.isInvincible = false;
-        this.isSolid = false;
+        this.isSolid = true;
         this.isCollisionOn = false;
 
         this.dialogs = new String[20];
