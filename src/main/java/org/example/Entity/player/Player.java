@@ -63,8 +63,8 @@ public class Player extends Entity {
         this.coin = 0;
 
         //player attributes
-        this.worldX = 288;
-        this.worldY = 432;
+        this.worldX = gamePanel.tileSize * 13;
+        this.worldY = gamePanel.tileSize * 45;
         this.attackAreaRectangle.height = 36;
         this.attackAreaRectangle.width = 36;
 

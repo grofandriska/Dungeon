@@ -176,7 +176,7 @@ public class CollisionChecker {
             }
             case "down" -> {
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gamePanel.tileSize;
-                if (entityBottomRow < 49) {
+                if (entityBottomRow < 50) {
                     tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
                     tileNum2 = gamePanel.tileManager.mapTileNum[entityRightCol][entityBottomRow];
                     if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision)&& !entity.name.equals("Bird") ) {
@@ -186,7 +186,7 @@ public class CollisionChecker {
             }
             case "left" -> {
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gamePanel.tileSize;
-                if (entityLeftCol > 1 && entityTopRow > 0) {
+                if (entityLeftCol >=0 && entityTopRow > 0) {
                     tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
                     tileNum2 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
                     if ((gamePanel.tileManager.tiles[tileNum1].collision || gamePanel.tileManager.tiles[tileNum2].collision) && !entity.name.equals("Bird") ) {

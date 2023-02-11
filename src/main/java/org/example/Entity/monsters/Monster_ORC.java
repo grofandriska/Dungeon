@@ -21,14 +21,6 @@ public class Monster_ORC extends Entity {
         this.exp = 3;
 
         //entity attributes
-        this.solidAreaRectangle = new Rectangle();
-        this.solidAreaRectangle.x = 3;
-        this.solidAreaRectangle.y = 5;
-        this.solidAreaRectangle.height = 45;
-        this.solidAreaRectangle.width = 43;
-        this.solidAreaDefaultX = solidAreaRectangle.x;
-        this.solidAreaDefaultY = solidAreaRectangle.y;
-
         setImage();
     }
     public void damageReaction() {

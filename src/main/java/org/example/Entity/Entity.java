@@ -57,8 +57,8 @@ public abstract class Entity {
         this.dialogs = new String[20];
         this.dialogs[0] = "...";
 
-        this.solidAreaRectangle = new Rectangle(0, 0, gamePanel.tileSize, gamePanel.tileSize);
-        this.attackAreaRectangle = new Rectangle(0, 0, gamePanel.tileSize, gamePanel.tileSize);
+        this.solidAreaRectangle = new Rectangle(0, 0, gamePanel.tileSize-2, gamePanel.tileSize-2);
+        this.attackAreaRectangle = new Rectangle(0, 0, gamePanel.tileSize-2, gamePanel.tileSize-2);
 
         this.attack = getAttack();
 
