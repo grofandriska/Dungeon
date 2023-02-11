@@ -163,8 +163,8 @@ public class UI {
     private void drawScrollMessage() {
         gamePanel.setFont(arial20_bold);
 
-        int messageX = gamePanel.screenWidth - 250;
-        int messageY = gamePanel.screenHeight - 200;
+        int messageX = gamePanel.screenWidth - 280;
+        int messageY = gamePanel.screenHeight - 280;
 
 
         for (int i = 0; i < message.size(); i++) {
@@ -172,17 +172,17 @@ public class UI {
             if (message.get(i) != null) {
                 //draw background
 
-                graphics2D.setColor(new Color(70, 70, 70, 140));
+                graphics2D.setColor(new Color(0, 0, 0,100));
+                graphics2D.fillRoundRect(messageX - 10, messageY - 7, 420, 25, 35, 35);
+                graphics2D.setColor(Color.darkGray);
                 graphics2D.fillRoundRect(messageX - 10, messageY - 16, 400, 20, 35, 35);
 
 
                 //draw from message and it's shadow
                 graphics2D.setFont(new Font("Gabriola", Font.PLAIN, 20));
-                graphics2D.setColor(Color.darkGray);
                 graphics2D.drawString(message.get(i), messageX + 1, messageY - 1);
-
-                graphics2D.setColor(Color.gray);
-                graphics2D.drawString(message.get(i), messageX, messageY);
+                graphics2D.setColor(new Color(170, 110, 10));
+                graphics2D.drawString(message.get(i), messageX, messageY+1);
 
                 // messageCounter++
                 int counter = messageCounter.get(i) + 1;
@@ -217,8 +217,8 @@ public class UI {
         graphics2D.setColor(new Color(0, 0, 0, 80));
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
-        graphics2D.setColor(new Color(180, 180, 77, 50) );
-       /* graphics2D.fillRect(frameX + 20, frameY + 10, frameWidth - 53, 200);*/
+        graphics2D.setColor(new Color(180, 180, 77, 50));
+        /* graphics2D.fillRect(frameX + 20, frameY + 10, frameWidth - 53, 200);*/
 
         graphics2D.setColor(new Color(140, 0, 0, 80));
         graphics2D.fillRect(frameX + 20, frameY + 15, frameWidth - 40, 190);
@@ -394,6 +394,29 @@ public class UI {
         g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, gamePanel.screenWidth - 101, 31);
 
         drawPlayerLife();
+
+
+        //draw xp bar
+
+        int screenX = gamePanel.screenWidth - gamePanel.tileSize *8;
+        int screenY = gamePanel.screenHeight - gamePanel.tileSize + 2;
+
+        double oneScale = (double) gamePanel.tileSize / gamePanel.player.nextLevelExp;
+        double healthBarValue = oneScale * gamePanel.player.exp;
+
+
+        graphics2D.setColor(new Color(0, 0, 0));
+        graphics2D.fillRect(screenX-2, screenY + 3, (gamePanel.tileSize * 7) + 5, 34);
+
+        graphics2D.setColor(new Color(35, 35, 35));
+        graphics2D.fillRect(screenX, screenY + 5, gamePanel.tileSize * 7, 30);
+
+        graphics2D.setColor(new Color(255, 110, 10, 75));
+        graphics2D.fillRect(screenX, screenY + 5, (int) healthBarValue * 7, 30);
+
+        graphics2D.setFont(gabriola20);
+        graphics2D.setColor(new Color(170, 110, 10));
+        graphics2D.drawString("" + gamePanel.player.exp + "/" + gamePanel.player.nextLevelExp, screenX + 160, screenY + 25);
     }
 
     public void drawPauseState() {
