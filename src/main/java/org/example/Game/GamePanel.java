@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setGaia();
         assetSetter.setMonster();
         gameState = playState;
-        playMusic(9);
+        playMusic(0);
 
         GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
