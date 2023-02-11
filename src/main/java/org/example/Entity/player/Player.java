@@ -131,6 +131,7 @@ public class Player extends Entity {
             else if (keyHandler.rightPressed) direction = "right";
             else if (keyHandler.leftPressed) direction = "left";
 
+            //check surrounding
             this.isCollisionOn = false;
             gamePanel.eventHandler.checkEvent();
             gamePanel.collisionChecker.checkBorder(this);
@@ -439,11 +440,13 @@ public class Player extends Entity {
                 gamePanel.UI.addMessage(text);
                 gamePanel.objects[i] = null;
             }
-
+            // if  door
             else if (gamePanel.objects[i].name.equals("door") && gamePanel.player.keyHandler.oPressed) {
+
                 gamePanel.player.keyHandler.oPressed = false;
                 String keyName = gamePanel.objects[i].keyName;
                 boolean isOpen = false;
+
                 for (int t = 0; t < this.inventory.size(); t++) {
                     if (inventory.get(t).name.equals(keyName)) {
                         inventory.remove(t);
@@ -453,7 +456,7 @@ public class Player extends Entity {
                     }
                 }
                 if (!isOpen) {
-                    gamePanel.UI.addMessage("you need" + keyName);
+                    gamePanel.UI.addMessage("you need a(n) " + keyName + " for this door");
                 }
             }
         }
