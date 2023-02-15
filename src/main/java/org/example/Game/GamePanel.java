@@ -9,37 +9,37 @@ import org.example.Handler.input.KeyHandler;
 import org.example.Main;
 import org.example.Sound.Sound;
 import org.example.Tile.TileManager;
-import org.example.UI.UI;
+import org.example.UI.UserInreface;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
-
-
-    public int gameState;
-    public final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, characterState = 5,
+    private int gameState;
+    private final int playState = 1, pauseState = 2, dialogState = 3, endState = 4, characterState = 5,
             originalTileSize = 16, scale = 3, FPS = 60,
             maxScreenCol = 16, maxScreenRow = 12;
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
-    public final int tileSize = originalTileSize * scale;
-    public int screenWidth;
-    public int screenHeight;
-    public ArrayList<Entity> entityList = new ArrayList<>();
-    public AssetSetter assetSetter;
-    public CollisionChecker collisionChecker;
-    public Entity[] entities, objects, npc, monsters, gaia;
-    public EventHandler eventHandler;
-    public KeyHandler keyHandler;
-    public Sound music, sound;
+    private final int maxWorldCol = 50;
+    private final int maxWorldRow = 50;
 
-    public Player player;
-    public Thread gameThread;
-    public TileManager tileManager;
-    public UI UI;
+    private final int tileSize = originalTileSize * scale;
+    private int screenWidth;
+    private int screenHeight;
+    private ArrayList<Entity> entityList = new ArrayList<>();
+    private AssetSetter assetSetter;
+    private CollisionChecker collisionChecker;
+    private Entity[] entities, objects, npc, monsters, gaia;
+    private EventHandler eventHandler;
+    private KeyHandler keyHandler;
+    private Sound music, sound;
+
+    private Player player;
+    private Thread gameThread;
+    private TileManager tileManager;
+    private UserInreface userInterface;
 
     public GamePanel() {
         this.gaia = new Entity[15];
@@ -52,13 +52,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.objects = new Entity[10];
         this.player = new Player(this, keyHandler);
         this.tileManager = new TileManager(this);
-        this.UI = new UI(this);
+        this.userInterface = new UserInreface(this);
         this.music = new Sound();
         this.sound = new Sound();
         this.npc = new Entity[10];
 
         this.monsters = new Entity[15];
-
         this.addKeyListener(keyHandler);
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -92,9 +91,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 
     }
+
     public void startGameThread() {
         gameThread.start();
     }
+
     @Override
     public void run() {
 
@@ -102,7 +103,8 @@ public class GamePanel extends JPanel implements Runnable {
         long nextDrawTime = System.nanoTime() + drawInterval;
 
         while (gameThread != null) {
-
+            System.out.println(Arrays.toString(entities));
+            System.out.println(entityList);
             update();
 
             repaint();
@@ -122,10 +124,10 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-
     public void update() {
 
         if (gameState == playState) {
+
             player.update();
             for (int i = 0; i < monsters.length; i++) {
                 if (monsters[i] != null) {
@@ -149,6 +151,7 @@ public class GamePanel extends JPanel implements Runnable {
                     entity.update();
                 }
             }
+
         }
 
         if (gameState == pauseState) {
@@ -210,7 +213,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         entityList.clear();
-        UI.draw(g2);
+        userInterface.draw(g2);
         g2.dispose();
     }
 
@@ -221,5 +224,209 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void stopMusic() {
         music.stop();
+    }
+
+    public int getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
+    }
+
+    public int getPlayState() {
+        return playState;
+    }
+
+    public int getPauseState() {
+        return pauseState;
+    }
+
+    public int getDialogState() {
+        return dialogState;
+    }
+
+    public int getEndState() {
+        return endState;
+    }
+
+    public int getCharacterState() {
+        return characterState;
+    }
+
+    public int getOriginalTileSize() {
+        return originalTileSize;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public int getFPS() {
+        return FPS;
+    }
+
+    public int getMaxScreenCol() {
+        return maxScreenCol;
+    }
+
+    public int getMaxScreenRow() {
+        return maxScreenRow;
+    }
+
+    public int getMaxWorldCol() {
+        return maxWorldCol;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public void setScreenHeight(int screenHeight) {
+        this.screenHeight = screenHeight;
+    }
+
+    public ArrayList<Entity> getEntityList() {
+        return entityList;
+    }
+
+    public void setEntityList(ArrayList<Entity> entityList) {
+        this.entityList = entityList;
+    }
+
+    public AssetSetter getAssetSetter() {
+        return assetSetter;
+    }
+
+    public void setAssetSetter(AssetSetter assetSetter) {
+        this.assetSetter = assetSetter;
+    }
+
+    public CollisionChecker getCollisionChecker() {
+        return collisionChecker;
+    }
+
+    public void setCollisionChecker(CollisionChecker collisionChecker) {
+        this.collisionChecker = collisionChecker;
+    }
+
+    public Entity[] getEntities() {
+        return entities;
+    }
+
+    public void setEntities(Entity[] entities) {
+        this.entities = entities;
+    }
+
+    public Entity[] getObjects() {
+        return objects;
+    }
+
+    public void setObjects(Entity[] objects) {
+        this.objects = objects;
+    }
+
+    public Entity[] getNpc() {
+        return npc;
+    }
+
+    public void setNpc(Entity[] npc) {
+        this.npc = npc;
+    }
+
+    public Entity[] getMonsters() {
+        return monsters;
+    }
+
+    public void setMonsters(Entity[] monsters) {
+        this.monsters = monsters;
+    }
+
+    public Entity[] getGaia() {
+        return gaia;
+    }
+
+    public void setGaia(Entity[] gaia) {
+        this.gaia = gaia;
+    }
+
+    public EventHandler getEventHandler() {
+        return eventHandler;
+    }
+
+    public void setEventHandler(EventHandler eventHandler) {
+        this.eventHandler = eventHandler;
+    }
+
+    public KeyHandler getKeyHandler() {
+        return keyHandler;
+    }
+
+    public void setKeyHandler(KeyHandler keyHandler) {
+        this.keyHandler = keyHandler;
+    }
+
+    public Sound getMusic() {
+        return music;
+    }
+
+    public void setMusic(Sound music) {
+        this.music = music;
+    }
+
+    public Sound getSound() {
+        return sound;
+    }
+
+    public void setSound(Sound sound) {
+        this.sound = sound;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Thread getGameThread() {
+        return gameThread;
+    }
+
+    public void setGameThread(Thread gameThread) {
+        this.gameThread = gameThread;
+    }
+
+    public TileManager getTileManager() {
+        return tileManager;
+    }
+
+    public void setTileManager(TileManager tileManager) {
+        this.tileManager = tileManager;
+    }
+
+    public UserInreface getUserInterface() {
+        return userInterface;
+    }
+
+    public void setUserInterface(UserInreface userInterface) {
+        this.userInterface = userInterface;
     }
 }

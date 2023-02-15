@@ -1,17 +1,16 @@
 package org.example.Handler;
 
-import org.example.Entity.Door;
-import org.example.Entity.OBJ_GoldKey;
+import org.example.Entity.Objects.Door;
+import org.example.Entity.Objects.OBJ_GoldKey;
 import org.example.Entity.Objects.inventory.OBJ_SHIELD;
 import org.example.Entity.Objects.inventory.OBJ_STAFF;
 import org.example.Entity.Objects.inventory.OBJ_SWORD;
-import org.example.Entity.gaia.Bird;
-import org.example.Entity.monsters.Monster_ORC;
+import org.example.Entity.npc.gaia.Bird;
+import org.example.Entity.npc.monsters.Monster_ORC;
 import org.example.Entity.npc.Mage;
 import org.example.Entity.npc.OldMan;
 import org.example.Entity.npc.Soldier;
 import org.example.Game.GamePanel;
-import org.example.Entity.Objects.consum.OBJ_Potion;
 
 public class AssetSetter {
     GamePanel gamePanel;

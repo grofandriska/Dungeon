@@ -1,4 +1,4 @@
-package org.example.Entity;
+package org.example.Entity.Objects;
 
 import org.example.Entity.Objects.consum.OBJ_Key;
 import org.example.Game.GamePanel;

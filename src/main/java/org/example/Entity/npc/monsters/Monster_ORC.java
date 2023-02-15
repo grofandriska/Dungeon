@@ -1,9 +1,8 @@
-package org.example.Entity.monsters;
+package org.example.Entity.npc.monsters;
 
 import org.example.Entity.Entity;
 import org.example.Game.GamePanel;
 
-import java.awt.*;
 import java.util.Random;
 
 public class Monster_ORC extends Entity {

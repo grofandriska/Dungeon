@@ -18,7 +18,7 @@ public class TileManager {
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         tiles = new Tile[50];
-        mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
+        mapTileNum = new int[gamePanel.getMaxWorldCol()][gamePanel.getMaxWorldRow()];
         getTileImage();
         loadMap();
     }
@@ -29,7 +29,7 @@ public class TileManager {
         try {
             tiles[index] = new Tile();
             tiles[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imagePath + ".png"));
-            tiles[index].image = utilityTool.scaleImage(tiles[index].image, gamePanel.tileSize, gamePanel.tileSize);
+            tiles[index].image = utilityTool.scaleImage(tiles[index].image, gamePanel.getTileSize(), gamePanel.getTileSize());
             tiles[index].collision = collision;
 
         } catch (IOException e) {
@@ -92,9 +92,10 @@ public class TileManager {
             InputStream input = getClass().getResourceAsStream("/maps/Level_01.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
-            while (col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {
+            //TODO: set the screenRow and ScreenCol to screenWidth/Height divided by tileSize
+            while (col < gamePanel.getMaxWorldCol() && row < gamePanel.getMaxWorldRow()) {
                 String line = reader.readLine();
-                while (col < gamePanel.maxWorldCol) {
+                while (col < gamePanel.getMaxWorldCol()) {
 
                     String[] numbers = line.split(" ");
 
@@ -115,7 +116,7 @@ public class TileManager {
                     mapTileNum[col][row] = num;
                     col++;
                 }
-                if (col == gamePanel.maxWorldCol) {
+                if (col == gamePanel.getMaxWorldCol()) {
                     col = 0;
                     row++;
                 }
@@ -131,15 +132,15 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while (worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow ) {
+        while (worldCol < gamePanel.getMaxWorldCol() && worldRow < gamePanel.getMaxWorldRow() ) {
 
             int tileNum = mapTileNum[worldCol][worldRow];
 
-            int worldX = worldCol * gamePanel.tileSize;
-            int worldY = worldRow * gamePanel.tileSize;
+            int worldX = worldCol * gamePanel.getTileSize();
+            int worldY = worldRow * gamePanel.getTileSize();
 
-            int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
-            int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+            int screenX = worldX - gamePanel.getPlayer().worldX + gamePanel.getPlayer().screenX;
+            int screenY = worldY - gamePanel.getPlayer().worldY + gamePanel.getPlayer().screenY;
 
             /*if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
                     && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
@@ -148,10 +149,10 @@ public class TileManager {
 
 
             }*/
-            g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+            g.drawImage(tiles[tileNum].image, screenX, screenY, gamePanel.getTileSize(), gamePanel.getTileSize(), null);
             worldCol++;
 
-            if (worldCol == gamePanel.maxWorldCol) {
+            if (worldCol == gamePanel.getMaxWorldCol()) {
                 worldCol = 0;
                 worldRow++;
             }

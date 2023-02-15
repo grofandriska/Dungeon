@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class UI {
+public class UserInreface {
     BufferedImage heart3, heart2, heart1, image;
     GamePanel gamePanel;
     Font cambria40;
@@ -28,7 +28,7 @@ public class UI {
 
     public int slotCol = 0, slotRow = 0;
 
-    public UI(GamePanel gp) {
+    public UserInreface(GamePanel gp) {
         this.gamePanel = gp;
         arial10 = new Font("Arial", Font.PLAIN, 10);
         arial21 = new Font("Arial", Font.PLAIN, 21);
@@ -49,35 +49,60 @@ public class UI {
         g.setFont(cambria40);
         g.setColor(Color.white);
 
-        if (gamePanel.gameState == gamePanel.playState) {
+        if (gamePanel.getGameState() == gamePanel.getPlayState()) {
             drawUtility(graphics2D);
             drawScrollMessage();
 
-        } else if (gamePanel.gameState == gamePanel.pauseState) {
+        } else if (gamePanel.getGameState() == gamePanel.getPauseState()) {
             drawPauseState();
-        } else if (gamePanel.gameState == gamePanel.dialogState) {
+        } else if (gamePanel.getGameState() == gamePanel.getDialogState()) {
             drawDialogScreen();
-        } else if (gamePanel.gameState == gamePanel.endState) {
+        } else if (gamePanel.getGameState() == gamePanel.getEndState()) {
             drawEndState();
-        } else if (gamePanel.gameState == gamePanel.characterState) {
+        } else if (gamePanel.getGameState() == gamePanel.getCharacterState()) {
             drawCharacterState();
             drawInventory();
         }
     }
 
+    public void selectEntity(int x, int y) {
+        for (int i = 0; i < gamePanel.getMonsters().length; i++) {
+            System.out.println(i);
+            System.out.println(gamePanel.getMonsters()[i]);
+            if (gamePanel.getMonsters()[i] != null) {
+                System.out.println("is not null");
+                if (checkDistance(gamePanel.getMonsters()[i], x, y)) {
+                    System.out.println("Entity selected");
+                }
+            }
+        }
+    }
+    public boolean checkDistance(Entity entity, int x, int y) {
+        boolean isTrue = false;
+
+        int xDistance = Math.abs(entity.worldX - x);
+        int yDistance = Math.abs(entity.worldY - y);
+        int distance = Math.max(xDistance, yDistance);
+
+        if (distance < gamePanel.getTileSize()) {
+            return true;
+        }
+        return isTrue;
+    }
+
     public void drawPlayerSolidArea() {
-        int screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
-        int screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
-        graphics2D.fillRect(screenX + gamePanel.player.solidAreaDefaultX, screenY + gamePanel.player.solidAreaDefaultY, gamePanel.player.solidAreaRectangle.width, gamePanel.player.solidAreaRectangle.height);
+        int screenX = gamePanel.getScreenWidth() / 2 - (gamePanel.getTileSize() / 2);
+        int screenY = gamePanel.getScreenHeight() / 2 - (gamePanel.getTileSize() / 2);
+        graphics2D.fillRect(screenX + gamePanel.getPlayer().solidAreaDefaultX, screenY + gamePanel.getPlayer().solidAreaDefaultY, gamePanel.getPlayer().solidAreaRectangle.width, gamePanel.getPlayer().solidAreaRectangle.height);
     }
 
     private void drawInventory() {
 
         // frame
-        int frameX = gamePanel.tileSize * 9;
-        int frameY = gamePanel.tileSize;
-        int frameHeight = gamePanel.tileSize * 5;
-        int frameWidth = gamePanel.tileSize * 6;
+        int frameX = gamePanel.getTileSize() * 9;
+        int frameY = gamePanel.getTileSize();
+        int frameHeight = gamePanel.getTileSize() * 5;
+        int frameWidth = gamePanel.getTileSize() * 6;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         // Slot
@@ -91,31 +116,31 @@ public class UI {
         slotY = slotYStart;
 
         // cursor
-        int cursorX = slotXStart + (gamePanel.tileSize * slotCol);
-        int cursorY = slotYStart + (gamePanel.tileSize * slotRow);
+        int cursorX = slotXStart + (gamePanel.getTileSize() * slotCol);
+        int cursorY = slotYStart + (gamePanel.getTileSize() * slotRow);
 
-        int cursorWidth = gamePanel.tileSize;
-        int cursorHeight = gamePanel.tileSize;
+        int cursorWidth = gamePanel.getTileSize();
+        int cursorHeight = gamePanel.getTileSize();
 
         graphics2D.setColor(Color.cyan);
         graphics2D.setStroke(new BasicStroke(5));
         graphics2D.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 
         // draw playerItems
-        for (int i = 0; i < gamePanel.player.inventory.size(); i++) {
+        for (int i = 0; i < gamePanel.getPlayer().inventory.size(); i++) {
 
             //if equiped
-            if (gamePanel.player.currentShield.equals(gamePanel.player.inventory.get(i)) || gamePanel.player.currentWeapon.equals(gamePanel.player.inventory.get(i))) {
+            if (gamePanel.getPlayer().currentShield.equals(gamePanel.getPlayer().inventory.get(i)) || gamePanel.getPlayer().currentWeapon.equals(gamePanel.getPlayer().inventory.get(i))) {
                 graphics2D.setColor(new Color(240, 190, 90, 75));
-                graphics2D.fillRoundRect(slotX + 2, slotY + 2, gamePanel.tileSize - 4, gamePanel.tileSize - 4, 10, 10);
+                graphics2D.fillRoundRect(slotX + 2, slotY + 2, gamePanel.getTileSize() - 4, gamePanel.getTileSize() - 4, 10, 10);
             }
-            graphics2D.drawImage(gamePanel.player.inventory.get(i).image, slotX, slotY, null);
+            graphics2D.drawImage(gamePanel.getPlayer().inventory.get(i).image, slotX, slotY, null);
 
-            slotX += gamePanel.tileSize;
+            slotX += gamePanel.getTileSize();
 
             if (i == 4 || i == 9 || i == 14) {
                 slotX = slotXStart;
-                slotY += gamePanel.tileSize;
+                slotY += gamePanel.getTileSize();
             }
         }
 
@@ -124,21 +149,21 @@ public class UI {
         int dFrameX = frameX;
         int dFrameY = frameY + frameHeight;
         int dFrameWidth = frameWidth;
-        int dFrameHeight = gamePanel.tileSize * 3;
+        int dFrameHeight = gamePanel.getTileSize() * 3;
 
         //draw description
 
         int textX = dFrameX + 10;
-        int textY = dFrameY + gamePanel.tileSize / 2;
+        int textY = dFrameY + gamePanel.getTileSize() / 2;
 
         graphics2D.setFont(gabriola20);
 
         // Breaking description String to separate lines
         int itemIndex = getItemIndexFromSlot();
-        if (itemIndex < gamePanel.player.inventory.size()) {
+        if (itemIndex < gamePanel.getPlayer().inventory.size()) {
             //draw desc. only if item selected
             drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-            for (String line : gamePanel.player.inventory.get(itemIndex).description.split("\n")) {
+            for (String line : gamePanel.getPlayer().inventory.get(itemIndex).description.split("\n")) {
                 graphics2D.drawString(line, textX, textY);
                 textY += 20;
             }
@@ -163,8 +188,8 @@ public class UI {
     private void drawScrollMessage() {
         gamePanel.setFont(arial20_bold);
 
-        int messageX = gamePanel.screenWidth - 280;
-        int messageY = gamePanel.screenHeight - 280;
+        int messageX = gamePanel.getScreenWidth() - 280;
+        int messageY = gamePanel.getScreenHeight() - 280;
 
 
         for (int i = 0; i < message.size(); i++) {
@@ -209,10 +234,10 @@ public class UI {
 
         //please load it from array
 
-        final int frameX = gamePanel.tileSize * 2;
-        final int frameY = gamePanel.tileSize;
-        final int frameWidth = gamePanel.tileSize * 5;
-        final int frameHeight = gamePanel.tileSize * 10;
+        final int frameX = gamePanel.getTileSize() * 2;
+        final int frameY = gamePanel.getTileSize();
+        final int frameWidth = gamePanel.getTileSize() * 5;
+        final int frameHeight = gamePanel.getTileSize() * 10;
 
         graphics2D.setColor(new Color(0, 0, 0, 80));
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
@@ -260,68 +285,68 @@ public class UI {
 
         String value;
 
-        value = String.valueOf(gamePanel.player.level);
+        value = String.valueOf(gamePanel.getPlayer().level);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gamePanel.player.speed);
+        value = String.valueOf(gamePanel.getPlayer().speed);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
-        value = String.valueOf(gamePanel.player.maxLife);
+        value = String.valueOf(gamePanel.getPlayer().maxLife);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = String.valueOf(gamePanel.player.life);
+        value = String.valueOf(gamePanel.getPlayer().life);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = String.valueOf(gamePanel.player.strength);
+        value = String.valueOf(gamePanel.getPlayer().strength);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = String.valueOf(gamePanel.player.dexterity);
+        value = String.valueOf(gamePanel.getPlayer().dexterity);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = String.valueOf(gamePanel.player.exp);
+        value = String.valueOf(gamePanel.getPlayer().exp);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = String.valueOf(gamePanel.player.nextLevelExp);
+        value = String.valueOf(gamePanel.getPlayer().nextLevelExp);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = String.valueOf(gamePanel.player.coin);
+        value = String.valueOf(gamePanel.getPlayer().coin);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = String.valueOf(gamePanel.player.attack);
+        value = String.valueOf(gamePanel.getPlayer().attack);
         textX = getXForRightAlignedText(value, tailX);
         graphics2D.drawString(value, textX, textY);
         textY += lineHeight;
 
         graphics2D.setColor(new Color(180, 180, 77, 50));
         graphics2D.fillRect(frameX, textY, 240, 220);
-        graphics2D.drawImage(gamePanel.player.right1, frameX + 5, textY, 240, 220, null);
+        graphics2D.drawImage(gamePanel.getPlayer().right1, frameX + 5, textY, 240, 220, null);
     }
 
     public void drawDialogScreen() {
 
-        int x = gamePanel.tileSize * 2;
-        int y = gamePanel.tileSize * 2;
+        int x = gamePanel.getTileSize() * 2;
+        int y = gamePanel.getTileSize() * 2;
 
-        int width = gamePanel.screenWidth - (gamePanel.tileSize * 4);
-        int height = gamePanel.screenHeight - (gamePanel.tileSize * 9);
+        int width = gamePanel.getScreenWidth() - (gamePanel.getTileSize() * 4);
+        int height = gamePanel.getScreenHeight() - (gamePanel.getTileSize() * 9);
 
         drawSubWindow(x, y, width, height);
 
         gamePanel.setFont(graphics2D.getFont().deriveFont(Font.PLAIN, 32F));
 
-        x += gamePanel.tileSize;
-        y += gamePanel.tileSize;
+        x += gamePanel.getTileSize();
+        y += gamePanel.getTileSize();
 
         for (String line : currentDialog.split("\n")) {
             graphics2D.drawString(line, x, y);
@@ -332,31 +357,31 @@ public class UI {
     public void drawPlayerLife() {
 
         int x = 10;
-        int y = gamePanel.screenHeight - 56;
+        int y = gamePanel.getScreenHeight() - 56;
         int i = 0;
 
-        while (i < gamePanel.player.maxLife / 2) {
+        while (i < gamePanel.getPlayer().maxLife / 2) {
             Color c = new Color(0, 1, 1, 140);
             graphics2D.setColor(c);
-            graphics2D.fillRoundRect(x + 13, y + gamePanel.tileSize - 10, 16, 8, 10, 10);
+            graphics2D.fillRoundRect(x + 13, y + gamePanel.getTileSize() - 10, 16, 8, 10, 10);
             graphics2D.drawImage(heart3, x, y, null);
             i++;
-            x += gamePanel.tileSize;
+            x += gamePanel.getTileSize();
 
         }
 
         x = 10;
-        y = gamePanel.screenHeight - 56;
+        y = gamePanel.getScreenHeight() - 56;
         i = 0;
 
-        while (i < gamePanel.player.life) {
+        while (i < gamePanel.getPlayer().life) {
             graphics2D.drawImage(heart1, x, y, null);
             i++;
-            if (i < gamePanel.player.life) {
+            if (i < gamePanel.getPlayer().life) {
                 graphics2D.drawImage(heart3, x, y, null);
             }
             i++;
-            x += gamePanel.tileSize;
+            x += gamePanel.getTileSize();
         }
     }
 
@@ -373,50 +398,50 @@ public class UI {
         graphics2D.fillRoundRect(-10, 10, 900, 30, 10, 10);
 
         for (int i = 0; i < 30; i++) {
-            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, 0, null);
-            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.tileSize * 2, gamePanel.tileSize + 8), i * 95, gamePanel.screenHeight - gamePanel.tileSize - 5, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.getTileSize() * 2, gamePanel.getTileSize() + 8), i * 95, 0, null);
+            graphics2D.drawImage(utilityTool.scaleImage(image, gamePanel.getTileSize() * 2, gamePanel.getTileSize() + 8), i * 95, gamePanel.getScreenHeight() - gamePanel.getTileSize() - 5, null);
         }
 
         g.setFont(gabriola20);
         g.setColor(Color.darkGray);
-        g.drawString("x: " + gamePanel.player.worldX, 5, 31);
-        g.drawString("y: " + gamePanel.player.worldY, 85, 31);
+        g.drawString("x: " + gamePanel.getPlayer().worldX, 5, 31);
+        g.drawString("y: " + gamePanel.getPlayer().worldY, 85, 31);
 
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, gamePanel.screenWidth - 200, 31);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, gamePanel.screenWidth - 100, 31);
+        g.drawString("col: " + gamePanel.getPlayer().worldX / gamePanel.getTileSize(), gamePanel.getScreenWidth() - 200, 31);
+        g.drawString("row: " + gamePanel.getPlayer().worldY / gamePanel.getTileSize(), gamePanel.getScreenHeight() - 100, 31);
 
         g.setFont(gabriola20);
         g.setColor(Color.gray);
-        g.drawString("x: " + gamePanel.player.worldX, 4, 33);
-        g.drawString("y: " + gamePanel.player.worldY, 84, 33);
+        g.drawString("x: " + gamePanel.getPlayer().worldX, 4, 33);
+        g.drawString("y: " + gamePanel.getPlayer().worldY, 84, 33);
 
-        g.drawString("col: " + gamePanel.player.worldX / gamePanel.tileSize, gamePanel.screenWidth - 201, 31);
-        g.drawString("row: " + gamePanel.player.worldY / gamePanel.tileSize, gamePanel.screenWidth - 101, 31);
+        g.drawString("col: " + gamePanel.getPlayer().worldX / gamePanel.getTileSize(), gamePanel.getScreenWidth() - 201, 31);
+        g.drawString("row: " + gamePanel.getPlayer().worldY / gamePanel.getTileSize(), gamePanel.getScreenHeight() - 101, 31);
 
         drawPlayerLife();
 
 
         //draw xp bar
 
-        int screenX = gamePanel.screenWidth - gamePanel.tileSize *8;
-        int screenY = gamePanel.screenHeight - gamePanel.tileSize + 2;
+        int screenX = gamePanel.getScreenWidth() - gamePanel.getTileSize() *8;
+        int screenY = gamePanel.getScreenHeight() - gamePanel.getTileSize() + 2;
 
-        double oneScale = (double) gamePanel.tileSize / gamePanel.player.nextLevelExp;
-        double healthBarValue = oneScale * gamePanel.player.exp;
+        double oneScale = (double) gamePanel.getTileSize() / gamePanel.getPlayer().nextLevelExp;
+        double healthBarValue = oneScale * gamePanel.getPlayer().exp;
 
 
         graphics2D.setColor(new Color(0, 0, 0));
-        graphics2D.fillRect(screenX-2, screenY + 3, (gamePanel.tileSize * 7) + 5, 34);
+        graphics2D.fillRect(screenX-2, screenY + 3, (gamePanel.getTileSize() * 7) + 5, 34);
 
         graphics2D.setColor(new Color(35, 35, 35));
-        graphics2D.fillRect(screenX, screenY + 5, gamePanel.tileSize * 7, 30);
+        graphics2D.fillRect(screenX, screenY + 5, gamePanel.getTileSize() * 7, 30);
 
         graphics2D.setColor(new Color(255, 110, 10, 75));
         graphics2D.fillRect(screenX, screenY + 5, (int) healthBarValue * 7, 30);
 
         graphics2D.setFont(gabriola20);
         graphics2D.setColor(new Color(170, 110, 10));
-        graphics2D.drawString("" + gamePanel.player.exp + "/" + gamePanel.player.nextLevelExp, screenX + 160, screenY + 25);
+        graphics2D.drawString("" + gamePanel.getPlayer().exp + "/" + gamePanel.getPlayer().nextLevelExp, screenX + 160, screenY + 25);
     }
 
     public void drawPauseState() {
@@ -424,9 +449,9 @@ public class UI {
         graphics2D.setFont(graphics2D.getFont().deriveFont(Font.ITALIC, 80F));
         String text = "PAUSED";
         int x = getXForCenteredText(text);
-        int y = gamePanel.screenWidth / 4;
+        int y = gamePanel.getScreenWidth() / 4;
         graphics2D.drawString(text, x, y);
-        graphics2D.drawString("Esc - quit game", x - 46 * 3, y + gamePanel.tileSize * 3);
+        graphics2D.drawString("Esc - quit game", x - 46 * 3, y + gamePanel.getTileSize() * 3);
 
     }
 
@@ -441,14 +466,14 @@ public class UI {
         graphics2D.setFont(graphics2D.getFont().deriveFont(Font.ITALIC, 80F));
         String text = "GAME OVER!";
         int x = getXForCenteredText(text);
-        int y = gamePanel.screenWidth / 2;
+        int y = gamePanel.getScreenWidth() / 2;
         graphics2D.drawString(text, x, y);
 
     }
 
     public int getXForCenteredText(String text) {
         int length = (int) graphics2D.getFontMetrics().getStringBounds(text, graphics2D).getWidth();
-        int x = gamePanel.screenWidth / 2 - length / 2;
+        int x = gamePanel.getScreenWidth() / 2 - length / 2;
         return x;
 
     }

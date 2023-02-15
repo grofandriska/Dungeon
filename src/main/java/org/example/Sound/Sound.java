@@ -31,6 +31,8 @@ public class Sound {
             throw new RuntimeException(e);
         }
     }
+
+
     public void play() {
         clip.start();
     }

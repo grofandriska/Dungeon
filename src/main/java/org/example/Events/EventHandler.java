@@ -2,7 +2,7 @@ package org.example.Events;
 
 import org.example.Events.model.Event;
 import org.example.Game.GamePanel;
-import org.example.UI.UI;
+import org.example.UI.UserInreface;
 
 
 public class EventHandler {
@@ -10,12 +10,12 @@ public class EventHandler {
 
     public GamePanel gamePanel;
     public EventRectangle eventRectangle[][];
-    public UI Ui;
+    public UserInreface Ui;
     //init fields, make events to "all tiles?!"
     public EventHandler(GamePanel gamePanel) {
 
         //set attributes
-        this.Ui = new UI(gamePanel);
+        this.Ui = new UserInreface(gamePanel);
         this.gamePanel = gamePanel;
         //add some event
         this.events = new Event[10];

@@ -1,7 +1,6 @@
 package org.example.Entity.player;
 
 import org.example.Entity.Entity;
-import org.example.Entity.OBJ_GoldKey;
 import org.example.Entity.Objects.consum.OBJ_Key;
 import org.example.Entity.Objects.consum.OBJ_SpeedPotion;
 import org.example.Entity.Objects.inventory.OBJ_SHIELD;
@@ -64,8 +63,8 @@ public class Player extends Entity {
         this.coin = 0;
 
         //player attributes
-        this.worldX = gamePanel.tileSize * 13;
-        this.worldY = gamePanel.tileSize * 45;
+        this.worldX = gamePanel.getTileSize() * 13;
+        this.worldY = gamePanel.getTileSize() * 45;
         this.attackAreaRectangle.height = 36;
         this.attackAreaRectangle.width = 36;
 
@@ -94,7 +93,7 @@ public class Player extends Entity {
     //TODO :refactor if statements * separate logic
     public void setOrConsumeItemFromInventory() {
         //itemIndex
-        int itemIndex = gamePanel.UI.getItemIndexFromSlot();
+        int itemIndex = gamePanel.getUserInterface().getItemIndexFromSlot();
 
         //if size is in inventory
         if (itemIndex < inventory.size()) {
@@ -125,25 +124,25 @@ public class Player extends Entity {
         //attack "state"
         if (isAttacking) attacking();
             //if moving key pressed
-        else if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.enterPressed) {
-            if (keyHandler.upPressed) direction = "up";
-            else if (keyHandler.downPressed) direction = "down";
-            else if (keyHandler.rightPressed) direction = "right";
-            else if (keyHandler.leftPressed) direction = "left";
+        else if (keyHandler.isDownPressed() || keyHandler.isUpPressed() || keyHandler.isLeftPressed() || keyHandler.isRightPressed() || keyHandler.isEnterPressed()) {
+            if (keyHandler.isUpPressed()) direction = "up";
+            else if (keyHandler.isDownPressed()) direction = "down";
+            else if (keyHandler.isRightPressed()) direction = "right";
+            else if (keyHandler.isLeftPressed()) direction = "left";
 
             //check surrounding
             this.isCollisionOn = false;
-            gamePanel.eventHandler.checkEvent();
-            gamePanel.collisionChecker.checkBorder(this);
-            gamePanel.collisionChecker.checkTile(this);
-            gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
-            gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
+            gamePanel.getEventHandler().checkEvent();
+            gamePanel.getCollisionChecker().checkBorder(this);
+            gamePanel.getCollisionChecker().checkTile(this);
+            gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getNpc());
+            gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getMonsters());
 
-            pickupObject(gamePanel.collisionChecker.checkObject(this, true));
-            interactNPC(gamePanel.collisionChecker.checkEntity(this, gamePanel.npc));
-            contactMonster(gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters));
+            pickupObject(gamePanel.getCollisionChecker().checkObject(this, true));
+            interactNPC(gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getNpc()));
+            contactMonster(gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getMonsters()));
             //move player on map
-            if (!isCollisionOn && !keyHandler.enterPressed) {
+            if (!isCollisionOn && !keyHandler.isEnterPressed()) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
                     case "down" -> worldY += speed;
@@ -151,7 +150,7 @@ public class Player extends Entity {
                     case "right" -> worldX += speed;
                 }
             }
-            gamePanel.keyHandler.enterPressed = false;
+            gamePanel.getKeyHandler().setEnterPressed(false);
             //setting image when moving
             setMoveImageCounter++;
             if (setMoveImageCounter > 6) {
@@ -173,7 +172,7 @@ public class Player extends Entity {
         }
         //die logic
         if (life <= 0) {
-            gamePanel.gameState = 4;
+            gamePanel.setGameState(4);
             gamePanel.stopMusic();
             gamePanel.playSoundEffect(5);
         }
@@ -215,7 +214,7 @@ public class Player extends Entity {
         this.solidAreaRectangle.height = this.attackAreaRectangle.height;
 
         //get monster index and do damage
-        int monsterIndex = gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
+        int monsterIndex = gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getMonsters());
         damageMonster(monsterIndex);
 
         //change back player position
@@ -235,31 +234,31 @@ public class Player extends Entity {
     private void damageMonster(int i) {
         if (i != 999) {
             //calculate damage
-            if (!gamePanel.monsters[i].isInvincible) {
-                int damage = generateCriticalAttack() - gamePanel.monsters[i].defense;
+            if (!gamePanel.getMonsters()[i].isInvincible) {
+                int damage = generateCriticalAttack() - gamePanel.getMonsters()[i].defense;
                 if (damage < 0) {
                     damage = 0;
                 }
                 //set entity attributes
-                gamePanel.monsters[i].life -= damage;
-                gamePanel.monsters[i].isInvincible = true;
-                gamePanel.monsters[i].damageReaction();
+                gamePanel.getMonsters()[i].life -= damage;
+                gamePanel.getMonsters()[i].isInvincible = true;
+                gamePanel.getMonsters()[i].damageReaction();
                 //add scroll message
                 if (isCritical) {
-                    gamePanel.UI.addMessage("*" + damage + "*" + " critical damage dealt to " + gamePanel.monsters[i].name + " !");
+                    gamePanel.getUserInterface().addMessage("*" + damage + "*" + " critical damage dealt to " + gamePanel.getMonsters()[i].name + " !");
                 } else {
-                    gamePanel.UI.addMessage(damage + " damage dealt to " + gamePanel.monsters[i].name + " !");
+                    gamePanel.getUserInterface().addMessage(damage + " damage dealt to " + gamePanel.getMonsters()[i].name + " !");
                 }
                 //reset and playSE
                 isCritical = false;
                 gamePanel.playSoundEffect(2);
                 //check if entity life <= 0 and level up
-                if (gamePanel.monsters[i].life <= 0) {
-                    gamePanel.monsters[i].isDying = true;
-                    gamePanel.player.exp += gamePanel.monsters[i].exp;
-                    gamePanel.UI.addMessage("Killed " + gamePanel.monsters[i].name + " !  +" + gamePanel.monsters[i].exp + " xp");
+                if (gamePanel.getMonsters()[i].life <= 0) {
+                    gamePanel.getMonsters()[i].isDying = true;
+                    gamePanel.getPlayer().exp += gamePanel.getMonsters()[i].exp;
+                    gamePanel.getUserInterface().addMessage("Killed " + gamePanel.getMonsters()[i].name + " !  +" + gamePanel.getMonsters()[i].exp + " xp");
                     gamePanel.playSoundEffect(10);
-                    gamePanel.monsters[i] = null;
+                    gamePanel.getMonsters()[i] = null;
                     checkLevelUp();
                 }
             }
@@ -282,8 +281,8 @@ public class Player extends Entity {
             exp = 0;
 
             // set to dialog
-            gamePanel.gameState = gamePanel.dialogState;
-            gamePanel.UI.currentDialog = "Level " + level + " reached!\n" + "Your stats improved.";
+            gamePanel.setGameState(gamePanel.getDialogState());
+            gamePanel.getUserInterface().currentDialog = "Level " + level + " reached!\n" + "Your stats improved.";
         }
     }
 
@@ -307,14 +306,14 @@ public class Player extends Entity {
     private void contactMonster(int i) {
         if (i != 999) {
             if (!isInvincible) {
-                int damage = gamePanel.monsters[i].attack;
+                int damage = gamePanel.getMonsters()[i].attack;
             }
         }
     }
 
     //call npc methods - speak so far
     public void interactNPC(int index) {
-        if (gamePanel.keyHandler.enterPressed) {
+        if (gamePanel.getKeyHandler().enterPressed) {
             if (index != 999) {
                 gamePanel.gameState = gamePanel.dialogState;
                 gamePanel.npc[index].speak();

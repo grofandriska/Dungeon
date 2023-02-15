@@ -1,4 +1,4 @@
-package org.example.Entity.gaia;
+package org.example.Entity.npc.gaia;
 
 import org.example.Entity.Entity;
 import org.example.Game.GamePanel;

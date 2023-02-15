@@ -6,9 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    GamePanel gamePanel;
-    public boolean upPressed, downPressed, rightPressed, leftPressed, enterPressed;
-    public boolean oPressed;
+    private GamePanel gamePanel;
+    private boolean upPressed, downPressed, rightPressed, leftPressed, enterPressed;
+    private boolean oPressed;
 
     public KeyHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -21,15 +21,15 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (gamePanel.gameState == gamePanel.playState) {
+        if (gamePanel.getGameState() == gamePanel.getPlayState()) {
             playState(code);
-        } else if (gamePanel.gameState == gamePanel.pauseState) {
+        } else if (gamePanel.getGameState() == gamePanel.getPauseState()) {
             pauseState(code);
-        } else if (gamePanel.gameState == gamePanel.dialogState) {
+        } else if (gamePanel.getGameState() == gamePanel.getDialogState()) {
             dialogState(code);
-        } else if (gamePanel.gameState == gamePanel.characterState) {
+        } else if (gamePanel.getGameState() == gamePanel.getCharacterState()) {
             characterState(code);
-        } else if (gamePanel.gameState == gamePanel.endState) {
+        } else if (gamePanel.getGameState() == gamePanel.getEndState()) {
         }
     }
 
@@ -59,7 +59,7 @@ public class KeyHandler implements KeyListener {
     }
 
     public void playState(int code) {
-        if (gamePanel.gameState == gamePanel.playState) {
+        if (gamePanel.getGameState() == gamePanel.getPlayState()) {
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
             }
@@ -79,7 +79,7 @@ public class KeyHandler implements KeyListener {
                 oPressed = true;
             }
             if (code == KeyEvent.VK_C) {
-                gamePanel.gameState = gamePanel.characterState;
+                gamePanel.setGameState(gamePanel.getCharacterState());
             }
             pauseState(code);
         }
@@ -90,20 +90,20 @@ public class KeyHandler implements KeyListener {
             System.exit(0);
         }
         if (code == KeyEvent.VK_P) {
-            if (gamePanel.gameState == gamePanel.playState) {
-                gamePanel.gameState = gamePanel.pauseState;
+            if (gamePanel.getGameState() == gamePanel.getPlayState()) {
+                gamePanel.setGameState(gamePanel.getPauseState());
                 gamePanel.stopMusic();
-            } else if (gamePanel.gameState == gamePanel.pauseState) {
-                gamePanel.gameState = gamePanel.playState;
+            } else if (gamePanel.getGameState() == gamePanel.getPauseState()) {
+                gamePanel.setGameState(gamePanel.getPlayState());
                 gamePanel.playMusic(0);
             }
         }
     }
 
     public void dialogState(int code) {
-        if (gamePanel.gameState == gamePanel.dialogState) {
+        if (gamePanel.getGameState() == gamePanel.getDialogState()) {
             if (code == KeyEvent.VK_ENTER) {
-                gamePanel.gameState = gamePanel.playState;
+                gamePanel.setGameState(gamePanel.getPlayState());
             }
         }
     }
@@ -111,31 +111,87 @@ public class KeyHandler implements KeyListener {
     public void characterState(int code) {
 
         if (code == KeyEvent.VK_C) {
-            gamePanel.gameState = gamePanel.playState;
+            gamePanel.setGameState(gamePanel.getPlayState());
         }
         // moving cursor inventory
         if (code == KeyEvent.VK_W) {
-            if (gamePanel.UI.slotRow != 0) {
-                gamePanel.UI.slotRow--;
+            if (gamePanel.getUserInterface().slotRow != 0) {
+                gamePanel.getUserInterface().slotRow--;
             }
         }
         if (code == KeyEvent.VK_A) {
-            if (gamePanel.UI.slotCol != 0) {
-                gamePanel.UI.slotCol--;
+            if (gamePanel.getUserInterface().slotCol != 0) {
+                gamePanel.getUserInterface().slotCol--;
             }
         }
         if (code == KeyEvent.VK_S) {
-            if (gamePanel.UI.slotRow != 3) {
-                gamePanel.UI.slotRow++;
+            if (gamePanel.getUserInterface().slotRow != 3) {
+                gamePanel.getUserInterface().slotRow++;
             }
         }
         if (code == KeyEvent.VK_D) {
-            if (gamePanel.UI.slotCol != 4) {
-                gamePanel.UI.slotCol++;
+            if (gamePanel.getUserInterface().slotCol != 4) {
+                gamePanel.getUserInterface().slotCol++;
             }
         }
         if (code == KeyEvent.VK_ENTER) {
-            gamePanel.player.setOrConsumeItemFromInventory();
+            gamePanel.getPlayer().setOrConsumeItemFromInventory();
         }
+    }
+
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
+
+    public void setGamePanel(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
+
+    public boolean isUpPressed() {
+        return upPressed;
+    }
+
+    public void setUpPressed(boolean upPressed) {
+        this.upPressed = upPressed;
+    }
+
+    public boolean isDownPressed() {
+        return downPressed;
+    }
+
+    public void setDownPressed(boolean downPressed) {
+        this.downPressed = downPressed;
+    }
+
+    public boolean isRightPressed() {
+        return rightPressed;
+    }
+
+    public void setRightPressed(boolean rightPressed) {
+        this.rightPressed = rightPressed;
+    }
+
+    public boolean isLeftPressed() {
+        return leftPressed;
+    }
+
+    public void setLeftPressed(boolean leftPressed) {
+        this.leftPressed = leftPressed;
+    }
+
+    public boolean isEnterPressed() {
+        return enterPressed;
+    }
+
+    public void setEnterPressed(boolean enterPressed) {
+        this.enterPressed = enterPressed;
+    }
+
+    public boolean isoPressed() {
+        return oPressed;
+    }
+
+    public void setoPressed(boolean oPressed) {
+        this.oPressed = oPressed;
     }
 }
