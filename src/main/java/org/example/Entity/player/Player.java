@@ -313,10 +313,10 @@ public class Player extends Entity {
 
     //call npc methods - speak so far
     public void interactNPC(int index) {
-        if (gamePanel.getKeyHandler().enterPressed) {
+        if (gamePanel.getKeyHandler().isEnterPressed()) {
             if (index != 999) {
-                gamePanel.gameState = gamePanel.dialogState;
-                gamePanel.npc[index].speak();
+                gamePanel.setGameState( gamePanel.getDialogState());
+                gamePanel.getNpc()[index].speak();
             } else {
                 isAttacking = true;
             }
@@ -334,7 +334,7 @@ public class Player extends Entity {
         switch (direction) {
             case "up" -> {
                 if (isAttacking) {
-                    tempScreenY = screenY - gamePanel.tileSize;
+                    tempScreenY = screenY - gamePanel.getTileSize();
                     if (spriteImageNumber == 1) {
                         image = attackUp_1;
                     }
@@ -391,7 +391,7 @@ public class Player extends Entity {
             }
             case "left" -> {
                 if (isAttacking) {
-                    tempScreenX = screenX - gamePanel.tileSize;
+                    tempScreenX = screenX - gamePanel.getTileSize();
                     if (spriteImageNumber == 1) {
 
                         image = attackLeft_1;
@@ -428,34 +428,34 @@ public class Player extends Entity {
     public void pickupObject(int i) {
         if (i != 999) {
             // if not door
-            if (!gamePanel.objects[i].name.equals("door")) {
+            if (!gamePanel.getObjects()[i].name.equals("door")) {
                 String text = "";
                 if (inventory.size() != inventorySize) {
-                    inventory.add(gamePanel.objects[i]);
-                    text = "You've picked up a(n)" + gamePanel.objects[i].name + "!";
+                    inventory.add(gamePanel.getObjects()[i]);
+                    text = "You've picked up a(n)" + gamePanel.getObjects()[i].name + "!";
                 } else {
                     text = "Inventory is full ,can't carry more !";
                 }
-                gamePanel.UI.addMessage(text);
-                gamePanel.objects[i] = null;
+                gamePanel.getUserInterface().addMessage(text);
+                gamePanel.getObjects()[i] = null;
             }
             // if  door
-            else if (gamePanel.objects[i].name.equals("door") && gamePanel.player.keyHandler.oPressed) {
+            else if (gamePanel.getObjects()[i].name.equals("door") && gamePanel.getPlayer().keyHandler.isoPressed()) {
 
-                gamePanel.player.keyHandler.oPressed = false;
-                String keyName = gamePanel.objects[i].keyName;
+                gamePanel.getPlayer().keyHandler.setoPressed(false);
+                String keyName = gamePanel.getObjects()[i].keyName;
                 boolean isOpen = false;
 
                 for (int t = 0; t < this.inventory.size(); t++) {
                     if (inventory.get(t).name.equals(keyName)) {
                         inventory.remove(t);
-                        gamePanel.objects[i] = null;
+                        gamePanel.getObjects()[i] = null;
                         isOpen = true;
                         break;
                     }
                 }
                 if (!isOpen) {
-                    gamePanel.UI.addMessage("you need a(n) " + keyName + " for this door");
+                    gamePanel.getUserInterface().addMessage("you need a(n) " + keyName + " for this door");
                 }
             }
         }
@@ -480,30 +480,30 @@ public class Player extends Entity {
 
     //load image files
     public void setPlayerImage() {
-        up1 = setup("/player/NHU1", gamePanel.tileSize, gamePanel.tileSize);
-        up2 = setup("/player/NHU2", gamePanel.tileSize, gamePanel.tileSize);
+        up1 = setup("/player/NHU1", gamePanel.getTileSize(), gamePanel.getTileSize());
+        up2 = setup("/player/NHU2", gamePanel.getTileSize(), gamePanel.getTileSize());
 
-        down1 = setup("/player/NHD1", gamePanel.tileSize, gamePanel.tileSize);
+        down1 = setup("/player/NHD1", gamePanel.getTileSize(), gamePanel.getTileSize());
 
-        down2 = setup("/player/NHD2", gamePanel.tileSize, gamePanel.tileSize);
-        right1 = setup("/player/NHR1", gamePanel.tileSize, gamePanel.tileSize);
+        down2 = setup("/player/NHD2", gamePanel.getTileSize(), gamePanel.getTileSize());
+        right1 = setup("/player/NHR1", gamePanel.getTileSize(), gamePanel.getTileSize());
 
-        right2 = setup("/player/NHR2", gamePanel.tileSize, gamePanel.tileSize);
-        left1 = setup("/player/NHL1", gamePanel.tileSize, gamePanel.tileSize);
-        left2 = setup("/player/NHL2", gamePanel.tileSize, gamePanel.tileSize);
+        right2 = setup("/player/NHR2", gamePanel.getTileSize(), gamePanel.getTileSize());
+        left1 = setup("/player/NHL1", gamePanel.getTileSize(), gamePanel.getTileSize());
+        left2 = setup("/player/NHL2", gamePanel.getTileSize(), gamePanel.getTileSize());
 
-        attackDown_1 = setup("/player/attack 1_1", gamePanel.tileSize, gamePanel.tileSize * 2);
-        attackDown_2 = setup("/player/attack 1_2", gamePanel.tileSize, gamePanel.tileSize * 2);
+        attackDown_1 = setup("/player/attack 1_1", gamePanel.getTileSize(), gamePanel.getTileSize() * 2);
+        attackDown_2 = setup("/player/attack 1_2", gamePanel.getTileSize(), gamePanel.getTileSize() * 2);
 
 
-        attackUp_1 = setup("/player/attack 2_1", gamePanel.tileSize, gamePanel.tileSize * 2);
-        attackUp_2 = setup("/player/attack 2_2", gamePanel.tileSize, gamePanel.tileSize * 2);
+        attackUp_1 = setup("/player/attack 2_1", gamePanel.getTileSize(), gamePanel.getTileSize() * 2);
+        attackUp_2 = setup("/player/attack 2_2", gamePanel.getTileSize(), gamePanel.getTileSize() * 2);
 
-        attackRight_1 = setup("/player/attack 3_1", gamePanel.tileSize * 2, gamePanel.tileSize);
-        attackRight_2 = setup("/player/attack 3_2", gamePanel.tileSize * 2, gamePanel.tileSize);
+        attackRight_1 = setup("/player/attack 3_1", gamePanel.getTileSize() * 2, gamePanel.getTileSize());
+        attackRight_2 = setup("/player/attack 3_2", gamePanel.getTileSize() * 2, gamePanel.getTileSize());
 
-        attackLeft_2 = setup("/player/attack 4_2", gamePanel.tileSize * 2, gamePanel.tileSize);
-        attackLeft_1 = setup("/player/attack 4_1", gamePanel.tileSize * 2, gamePanel.tileSize);
+        attackLeft_2 = setup("/player/attack 4_2", gamePanel.getTileSize() * 2, gamePanel.getTileSize());
+        attackLeft_1 = setup("/player/attack 4_1", gamePanel.getTileSize() * 2, gamePanel.getTileSize());
 
     }
 }

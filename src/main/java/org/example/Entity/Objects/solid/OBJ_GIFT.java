@@ -20,6 +20,6 @@ public class OBJ_GIFT extends Entity {
     }
 
     public void getImage() {
-        image = setup("/objects/gift_01a", gamePanel.tileSize, gamePanel.tileSize);
+        image = setup("/objects/gift_01a", gamePanel.getTileSize(), gamePanel.getTileSize());
     }
 }

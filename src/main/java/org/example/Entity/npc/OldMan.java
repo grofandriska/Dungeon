@@ -22,25 +22,25 @@ public class OldMan extends Entity {
         direction = "left";
         speed = 1;
 
-        up1 = setup("/entities/oldman/Old Down 1",gamePanel.tileSize,gamePanel.tileSize);
-        up2 = setup("/entities/oldman/Old Down 2",gamePanel.tileSize,gamePanel.tileSize);
+        up1 = setup("/entities/oldman/Old Down 1",gamePanel.getTileSize(),gamePanel.getTileSize());
+        up2 = setup("/entities/oldman/Old Down 2",gamePanel.getTileSize(),gamePanel.getTileSize());
 
-        right1 = setup("/entities/oldman/Old Right1",gamePanel.tileSize,gamePanel.tileSize);
-        right2 = setup("/entities/oldman/Old Right2",gamePanel.tileSize,gamePanel.tileSize);
+        right1 = setup("/entities/oldman/Old Right1",gamePanel.getTileSize(),gamePanel.getTileSize());
+        right2 = setup("/entities/oldman/Old Right2",gamePanel.getTileSize(),gamePanel.getTileSize());
 
-        left1 = setup("/entities/oldman/Old Left2",gamePanel.tileSize,gamePanel.tileSize);
-        left2 = setup("/entities/oldman/Old Left1",gamePanel.tileSize,gamePanel.tileSize);
+        left1 = setup("/entities/oldman/Old Left2",gamePanel.getTileSize(),gamePanel.getTileSize());
+        left2 = setup("/entities/oldman/Old Left1",gamePanel.getTileSize(),gamePanel.getTileSize());
 
-        down1 = setup("/entities/oldman/Old Down 1",gamePanel.tileSize,gamePanel.tileSize);
-        down2 = setup("/entities/oldman/Old Down 2",gamePanel.tileSize,gamePanel.tileSize);
+        down1 = setup("/entities/oldman/Old Down 1",gamePanel.getTileSize(),gamePanel.getTileSize());
+        down2 = setup("/entities/oldman/Old Down 2",gamePanel.getTileSize(),gamePanel.getTileSize());
     }
 
     public void setDialog() {
         dialogs[0] = "Hello Stranger!\nI am Princip the old sailor\nand I don't know you!";
-        dialogs[1] = "Ahh so you are :"+ gamePanel.player.name;
+        dialogs[1] = "Ahh so you are :"+ gamePanel.getPlayer().name;
         dialogs[2] = "Have you seen the wizard?!\nI bet you don't. He is\nuntouchable";
         dialogs[3] = "If you are fast enough\nyou can deal damage to Him!";
-        dialogs[4] = "I see that your\nattack power is :"+gamePanel.player.attack+".";
+        dialogs[4] = "I see that your\nattack power is :"+gamePanel.getPlayer().attack+".";
         dialogs[5] = "You can preform critical attack\nbut it's random tho'.";
     }
 

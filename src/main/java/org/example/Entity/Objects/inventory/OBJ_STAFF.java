@@ -16,7 +16,7 @@ public class OBJ_STAFF extends Entity {
         //entity static
         this.attackAreaRectangle.width = 40;
         this.attackAreaRectangle.height = 40;
-        this.image = setup("/Pack/icons/32x32/staff_02ab", gamePanel.tileSize, gamePanel.tileSize);
-        this.down1 = setup("/Pack/icons/32x32/staff_02ab", gamePanel.tileSize, gamePanel.tileSize);
+        this.image = setup("/Pack/icons/32x32/staff_02ab", gamePanel.getTileSize(), gamePanel.getTileSize());
+        this.down1 = setup("/Pack/icons/32x32/staff_02ab", gamePanel.getTileSize(), gamePanel.getTileSize());
     }
 }

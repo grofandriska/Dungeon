@@ -55,18 +55,18 @@ public class Mage extends Entity {
         isCollisionOn = false;
 
         //check surrounds
-        gamePanel.collisionChecker.checkBorder(this);
-        gamePanel.collisionChecker.checkTile(this);
-        gamePanel.collisionChecker.checkObject(this, false);
-        gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
-        gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
+        gamePanel.getCollisionChecker().checkBorder(this);
+        gamePanel.getCollisionChecker().checkTile(this);
+        gamePanel.getCollisionChecker().checkObject(this, false);
+        gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getNpc());
+        gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getMonsters());
 
         //if collision do damage to player -> will be magic here :)
-        boolean contactPLayer = gamePanel.collisionChecker.checkPlayer(this);
+        boolean contactPLayer = gamePanel.getCollisionChecker().checkPlayer(this);
         if (contactPLayer && this.type == 2) {
-            if (!gamePanel.player.isInvincible) {
-                gamePanel.player.life -= 2;
-                gamePanel.player.isInvincible = true;
+            if (!gamePanel.getPlayer().isInvincible) {
+                gamePanel.getPlayer().life -= 2;
+                gamePanel.getPlayer().isInvincible = true;
             }
         }
 
@@ -82,7 +82,7 @@ public class Mage extends Entity {
         }
 
         //if player close
-        if (checkDistance(gamePanel.player,gamePanel.tileSize * 3)){
+        if (checkDistance(gamePanel.getPlayer(),gamePanel.getTileSize() * 3)){
             direction = "teleport";
         }
 
@@ -125,13 +125,13 @@ public class Mage extends Entity {
     public void draw(Graphics2D graphics2D) {
         //variables
         BufferedImage image = null;
-        int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
-        int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+        int screenX = worldX - gamePanel.getPlayer().worldX + gamePanel.getPlayer().screenX;
+        int screenY = worldY - gamePanel.getPlayer().worldY + gamePanel.getPlayer().screenY;
         //if logic - is on draw screen ? then do the procedure
-        if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
-                && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
-                && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
-                && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY)
+        if (worldX + gamePanel.getTileSize() > gamePanel.getPlayer().worldX - gamePanel.getPlayer().screenX
+                && worldX - gamePanel.getTileSize() < gamePanel.getPlayer().worldX + gamePanel.getPlayer().screenX
+                && worldY + gamePanel.getTileSize() > gamePanel.getPlayer().worldY - gamePanel.getPlayer().screenY
+                && worldY - gamePanel.getTileSize() < gamePanel.getPlayer().worldY + gamePanel.getPlayer().screenY)
         {
             //set image counter
             switch (direction) {
@@ -209,18 +209,18 @@ public class Mage extends Entity {
         //set i and c for how big the area it checks
         for (int i = 0; i < 8; i++) {
             for (int c = 0; c < 8; c++) {
-                int tempX = ((this.worldX / gamePanel.tileSize) - 6 + i);
-                int tempY = ((this.worldY / gamePanel.tileSize) - 6 + c);
+                int tempX = ((this.worldX / gamePanel.getTileSize()) - 6 + i);
+                int tempY = ((this.worldY / gamePanel.getTileSize()) - 6 + c);
                 //check if not on the map
                 if (tempX < 49 && tempY < 49 && tempX > 0 && tempY > 0) {
                     //check if tile is solid or not
-                    if (!(gamePanel.tileManager.mapTileNum[tempX][tempY] == 1)
-                            && !(gamePanel.tileManager.mapTileNum[tempX][tempY] == 9)
-                            && !(gamePanel.tileManager.mapTileNum[tempX][tempY] == 25)
-                            && !(gamePanel.tileManager.mapTileNum[tempX][tempY] == 26)
-                            && !(gamePanel.tileManager.mapTileNum[tempX][tempY] == 27)
-                            && !(gamePanel.tileManager.mapTileNum[tempX][tempY] == 28)
-                            && !(gamePanel.tileManager.mapTileNum[tempX][tempY] == 29))
+                    if (!(gamePanel.getTileManager().mapTileNum[tempX][tempY] == 1)
+                            && !(gamePanel.getTileManager().mapTileNum[tempX][tempY] == 9)
+                            && !(gamePanel.getTileManager().mapTileNum[tempX][tempY] == 25)
+                            && !(gamePanel.getTileManager().mapTileNum[tempX][tempY] == 26)
+                            && !(gamePanel.getTileManager().mapTileNum[tempX][tempY] == 27)
+                            && !(gamePanel.getTileManager().mapTileNum[tempX][tempY] == 28)
+                            && !(gamePanel.getTileManager().mapTileNum[tempX][tempY] == 29))
                     {
                         x.add(tempX);
                         y.add(tempY);
@@ -245,8 +245,8 @@ public class Mage extends Entity {
         this.setMoveImageCounter++;
 
         //set to new chords randomly
-        this.worldX = x.get(randomNum) * gamePanel.tileSize;
-        this.worldY = y.get(randomNum) * gamePanel.tileSize;
+        this.worldX = x.get(randomNum) * gamePanel.getTileSize();
+        this.worldY = y.get(randomNum) * gamePanel.getTileSize();
 
         // prevent start new teleport cycle
         this.canTeleport = false;
@@ -254,14 +254,14 @@ public class Mage extends Entity {
     //draw counter when teleport
     public void drawTeleportBar(Graphics2D graphics2D) {
             //set values
-            int screenX = this.worldX - gamePanel.player.worldX + gamePanel.player.screenX;
-            int screenY = this.worldY - gamePanel.player.worldY + gamePanel.player.screenY;
-            double oneScale = (double) gamePanel.tileSize / 20;
+            int screenX = this.worldX - gamePanel.getPlayer().worldX + gamePanel.getPlayer().screenX;
+            int screenY = this.worldY - gamePanel.getPlayer().worldY + gamePanel.getPlayer().screenY;
+            double oneScale = (double) gamePanel.getTileSize() / 20;
             double healthBarValue = oneScale * this.nextTeleportCounter;
 
             //draw scale
             graphics2D.setColor(new Color(35, 35, 35));
-            graphics2D.fillRect(screenX - 1, screenY - 32, gamePanel.tileSize, 10);
+            graphics2D.fillRect(screenX - 1, screenY - 32, gamePanel.getTileSize(), 10);
 
             graphics2D.setColor(new Color(25, 50, 255));
             graphics2D.fillRect(screenX - 1, screenY - 32, (int) healthBarValue, 10);
@@ -270,20 +270,20 @@ public class Mage extends Entity {
     //load image files
     public void getImage() {
 
-        image = setup("/entities/mage/Mage Teleport Ready", gamePanel.tileSize, gamePanel.tileSize);
-        image2 = setup("/entities/mage/Mage Teleport 2", gamePanel.tileSize, gamePanel.tileSize);
+        image = setup("/entities/mage/Mage Teleport Ready", gamePanel.getTileSize(), gamePanel.getTileSize());
+        image2 = setup("/entities/mage/Mage Teleport 2", gamePanel.getTileSize(), gamePanel.getTileSize());
 
-        up1 = setup("/entities/mage/Mage Up1", gamePanel.tileSize, gamePanel.tileSize);
-        up2 = setup("/entities/mage/Mage Up2", gamePanel.tileSize, gamePanel.tileSize);
+        up1 = setup("/entities/mage/Mage Up1", gamePanel.getTileSize(), gamePanel.getTileSize());
+        up2 = setup("/entities/mage/Mage Up2", gamePanel.getTileSize(), gamePanel.getTileSize());
 
-        right1 = setup("/entities/mage/Mage 2", gamePanel.tileSize, gamePanel.tileSize);
-        right2 = setup("/entities/mage/Mage 2", gamePanel.tileSize, gamePanel.tileSize);
+        right1 = setup("/entities/mage/Mage 2", gamePanel.getTileSize(), gamePanel.getTileSize());
+        right2 = setup("/entities/mage/Mage 2", gamePanel.getTileSize(), gamePanel.getTileSize());
 
-        left1 = setup("/entities/mage/Mage 1", gamePanel.tileSize, gamePanel.tileSize);
-        left2 = setup("/entities/mage/Mage 1", gamePanel.tileSize, gamePanel.tileSize);
+        left1 = setup("/entities/mage/Mage 1", gamePanel.getTileSize(), gamePanel.getTileSize());
+        left2 = setup("/entities/mage/Mage 1", gamePanel.getTileSize(), gamePanel.getTileSize());
 
-        down1 = setup("/entities/mage/Mage 1", gamePanel.tileSize, gamePanel.tileSize);
-        down2 = setup("/entities/mage/Mage 2", gamePanel.tileSize, gamePanel.tileSize);
+        down1 = setup("/entities/mage/Mage 1", gamePanel.getTileSize(), gamePanel.getTileSize());
+        down2 = setup("/entities/mage/Mage 2", gamePanel.getTileSize(), gamePanel.getTileSize());
 
     }
 }

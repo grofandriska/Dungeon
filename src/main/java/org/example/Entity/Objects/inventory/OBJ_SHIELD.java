@@ -16,7 +16,7 @@ public class OBJ_SHIELD extends Entity {
         this.description = "[" + name + "]\n" + "A basic shield.\n" + "\n" + "def " + defenseValue;
 
         //entity static
-        this.image = setup("/Pack/icons/32x32/shield_03d", gamePanel.tileSize, gamePanel.tileSize);
-        this.down1 = setup("/Pack/icons/32x32/shield_03d", gamePanel.tileSize, gamePanel.tileSize);
+        this.image = setup("/Pack/icons/32x32/shield_03d", gamePanel.getTileSize(), gamePanel.getTileSize());
+        this.down1 = setup("/Pack/icons/32x32/shield_03d", gamePanel.getTileSize(), gamePanel.getTileSize());
     }
 }

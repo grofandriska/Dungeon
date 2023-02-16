@@ -17,7 +17,7 @@ public class OBJ_SWORD extends Entity {
         //entity static
         this.attackAreaRectangle.width = 32;
         this.attackAreaRectangle.height = 32;
-        this.down1 = setup("/Pack/icons/32x32/sword_01a", gamePanel.tileSize, gamePanel.tileSize);
-        this.image = setup("/Pack/icons/32x32/sword_01a", gamePanel.tileSize, gamePanel.tileSize);
+        this.down1 = setup("/Pack/icons/32x32/sword_01a", gamePanel.getTileSize(), gamePanel.getTileSize());
+        this.image = setup("/Pack/icons/32x32/sword_01a", gamePanel.getTileSize(), gamePanel.getTileSize());
     }
 }

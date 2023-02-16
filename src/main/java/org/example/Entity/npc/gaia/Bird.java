@@ -18,7 +18,7 @@ public class Bird extends Entity {
         setNewDirection();
         isCollisionOn = false;
 
-        gamePanel.collisionChecker.checkBorder(this);
+        gamePanel.getCollisionChecker().checkBorder(this);
 
         if (!isCollisionOn) {
             switch (direction) {
@@ -42,13 +42,13 @@ public class Bird extends Entity {
     }
     //load image files
     public void setBirdImage() {
-        up1 = setup("/entities/bird/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
-        up2 = setup("/entities/bird/Bird 5",gamePanel.tileSize,gamePanel.tileSize);
-        down1 = setup("/entities/bird/Bird 2",gamePanel.tileSize,gamePanel.tileSize);
-        down2 = setup("/entities/bird/Bird 4",gamePanel.tileSize,gamePanel.tileSize);
-        right1 = setup("/entities/bird/Bird 2",gamePanel.tileSize,gamePanel.tileSize);
-        right2 = setup("/entities/bird/Bird 4",gamePanel.tileSize,gamePanel.tileSize);
-        left1 = setup("/entities/bird/Bird 1",gamePanel.tileSize,gamePanel.tileSize);
-        left2 = setup("/entities/bird/Bird 5",gamePanel.tileSize,gamePanel.tileSize);
+        up1 = setup("/entities/bird/Bird 1",gamePanel.getTileSize(),gamePanel.getTileSize());
+        up2 = setup("/entities/bird/Bird 5",gamePanel.getTileSize(),gamePanel.getTileSize());
+        down1 = setup("/entities/bird/Bird 2",gamePanel.getTileSize(),gamePanel.getTileSize());
+        down2 = setup("/entities/bird/Bird 4",gamePanel.getTileSize(),gamePanel.getTileSize());
+        right1 = setup("/entities/bird/Bird 2",gamePanel.getTileSize(),gamePanel.getTileSize());
+        right2 = setup("/entities/bird/Bird 4",gamePanel.getTileSize(),gamePanel.getTileSize());
+        left1 = setup("/entities/bird/Bird 1",gamePanel.getTileSize(),gamePanel.getTileSize());
+        left2 = setup("/entities/bird/Bird 5",gamePanel.getTileSize(),gamePanel.getTileSize());
     }
 }
