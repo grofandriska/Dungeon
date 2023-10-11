@@ -1,6 +1,6 @@
-package org.example.Entity.Objects;
+package org.example.entity.objects;
 
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 import org.example.Game.GamePanel;
 
 import java.awt.*;

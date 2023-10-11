@@ -1,6 +1,6 @@
-package org.example.Entity.Objects.inventory;
+package org.example.entity.objects.inventory;
 
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 import org.example.Game.GamePanel;
 
 public class OBJ_SWORD extends Entity {

@@ -1,6 +1,6 @@
-package org.example.Entity.npc.gaia;
+package org.example.entity.npc.gaia;
 
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 import org.example.Game.GamePanel;
 
 public class Bird extends Entity {

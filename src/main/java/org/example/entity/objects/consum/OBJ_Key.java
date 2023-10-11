@@ -1,6 +1,6 @@
-package org.example.Entity.Objects.consum;
+package org.example.entity.objects.consum;
 
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 import org.example.Game.GamePanel;
 
 public class OBJ_Key extends Entity {
@@ -11,7 +11,7 @@ public class OBJ_Key extends Entity {
         //entity attribute
         this.name = "Key";
         this.description = "[" + name + "]\n" + "It's a key made from silver.\nNot any sign or mark.";
-        this.image = setup("/objects/key_01c", gamePanel.tileSize, gamePanel.tileSize);
+        this.image = setup("/objects/key_01c", gamePanel.getTileSize(), gamePanel.getTileSize());
 
         //entity static
         this.isCollisionOn = true;

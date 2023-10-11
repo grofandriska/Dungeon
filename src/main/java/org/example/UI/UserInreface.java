@@ -1,7 +1,7 @@
 package org.example.UI;
 
-import org.example.Entity.Entity;
-import org.example.Entity.Objects.consum.OBJ_Heart;
+import org.example.entity.Entity;
+import org.example.entity.objects.consum.OBJ_Heart;
 import org.example.Game.GamePanel;
 import org.example.Handler.draw.UtilityTool;
 

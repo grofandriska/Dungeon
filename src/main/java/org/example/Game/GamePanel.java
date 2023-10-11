@@ -1,7 +1,7 @@
 package org.example.Game;
 
-import org.example.Entity.Entity;
-import org.example.Entity.player.Player;
+import org.example.entity.Entity;
+import org.example.entity.player.Player;
 import org.example.Events.EventHandler;
 import org.example.Handler.AssetSetter;
 import org.example.Handler.collision.CollisionChecker;

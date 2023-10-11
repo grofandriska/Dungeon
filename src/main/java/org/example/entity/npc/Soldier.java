@@ -1,6 +1,6 @@
-package org.example.Entity.npc;
+package org.example.entity.npc;
 
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 import org.example.Game.GamePanel;
 
 public class Soldier extends Entity {

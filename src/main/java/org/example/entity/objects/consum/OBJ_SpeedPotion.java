@@ -1,6 +1,6 @@
-package org.example.Entity.Objects.consum;
+package org.example.entity.objects.consum;
 
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 import org.example.Game.GamePanel;
 
 public class OBJ_SpeedPotion extends Entity {
@@ -13,12 +13,12 @@ public class OBJ_SpeedPotion extends Entity {
         this.type = 4;
 
         //entity static
-        this.image = setup("/objects/potion_01h", gamePanel.tileSize, gamePanel.tileSize);
+        this.image = setup("/objects/potion_01h", gamePanel.getTileSize(), gamePanel.getTileSize());
         this.description = "[" + name + "]\n" + "It's a potion of speed. \nUse it if you are in a hurry!";
     }
 
     public void consume() {
-        gamePanel.player.speed += 1;
-        gamePanel.UI.addMessage(name + " consumed. you are faster now");
+        gamePanel.getPlayer().speed += 1;
+        gamePanel.getUserInterface().addMessage(name + " consumed. you are faster now");
     }
 }

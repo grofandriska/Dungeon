@@ -1,11 +1,11 @@
-package org.example.Entity.player;
+package org.example.entity.player;
 
-import org.example.Entity.Entity;
-import org.example.Entity.Objects.consum.OBJ_Key;
-import org.example.Entity.Objects.consum.OBJ_SpeedPotion;
-import org.example.Entity.Objects.inventory.OBJ_SHIELD;
-import org.example.Entity.Objects.inventory.OBJ_SWORD;
-import org.example.Entity.Objects.solid.OBJ_GIFT;
+import org.example.entity.Entity;
+import org.example.entity.objects.consum.OBJ_Key;
+import org.example.entity.objects.consum.OBJ_SpeedPotion;
+import org.example.entity.objects.inventory.OBJ_SHIELD;
+import org.example.entity.objects.inventory.OBJ_SWORD;
+import org.example.entity.objects.solid.OBJ_GIFT;
 import org.example.Game.GamePanel;
 import org.example.Handler.input.KeyHandler;
 

@@ -1,6 +1,6 @@
-package org.example.Entity.Objects.solid;
+package org.example.entity.objects.solid;
 
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 import org.example.Game.GamePanel;
 
 

@@ -1,4 +1,4 @@
-package org.example.Entity;
+package org.example.entity;
 
 import org.example.Handler.draw.UtilityTool;
 import org.example.Game.GamePanel;
@@ -59,8 +59,8 @@ public abstract class Entity {
         this.dialogs = new String[20];
         this.dialogs[0] = "...";
 
-        this.solidAreaRectangle = new Rectangle(0, 0, gamePanel.tileSize-2, gamePanel.tileSize-2);
-        this.attackAreaRectangle = new Rectangle(0, 0, gamePanel.tileSize-2, gamePanel.tileSize-2);
+        this.solidAreaRectangle = new Rectangle(0, 0, gamePanel.getTileSize()-2, gamePanel.getTileSize()-2);
+        this.attackAreaRectangle = new Rectangle(0, 0, gamePanel.getTileSize()-2, gamePanel.getTileSize()-2);
 
         this.attack = getAttack();
 
@@ -93,29 +93,29 @@ public abstract class Entity {
 
         //check surrounds
 
-        gamePanel.collisionChecker.checkBorder(this);
+        gamePanel.getCollisionChecker().checkBorder(this);
 
-        gamePanel.collisionChecker.checkTile(this);
+        gamePanel.getCollisionChecker().checkTile(this);
 
-        gamePanel.collisionChecker.checkObject(this, false);
+        gamePanel.getCollisionChecker().checkObject(this, false);
 
-        gamePanel.collisionChecker.checkEntity(this, gamePanel.npc);
+        gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getNpc());
 
-        gamePanel.collisionChecker.checkEntity(this, gamePanel.monsters);
+        gamePanel.getCollisionChecker().checkEntity(this, gamePanel.getMonsters());
 
-        boolean contactPLayer = gamePanel.collisionChecker.checkPlayer(this);
+        boolean contactPLayer = gamePanel.getCollisionChecker().checkPlayer(this);
 
 
         //
         if (contactPLayer && this.type == 2) {
-            if (!gamePanel.player.isInvincible) {
-                int damage = attack - gamePanel.player.defense;
+            if (!gamePanel.getPlayer().isInvincible) {
+                int damage = attack - gamePanel.getPlayer().defense;
                 if (damage < 0) {
                     damage = 0;
                 }
                 gamePanel.playSoundEffect(6);
-                gamePanel.player.life -= damage;
-                gamePanel.player.isInvincible = true;
+                gamePanel.getPlayer().life -= damage;
+                gamePanel.getPlayer().isInvincible = true;
             }
         }
 
@@ -180,11 +180,11 @@ public abstract class Entity {
     public boolean checkDistance(Entity entity) {
         boolean isTrue = false;
 
-        int xDistance = Math.abs(gamePanel.player.worldX - entity.worldX);
-        int yDistance = Math.abs(gamePanel.player.worldY - entity.worldY);
+        int xDistance = Math.abs(gamePanel.getPlayer().worldX - entity.worldX);
+        int yDistance = Math.abs(gamePanel.getPlayer().worldY - entity.worldY);
         int distance = Math.max(xDistance, yDistance);
 
-        if (distance < gamePanel.tileSize * 2) {
+        if (distance < gamePanel.getTileSize() * 2) {
             // extend
         }
         return isTrue;
@@ -194,13 +194,13 @@ public abstract class Entity {
 
         BufferedImage image = null;
 
-        int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
-        int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+        int screenX = worldX - gamePanel.getPlayer().worldX + gamePanel.getPlayer().screenX;
+        int screenY = worldY - gamePanel.getPlayer().worldY + gamePanel.getPlayer().screenY;
 
-        if (worldX + gamePanel.tileSize > gamePanel.player.worldX - gamePanel.player.screenX
-                && worldX - gamePanel.tileSize < gamePanel.player.worldX + gamePanel.player.screenX
-                && worldY + gamePanel.tileSize > gamePanel.player.worldY - gamePanel.player.screenY
-                && worldY - gamePanel.tileSize < gamePanel.player.worldY + gamePanel.player.screenY) {
+        if (worldX + gamePanel.getTileSize() > gamePanel.getPlayer().worldX - gamePanel.getPlayer().screenX
+                && worldX - gamePanel.getTileSize() < gamePanel.getPlayer().worldX + gamePanel.getPlayer().screenX
+                && worldY + gamePanel.getTileSize() > gamePanel.getPlayer().worldY - gamePanel.getPlayer().screenY
+                && worldY - gamePanel.getTileSize() < gamePanel.getPlayer().worldY + gamePanel.getPlayer().screenY) {
             switch (direction) {
                 case "up" -> {
                     if (spriteImageNumber == 1) {
@@ -253,14 +253,14 @@ public abstract class Entity {
 
     public void drawHealthBar(Graphics2D graphics2D) {
         if (type == 2 || type == 3) {
-            int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
-            int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+            int screenX = worldX - gamePanel.getPlayer().worldX + gamePanel.getPlayer().screenX;
+            int screenY = worldY - gamePanel.getPlayer().worldY + gamePanel.getPlayer().screenY;
 
-            double oneScale = (double) gamePanel.tileSize / maxLife;
+            double oneScale = (double) gamePanel.getTileSize() / maxLife;
             double healthBarValue = oneScale * life;
 
             graphics2D.setColor(new Color(35, 35, 35));
-            graphics2D.fillRect(screenX - 1, screenY - 16, gamePanel.tileSize, 10);
+            graphics2D.fillRect(screenX - 1, screenY - 16, gamePanel.getTileSize(), 10);
 
             graphics2D.setColor(new Color(255, 0, 30));
             graphics2D.fillRect(screenX - 1, screenY - 16, (int) healthBarValue, 10);
@@ -314,7 +314,7 @@ public abstract class Entity {
         if (dialogs[dialogIndex] == null) {
             dialogIndex = 0;
         }
-        gamePanel.UI.currentDialog = dialogs[dialogIndex];
+        gamePanel.getUserInterface().currentDialog = dialogs[dialogIndex];
         dialogIndex++;
     }
 

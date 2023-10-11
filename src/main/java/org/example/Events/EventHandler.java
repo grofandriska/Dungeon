@@ -22,12 +22,12 @@ public class EventHandler {
         this.events[0] = new Event();
         this.events[1] = new Event();
 
-        this.eventRectangle = new EventRectangle[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
+        this.eventRectangle = new EventRectangle[gamePanel.getMaxWorldCol()][gamePanel.getMaxWorldRow()];
 
         int col = 0;
         int row = 0;
         //why I making all events on map ? :D
-        while (col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {
+        while (col < gamePanel.getMaxWorldCol() && row < gamePanel.getMaxWorldRow()) {
             //set event area on tile center and set its width and height
             this.eventRectangle[col][row] = new EventRectangle();
             this.eventRectangle[col][row].y = 24;
@@ -39,7 +39,7 @@ public class EventHandler {
             this.eventRectangle[col][row].defaultRectY = this.eventRectangle[col][row].y;
             col++;
 
-            if (col == gamePanel.maxWorldCol) {
+            if (col == gamePanel.getMaxWorldCol()) {
                 col = 0;
                 row++;
             }
@@ -53,49 +53,49 @@ public class EventHandler {
         //welcome event
         if (events[0].canTouchEvent && !(events[0].isHappened)) {
             if (hit(19, 8, "down", events[0])) {
-                welcome(gamePanel.dialogState, 1, 1);
+                welcome(gamePanel.getDialogState(), 1, 1);
                 events[0].isHappened = true;
             }
         }
         //you are safe event
         if (events[1].canTouchEvent) {
             if (hit(11, 10, "left", events[1])) {
-                heal(gamePanel.dialogState, 11, 27);
+                heal(gamePanel.getDialogState(), 11, 27);
                 events[1].canTouchEvent = false;
             }
         }
     }
     //do damage on tile
     public void damagePit(int gameState, int col, int row) {
-        gamePanel.gameState = gameState;
-        gamePanel.UI.currentDialog = "You Coward ! - 4hp";
-        gamePanel.player.life -= 4;
+        gamePanel.setGameState(gameState);
+        gamePanel.getUserInterface().currentDialog = "You Coward ! - 4hp";
+        gamePanel.getPlayer().life -= 4;
         events[0].canTouchEvent = false;
         eventRectangle[col][row].eventHappened = true;
     }
     //welcome screen
     public void welcome(int gameState, int col, int row) {
-        gamePanel.gameState = gameState;
-        gamePanel.UI.currentDialog = "You wake up tired on this Isla-\nnd. You lost 4 life!  ";
-        gamePanel.player.life -= 4;
+        gamePanel.setGameState(gameState);
+        gamePanel.getUserInterface().currentDialog = "You wake up tired on this Isla-\nnd. You lost 4 life!  ";
+        gamePanel.getPlayer().life -= 4;
         events[0].canTouchEvent = false;
         eventRectangle[col][row].eventHappened = true;
     }
     //heal event
     public void heal(int gameState, int col, int row) {
-        gamePanel.gameState = gameState;
-        gamePanel.UI.currentDialog = "You feel safe ! \nYou're life is restored ";
-        gamePanel.player.life =gamePanel.player.maxLife;
+        gamePanel.setGameState(gameState);
+        gamePanel.getUserInterface().currentDialog = "You feel safe ! \nYou're life is restored ";
+        gamePanel.getPlayer().life =gamePanel.getPlayer().maxLife;
         events[1].canTouchEvent = false;
         eventRectangle[col][row].eventHappened = true;
     }
     //check distance (check mage)
     public void checkDistance(Event event) {
-        int xDistance = Math.abs(gamePanel.player.worldX - event.previousEventX);
-        int yDistance = Math.abs(gamePanel.player.worldY - event.previousEventY);
+        int xDistance = Math.abs(gamePanel.getPlayer().worldX - event.previousEventX);
+        int yDistance = Math.abs(gamePanel.getPlayer().worldY - event.previousEventY);
         int distance = Math.max(xDistance, yDistance);
 
-        if (distance > gamePanel.tileSize * 15) {
+        if (distance > gamePanel.getTileSize() * 15) {
             event.canTouchEvent = true;
         }
     }
@@ -105,25 +105,25 @@ public class EventHandler {
         boolean hit = false;
 
         //2 parameter for player solid area
-        gamePanel.player.solidAreaRectangle.x = gamePanel.player.worldX + gamePanel.player.solidAreaRectangle.x;
-        gamePanel.player.solidAreaRectangle.y = gamePanel.player.worldY + gamePanel.player.solidAreaRectangle.y;
+        gamePanel.getPlayer().solidAreaRectangle.x = gamePanel.getPlayer().worldX + gamePanel.getPlayer().solidAreaRectangle.x;
+        gamePanel.getPlayer().solidAreaRectangle.y = gamePanel.getPlayer().worldY + gamePanel.getPlayer().solidAreaRectangle.y;
 
         //2 parameter for event solid area
-        this.eventRectangle[col][row].x = col * gamePanel.tileSize + this.eventRectangle[col][row].x;
-        this.eventRectangle[col][row].y = row * gamePanel.tileSize + this.eventRectangle[col][row].y;
+        this.eventRectangle[col][row].x = col * gamePanel.getTileSize() + this.eventRectangle[col][row].x;
+        this.eventRectangle[col][row].y = row * gamePanel.getTileSize() + this.eventRectangle[col][row].y;
 
         //checks if rectangle intersects and if direction "any"
-        if (gamePanel.player.solidAreaRectangle.intersects(this.eventRectangle[col][row]) && !this.eventRectangle[col][row].eventHappened) {
-            if (gamePanel.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
+        if (gamePanel.getPlayer().solidAreaRectangle.intersects(this.eventRectangle[col][row]) && !this.eventRectangle[col][row].eventHappened) {
+            if (gamePanel.getPlayer().direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
                 hit = true;
-                event.previousEventX = gamePanel.player.worldX;
-                event.previousEventY = gamePanel.player.worldY;
+                event.previousEventX = gamePanel.getPlayer().worldX;
+                event.previousEventY = gamePanel.getPlayer().worldY;
             }
         }
 
         //reset values
-        gamePanel.player.solidAreaRectangle.x = gamePanel.player.solidAreaDefaultX;
-        gamePanel.player.solidAreaRectangle.y = gamePanel.player.solidAreaDefaultY;
+        gamePanel.getPlayer().solidAreaRectangle.x = gamePanel.getPlayer().solidAreaDefaultX;
+        gamePanel.getPlayer().solidAreaRectangle.y = gamePanel.getPlayer().solidAreaDefaultY;
         this.eventRectangle[col][row].x = this.eventRectangle[col][row].defaultRectX;
         this.eventRectangle[col][row].y = this.eventRectangle[col][row].defaultRectY;
 

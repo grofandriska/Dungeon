@@ -1,7 +1,7 @@
 package org.example.Handler.collision;
 
 import org.example.Game.GamePanel;
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 
 public class CollisionChecker {
     private GamePanel gamePanel;

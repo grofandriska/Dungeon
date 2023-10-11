@@ -1,6 +1,6 @@
-package org.example.Entity.Objects.consum;
+package org.example.entity.objects.consum;
 
-import org.example.Entity.Entity;
+import org.example.entity.Entity;
 import org.example.Game.GamePanel;
 
 public class OBJ_COIN extends Entity {
@@ -10,8 +10,8 @@ public class OBJ_COIN extends Entity {
 
         name = "Coin";
         direction = "down";
-        image = setup("/objects/coin_02a",gamePanel.tileSize,gamePanel.tileSize);
-        down1 = setup("/objects/coin_02a",gamePanel.tileSize,gamePanel.tileSize);
+        image = setup("/objects/coin_02a",gamePanel.getTileSize(),gamePanel.getTileSize());
+        down1 = setup("/objects/coin_02a",gamePanel.getTileSize(),gamePanel.getTileSize());
         description = "[" + name + "]\n" + "It's worth some .";
     }
 }
